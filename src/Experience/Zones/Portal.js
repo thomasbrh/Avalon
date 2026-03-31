@@ -1,0 +1,156 @@
+// import base
+import Experience from '../Experience.js'
+ 
+// import shaders
+import portalVertexShader from '../shaders/portal/vertex.glsl'
+import portalFragmentShader from '../shaders/portal/fragment.glsl'
+
+// import librairies
+import * as THREE from 'three'
+
+
+export default class Portal
+{
+
+    constructor()
+    {
+
+        /**
+         * Base
+         */
+        this.experience = new Experience()
+        this.debug = this.experience.debug
+        this.scene = this.experience.scene
+        this.resources = this.experience.resources
+        this.camera = this.experience.camera.instance
+        this.time = this.experience.time
+
+
+        /**
+         * Debug
+         */
+        if(this.debug.active)
+        {
+            this.debugFolder = this.debug.gui.addFolder('portal')
+        }
+
+
+        // récupère glb et textures
+        this.portalModel = this.resources.items.portalModel
+        /* this.portalTexture = this.resources.items.portalTexture */
+        // ajoute la scène
+        this.model = this.portalModel.scene
+
+
+        /**
+         * Appel des instances
+         */
+        this.setModel()
+        /* this.setTexture() */
+        this.applyShader()        
+
+    }
+
+
+    setModel()
+    {
+        // ajoute le portal à la scène
+        this.scene.add(this.model)
+    }
+
+
+    setTexture()
+    {
+
+        // Réglages texture
+        this.portalTexture.flipY = false
+        this.portalTexture.colorSpace = THREE.SRGBColorSpace
+
+        // changer les matériaux
+        this.portalMaterial = new THREE.MeshBasicMaterial(
+        {
+            map: this.portalTexture
+        })
+
+        // Applique le matériau à tous les meshes du modèle
+        this.model.traverse((child) =>
+        {
+
+            if(child.isMesh)
+            {
+                child.material = this.portalMaterial
+            }
+
+        })
+
+    }
+
+
+    applyShader()
+    {
+
+        // debug
+        /* this.model.traverse((child) => {
+            console.log(child.name)
+        }) */
+
+        // Material du portal
+        const portalShaderMaterial = new THREE.ShaderMaterial(
+        {
+
+            side: THREE.DoubleSide,
+
+            uniforms:
+            {
+                uTime: { value: 0 },
+                uColorStart: { value: new THREE.Color('#8aaee5') },
+                uColorEnd: { value: new THREE.Color('#36507A') }
+            },
+
+            vertexShader: portalVertexShader,
+            fragmentShader: portalFragmentShader
+
+        })
+
+        // récupére le mesh du portal via son nom
+        const portalShaderMesh = this.model.getObjectByName('portalShaderMesh')
+
+        // remplace le material du mesh par le shader
+        portalShaderMesh.material = portalShaderMaterial
+        this.portalShaderMaterial = portalShaderMaterial
+        this.portalShaderMesh = portalShaderMesh
+
+
+        /**
+         * Debug
+         */
+        if(this.debug.active)
+        {
+            this.debugFolder
+                .addColor(this.debug.debugObject, 'portalColorStart')
+                .onChange(() =>
+                {
+                    this.portalShaderMaterial.uniforms.uColorStart.value.set(
+                        this.debug.debugObject.portalColorStart
+                    )
+                })
+
+            this.debugFolder
+                .addColor(this.debug.debugObject, 'portalColorEnd')
+                .onChange(() =>
+                {
+                    this.portalShaderMaterial.uniforms.uColorEnd.value.set(
+                        this.debug.debugObject.portalColorEnd
+                    )
+                })
+        }
+
+    }
+
+
+    update()
+    {
+        this.portalShaderMaterial.uniforms.uTime.value = this.time.elapsed * 0.001
+    }
+
+}

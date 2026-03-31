@@ -1,0 +1,68 @@
+// import base
+import Experience from '../Experience.js'
+
+// import librairies
+import * as THREE from 'three'
+
+
+export default class Manor
+{
+
+    constructor()
+    {
+
+        /**
+         * Base
+         */
+        this.experience = new Experience()
+        this.scene = this.experience.scene
+        this.resources = this.experience.resources
+
+        // récupère les ressources chargées
+        this.manorModel = this.resources.items.manorModel
+        /* this.manorTexture = this.resources.items.manorTexture */
+        this.model = this.manorModel.scene
+        
+
+        /**
+         * Appel des instances
+         */
+        /* this.setTexture() */
+        this.setModel()
+
+    }
+
+
+    /* setTexture()
+    {
+
+        // Réglages texture
+        this.manorTexture.flipY = false
+        this.manorTexture.colorSpace = THREE.SRGBColorSpace
+
+        // Matériau
+        this.manorMaterial = new THREE.MeshBasicMaterial(
+        {
+            map: this.manorTexture
+        })
+
+        // Applique le matériau à tous les meshes du modèle
+        this.model.traverse((child) =>
+        {
+
+            if(child.isMesh)
+            {
+                child.material = this.manorMaterial
+            }
+
+        })
+
+    } */
+
+
+    setModel()
+    {
+        // add the manor to the scene
+        this.scene.add(this.model)
+    }
+}
