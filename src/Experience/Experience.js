@@ -50,6 +50,23 @@ export default class Experience
         this.renderer = new Renderer()
         this.world = new World()
         this.storyManager = new StoryManager()
+        this.audioContext = new AudioContext();
+        this.audioListener = new THREE.AudioListener()
+
+        /**
+         * inisialisations 
+         */
+        this.isMuted = false
+
+
+        /**
+         * DOM
+         */
+        this.audioBtn = document.querySelector('.audio-btn')
+        // écoute du btn
+        this.audioBtn.addEventListener('click', () => {
+            this.toggleGlobalAudio()
+        })
 
 
         /**
@@ -68,6 +85,7 @@ export default class Experience
         // fin du chargement
         this.resources.on('ready', () =>
         {
+
             // environment map
             // récupére la texture chargée
             const envMap = this.resources.items.environmentMapTexture
@@ -102,6 +120,12 @@ export default class Experience
             this.update()
         })
 
+
+        /**
+         * Appel des instances
+         */
+        this.setAudio()
+
     }
 
 
@@ -115,7 +139,6 @@ export default class Experience
     // tick fonction pour mettre à jour
     update()
     {
-
         this.camera.update()
         this.world.update()
 
@@ -123,7 +146,46 @@ export default class Experience
         this.loadingOverlay.update()
 
         this.renderer.update()
+    }
 
+
+    /**
+     * Audio
+     */
+    setAudio()
+    {
+        this.camera.instance.add(this.audioListener)
+        // chargé le son
+        this.backgroundMusic = new THREE.Audio(this.audioListener)
+    }
+
+
+    startAudio()
+    {
+        // récupère le path chargé dans Resources
+        this.buffer = this.resources.items.ambiantMusic
+        
+        if(this.buffer) 
+        {
+            this.backgroundMusic.setBuffer(this.buffer)
+            this.backgroundMusic.setLoop(true)
+            this.backgroundMusic.setVolume(0.1)
+            this.backgroundMusic.play()
+        }
+    }
+
+
+    /**
+     * Gestion du son
+     */
+    toggleGlobalAudio()
+    {
+        this.isMuted = !this.isMuted
+
+        // change le volume de l'AudioListener
+        this.audioListener.setMasterVolume(this.isMuted ? 0 : 1)
+        // maj bouton
+        this.audioBtn.classList.toggle('is-muted', this.isMuted)
     }
 
 

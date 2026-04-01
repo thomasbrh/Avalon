@@ -66,17 +66,17 @@ export default class Camera
 
         this.instance = new THREE.PerspectiveCamera(
             // PerspectiveCamera( fov, aspect-ratio, near, far )
-            75, // fov
+            90, // fov
             this.experience.sizes.width / this.experience.sizes.height, // calcul avec la taille du wrapper
             0.001, // traverser les objets
-            150 // distance de visibilité
+            175 // distance de visibilité
         );
 
         // position 
-        this.instance.position.set(52, 16, 49) // x, y, z
+        this.instance.position.set(75, 45, 75) // x, y, z
 
         // target
-        this.cameraTarget = new THREE.Vector3(13.5, 15, 8.2) // x, y, z
+        this.cameraTarget = new THREE.Vector3(0, 25, 0) // x, y, z
         this.instance.lookAt(this.cameraTarget) // un vec3 est nécessaire pour tweak
 
         // ajoute la camera à la scène

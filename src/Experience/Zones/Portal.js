@@ -25,6 +25,9 @@ export default class Portal
         this.camera = this.experience.camera.instance
         this.time = this.experience.time
 
+        this.audioContext = new AudioContext();
+        this.audioListener = new THREE.AudioListener()
+
 
         /**
          * Debug
@@ -37,7 +40,7 @@ export default class Portal
 
         // récupère glb et textures
         this.portalModel = this.resources.items.portalModel
-        /* this.portalTexture = this.resources.items.portalTexture */
+        this.portalTexture = this.resources.items.portalTexture
         // ajoute la scène
         this.model = this.portalModel.scene
 
@@ -46,8 +49,9 @@ export default class Portal
          * Appel des instances
          */
         this.setModel()
-        /* this.setTexture() */
-        this.applyShader()        
+        this.setTexture()
+        this.applyShader()
+        this.setAudio()   
 
     }
 
@@ -145,6 +149,34 @@ export default class Portal
                 })
         }
 
+    }
+
+
+    setAudio() 
+    {
+        this.portalAudio = new THREE.PositionalAudio(this.audioListener)
+
+        // récupère le path
+        const buffer = this.resources.items.portalAudio
+
+        if (buffer) 
+        {
+            this.portalAudio.setBuffer(buffer)
+            this.portalAudio.setRefDistance(2)
+            this.portalAudio.setLoop(false)
+            this.portalAudio.setVolume(0.3)
+
+            this.portalShaderMesh.add(this.portalAudio)
+        }
+    }
+
+
+    playSound() 
+    {
+        if (this.portalAudio && !this.portalAudio.isPlaying) 
+        {
+            this.portalAudio.play()
+        }
     }
 
 

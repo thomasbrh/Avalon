@@ -38,7 +38,6 @@ export default class World
             this.lake = new Lake()
             this.sword = new Sword()
             this.manor = new Manor()
-            this.storyManager = new StoryManager()
 
         })
         

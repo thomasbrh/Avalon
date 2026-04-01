@@ -20,14 +20,14 @@ export default class Sword
 
         // récupère les ressources chargées
         this.swordModel = this.resources.items.swordModel
-        /* this.swordTexture = this.resources.items.swordTexture */
+        this.swordTexture = this.resources.items.swordTexture
         this.model = this.swordModel.scene
         
 
         /**
          * Appel des instances
          */
-        /* this.setTexture() */
+        this.setTexture()
         this.setModel()
 
     }
@@ -40,7 +40,7 @@ export default class Sword
     }
 
 
-    /* setTexture()
+    setTexture()
     {
 
         // Réglages texture
@@ -64,6 +64,6 @@ export default class Sword
 
         })
 
-    } */
+    }
 
 }

@@ -26,11 +26,11 @@ export default
     },
 
     // texture
-    /* {
+    {
         name: 'islandTexture',
         type: 'texture',
         path: 'textures/island/island-texture.png'
-    }, */
+    },
 
 
     // manor sources
@@ -42,11 +42,11 @@ export default
     },
 
     // texture
-    /* {
+    {
         name: 'manorTexture',
         type: 'texture',
-        path: 'textures/Manor/manor-texture.png'
-    }, */
+        path: 'textures/manor/manor-texture.png'
+    },
 
 
     // sword sources
@@ -58,11 +58,11 @@ export default
     },
 
     // texture
-    /* {
+    {
         name: 'swordTexture',
         type: 'texture',
         path: 'textures/sword/sword-texture.png'
-    }, */
+    },
 
 
     // lake sources
@@ -74,11 +74,11 @@ export default
     },
 
     // texture
-    /* {
+    {
         name: 'lakeTexture',
         type: 'texture',
         path: 'textures/lake/lake-texture.png'
-    }, */
+    },
 
 
     // portal sources
@@ -90,10 +90,26 @@ export default
     },
 
     // texture
-    /* {
+    {
         name: 'portalTexture',
         type: 'texture',
         path: 'textures/portal/portal-texture.png'
-    }, */
+    },
+
+
+    // audio sources 
+    // ambiance
+    {
+        name: 'ambiantMusic',
+        type: 'audio',
+        path: 'audio/ambiant-music/ambiant-music.wav'
+    },
+
+    // sound-effetcs
+    {
+        name: 'portalAudio',
+        type: 'audio',
+        path: 'audio/sound-effetcs/sound-portal.wav'
+    },
 
 ]

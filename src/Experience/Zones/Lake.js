@@ -20,20 +20,20 @@ export default class Lake
 
         // récupère les ressources chargées
         this.lakeModel = this.resources.items.lakeModel
-        /* this.lakeTexture = this.resources.items.lakeTexture */
+        this.lakeTexture = this.resources.items.lakeTexture
         this.model = this.lakeModel.scene
         
 
         /**
          * Appel des instances
          */
-        /* this.setTexture() */
+        this.setTexture()
         this.setModel()
 
     }
 
 
-    /* setTexture()
+    setTexture()
     {
 
         // Réglages texture
@@ -57,7 +57,7 @@ export default class Lake
 
         })
 
-    } */
+    }
 
 
     setModel()

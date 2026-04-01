@@ -1,5 +1,6 @@
 // import base
 import Experience from '../Experience'
+import StoryManager from '../Managers/StoryManager'
 
 // import shaders
 import overlayVertexShader from '../shaders/overlay/vertex.glsl'
@@ -127,7 +128,10 @@ export default class LoadingOverlay
     }
 
 
-    // écoute le .start-experience pour l'état hover et entrée
+    /**
+     * OverlayEvent
+     * écoute le .start-experience pour l'état hover et entrée
+     */
     overlayEvent()
     {
 
@@ -146,8 +150,18 @@ export default class LoadingOverlay
 
             if(!this.experienceStarted && !this.isEntering)
             {
+                // animation shader
                 this.isEntering = true
+                // protection db click
                 this.startExperience.disabled = true
+                // lance l'audio
+                this.experience.startAudio()
+
+                // redirection direct vers portal
+                if(this.experience.storyManager.currentScene)
+                {
+                    this.experience.storyManager.currentScene.enter()
+                }
             }
 
         })

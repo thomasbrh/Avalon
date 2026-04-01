@@ -1,6 +1,7 @@
 // import base
 import Experience from '../Experience.js'
-import PortalManager from "./PortalManager.js"
+import PortalManager from './PortalManager.js'
+import DialogueManager from './DialogueManager.js'
 
 
 export default class StoryManager
@@ -13,10 +14,14 @@ export default class StoryManager
          * Base
          */
         this.experience = new Experience()
-        this.portalManager = new PortalManager()
+        this.dialogueManager = new DialogueManager()
+        this.portalManager = new PortalManager(this)
 
-        // initialisation des valeurs
-        this.locked = true
+
+        /**
+         * inisialisations 
+         */
+        this.locked = false
         this.step = 0
         // initialisé les zones pour le GoTo
         this.zones = {
@@ -24,6 +29,7 @@ export default class StoryManager
             /* lake: this.portalManager, */
         }
 
+        
         // commence par le portal par defaut
         this.currentScene = this.zones.portal 
 
@@ -43,8 +49,12 @@ export default class StoryManager
         window.addEventListener('keydown', (event) =>
         {
             // sécutité de forcer le lowercase
-            if (event.key.toLowerCase() !== 'e') 
+            if (event.key.toLowerCase() !== 'e')
                 return
+            if (this.locked) 
+                return
+
+                this.lock()
                 // passe au enter de la scène suivante
                 this.currentScene?.enter()   
         })

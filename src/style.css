@@ -16,6 +16,8 @@ body
 {
     overflow: hidden;
     background: transparent;
+    font-family: "Faculty Glyphic", sans-serif; 
+    font-size: 16px;
 }
 
 /* canvas */
@@ -91,6 +93,63 @@ body
     opacity: 0;
     transform: scale(0.95);
     pointer-events: none;
+}
+
+
+/* audio-btn */
+.audio-btn {
+    position: fixed;
+    z-index: 10;
+
+    top: 2rem;
+    right: 2rem;
+
+    background: transparent;
+    border-style: none;
+}
+
+.audio-btn:hover {
+    transform: scale(1.05);
+}
+
+.audio-btn .off {
+    display: none;
+}
+
+/* mode muet */
+.audio-btn.is-muted .on {
+    display: none;
+}
+/* mode audio */
+.audio-btn.is-muted .off {
+    display: block;
+}
+
+
+/* instructions */
+.instructions {
+    position: fixed;
+    z-index: 10;
+    font-size: 1rem;
+
+    top: 2rem;
+    left: 2rem;
+
+    color: white;
+}
+
+
+/* dialogue */
+.dialogue-box {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 2rem;
+    padding: 20px;
+    color: white;
+    font-size: 18px;
+    z-index: 20;
+    font-size: 1.4rem;
 }
 
 

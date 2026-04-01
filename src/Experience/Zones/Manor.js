@@ -20,20 +20,20 @@ export default class Manor
 
         // récupère les ressources chargées
         this.manorModel = this.resources.items.manorModel
-        /* this.manorTexture = this.resources.items.manorTexture */
+        this.manorTexture = this.resources.items.manorTexture
         this.model = this.manorModel.scene
         
 
         /**
          * Appel des instances
          */
-        /* this.setTexture() */
+        this.setTexture()
         this.setModel()
 
     }
 
 
-    /* setTexture()
+    setTexture()
     {
 
         // Réglages texture
@@ -57,7 +57,7 @@ export default class Manor
 
         })
 
-    } */
+    }
 
 
     setModel()

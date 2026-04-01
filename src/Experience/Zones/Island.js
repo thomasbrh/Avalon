@@ -27,13 +27,13 @@ export default class Island
         /**
          * Appel des instances
          */
-        /* this.setTexture() */
+        this.setTexture()
         this.setModel()
 
     }
 
 
-    /* setTexture()
+    setTexture()
     {
 
         // Réglages texture
@@ -57,7 +57,7 @@ export default class Island
 
         })
 
-    } */
+    }
 
         
     setModel()

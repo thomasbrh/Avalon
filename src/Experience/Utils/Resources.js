@@ -55,6 +55,8 @@ export default class Resources extends EventEmitter
         // environment map loader
         this.loaders.cubeTextureLoader = new THREE.CubeTextureLoader()
 
+        // audio loader
+        this.loaders.audioLoader = new THREE.AudioLoader()
     }
 
 
@@ -88,6 +90,16 @@ export default class Resources extends EventEmitter
             else if(source.type === 'cubeTexture')
             {
                 this.loaders.cubeTextureLoader.load(
+                    source.path,
+                    (file) =>
+                    {
+                        this.sourceLoaded(source, file)
+                    }
+                )
+            }
+            else if (source.type === 'audio')
+            {
+                this.loaders.audioLoader.load(
                     source.path,
                     (file) =>
                     {
