@@ -24,6 +24,7 @@ body
 .webgl
 {
     position: fixed;
+    z-index: 0;
     top: 0;
     left: 0;
     outline: none;
@@ -72,7 +73,7 @@ body
 
     color: #FFF;
     font-family: "Uncial Antiqua";
-    font-size: 42px;
+    font-size: 38px;
     font-weight: 400;
     /* text-transform: uppercase; */
 
@@ -126,31 +127,115 @@ body
 }
 
 
-/* instructions */
-.instructions {
-    position: fixed;
-    z-index: 10;
-    font-size: 1rem;
-
-    top: 2rem;
-    left: 2rem;
-
-    color: white;
-}
-
-
 /* dialogue */
 .dialogue-box {
-    position: absolute;
+    display: none;
+
+    position: fixed;
     left: 50%;
     transform: translateX(-50%);
     bottom: 2rem;
-    padding: 20px;
     color: white;
-    font-size: 18px;
     z-index: 20;
-    font-size: 1.4rem;
+    font-size: 1.2rem;
 }
+
+.dialogue-box.is-visible {
+    display: block;
+}
+
+.dialogue-text {
+    color: #ffffff !important;
+    font-size: 1.4rem;
+    margin: 0;
+    display: block;
+    opacity: 1;
+}
+
+
+/* Keyframes */
+@keyframes fadeInOut {
+    0% { opacity: 0.5; }
+    100% { opacity: 1; }
+}
+
+@keyframes scaleOut {
+    0% { transform: scale(1, 1); opacity: 0; }
+    10% { opacity: 0.25; }
+    60% { opacity: 0.75; }
+    100% { transform: scale(0, 0); opacity: 1; }
+}
+
+/* indicators */
+/* Conteneur global */
+.indicators {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none !important;
+    background: transparent;
+    z-index: 100;
+}
+
+/* La zone cliquable */
+.indicators .indicator {
+    position: absolute;
+    transform-origin: 50% 50%;
+    width: 80px;
+    height: 80px;
+    cursor: pointer;
+    box-sizing: border-box;
+    pointer-events: auto !important;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.indicators .indicator .group {
+    width: 100%;
+    height: 100%;
+    transform-origin: 50% 50%;
+}
+
+/* Le point central */
+.indicators .indicator .center {
+    display: block;
+    position: absolute;
+    transform-origin: 50% 50%;
+    top: 36px;
+    left: 36px;
+    width: 8px;
+    height: 8px;
+    background-color: #fff;
+    border-radius: 10px;
+    opacity: 0;
+    animation: fadeInOut 1s 0s infinite linear alternate;
+}
+
+/* Les ondes (invisibles de base) */
+.indicators .indicator .circle {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 80px;
+    height: 80px;
+    border: 2px solid #fff;
+    border-radius: 50px;
+    box-sizing: border-box;
+    pointer-events: none;
+    opacity: 0; 
+    transform: scale(0, 0);
+}
+
+/* Décalage temporel des ondes */
+.indicators .indicator .circle-2 { animation: scaleOut 3s 0.1s infinite linear normal; }
+.indicators .indicator .circle-1 { animation: scaleOut 3s 1.1s infinite linear normal; }
+.indicators .indicator .circle-0 { animation: scaleOut 3s 2.1s infinite linear normal; }
+
+/* Thème sombre (utile si la caméra pointe vers un objet clair) */
+.indicators .indicator.black .center { background-color: #000; }
+.indicators .indicator.black .circle { border: 2px solid #000; }
 
 
 /* hidden */

@@ -15,13 +15,13 @@ export default class DialogueManager
     show(content) 
     {
         this.dialogueText.textContent = content
-        this.dialogueBox.classList.remove('hidden')
+        this.dialogueBox.classList.add('is-visible')
     }
 
 
     hide() 
     {
-        this.dialogueBox.classList.add('hidden')
+        this.dialogueBox.classList.remove('is-visible')
         this.dialogueText.textContent = ''
     }
 }

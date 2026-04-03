@@ -104,13 +104,13 @@ void main()
     vec2 p1 = vec2(cos(uTime * 0.45) * 0.10, sin(uTime * 0.60) * 0.08);
     vec2 p2 = vec2(cos(uTime * 0.35 + 2.2) * 0.08, sin(uTime * 0.48 + 1.4) * 0.10);
 
-    float bubble1 = exp(-20.0 * length(uv - p1));
-    float bubble2 = exp(-22.0 * length(uv - p2));
+    float bubble1 = exp(-25.0 * length(uv - p1));
+    float bubble2 = exp(-25.0 * length(uv - p2));
     float bubbles = bubble1 * 0.012 + bubble2 * 0.009;
 
     // base rectangle vertical arrondi
-    vec2 boxSize = vec2(0.18, 0.27);
-    float cornerRadius = 0.06;
+    vec2 boxSize = vec2(0.32, 0.25);
+    float cornerRadius = 0.25;
 
     // le portail grandit au clic
     boxSize += vec2(progress * 0.55, progress * 0.75);
@@ -121,7 +121,7 @@ void main()
     shape -= wobble;
     shape -= bubbles;
 
-    float portal = 1.0 - smoothstep(-0.002, 0.002, shape);
+    float portal = 0.25 - smoothstep(-0.002, 0.002, shape);
 
     float screenGradient = smoothstep(1.0, 0.0, vUv.y);
     vec3 overlayColor = mix(uColorEnd, uColorStart, screenGradient);

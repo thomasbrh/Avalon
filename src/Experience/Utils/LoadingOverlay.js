@@ -234,6 +234,7 @@ export default class LoadingOverlay
     {
         this.startExperience.classList.add('hidden')
         this.startExperience.disabled = true
+        this.experience.storyManager.goTo('portal');
 
         if(this.startMesh)
         {

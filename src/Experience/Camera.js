@@ -73,10 +73,10 @@ export default class Camera
         );
 
         // position 
-        this.instance.position.set(75, 45, 75) // x, y, z
+        this.instance.position.set(75, 21.5, 92) // x, y, z
 
         // target
-        this.cameraTarget = new THREE.Vector3(0, 25, 0) // x, y, z
+        this.cameraTarget = new THREE.Vector3(-2, 12, -25.5) // x, y, z
         this.instance.lookAt(this.cameraTarget) // un vec3 est nécessaire pour tweak
 
         // ajoute la camera à la scène
@@ -91,95 +91,52 @@ export default class Camera
             this.debugFolder
                 .add(this.instance.position, 'x')
                 .name('cameraX')
-                .min(- 100)
-                .max(100)
-                .step(0.01)
+                .min(- 200)
+                .max(200)
+                .step(0.1)
             
             this.debugFolder
                 .add(this.instance.position, 'y')
                 .name('cameraY')
-                .min(- 100)
-                .max(100)
-                .step(0.01)
+                .min(- 200)
+                .max(200)
+                .step(0.1)
             
             this.debugFolder
                 .add(this.instance.position, 'z')
                 .name('cameraZ')
-                .min(- 100)
-                .max(100)
-                .step(0.01)
+                .min(- 200)
+                .max(200)
+                .step(0.1)
 
 
             // camera lookAt
             this.debugFolder
                 .add(this.cameraTarget, 'x')
                 .name('targetX')
-                .min(-50)
-                .max(50)
-                .step(0.01)
+                .min(-360)
+                .max(360)
+                .step(0.1)
 
             this.debugFolder
                 .add(this.cameraTarget, 'y')
                 .name('targetY')
-                .min(-50)
-                .max(50)
-                .step(0.01)
+                .min(-360)
+                .max(360)
+                .step(0.1)
 
             this.debugFolder
                 .add(this.cameraTarget, 'z')
                 .name('targetZ')
-                .min(-50)
-                .max(50)
-                .step(0.01)
+                .min(-360)
+                .max(360)
+                .step(0.1)
 
         }
 
     }
 
-
-    // déplacer les cameras
-    moveCamera(position, target, duration = 1, onComplete = null)
-    {
-
-        // changer la position
-        gsap.to(this.instance.position,
-        {
-
-            x: position.x,
-            y: position.y,
-            z: position.z,
-            duration,
-            ease: 'power2.inOut'
-
-        })
-
-        // changer l'angle de vue
-        gsap.to(this.controls.target, 
-        {
-
-            x: target.x,
-            y: target.y,
-            z: target.z,
-            duration,
-            ease: 'power2.inOut',
-            onUpdate: () =>
-            {
-                this.controls.update()
-                this.experience.renderer
-            },
-            onComplete: () =>
-            {
-                this.controls.update()
-                this.experience.renderer
-
-                if(onComplete) onComplete()
-            }
-
-        })
-
-    }
-  
-
+    
     resize()
     {
         this.instance.aspect = this.sizes.width / this.sizes.height

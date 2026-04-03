@@ -105,6 +105,13 @@ export default
         path: 'audio/ambiant-music/ambiant-music.wav'
     },
 
+    // ambiant forest
+    /* {
+        name: 'ambiantForest',
+        type: 'audio',
+        path: 'audio/ambiant-forest/'
+    }, */
+
     // sound-effetcs
     {
         name: 'portalAudio',

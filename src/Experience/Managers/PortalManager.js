@@ -27,84 +27,60 @@ export default class PortalManager
         /**
          * inisialisations 
          */
-        this.step = 0
+        this.timeline = gsap.timeline({ paused: true });
 
+
+        /**
+         * Appel des instances
+         */
+        this.buildTimeline();
+
+    }
+
+
+    buildTimeline() {
+        this.timeline
+
+            .to(this.camera.instance.position, { x: 59, y: 15.5, z: 59.5, duration: 2, ease: 'power2.inOut' },)
+            .to(this.camera.cameraTarget, { x: -112.5, y: 16.5, z: 360, duration: 2, ease: 'power2.inOut' }, "-=1.25")
+            
+            .addPause(">", () => 
+            {
+                this.experience.world.portal.playSound()
+                this.storyManager.showNextIndicator()
+            })
+            
+            
+            .to(this.camera.cameraTarget, { x: 30.2, y: 16.5, z: -52, duration: 2, ease: 'power2.inOut' }, "<")
+            .to(this.camera.instance.position, { x: 40.2, y: 15.5, z: 40, duration: 2, ease: 'power2.inOut' }, "-=1.2<")
+            
+            .addPause("+=0.25", () => 
+            {
+                this.dialogueManager.show('Ou est-ce que je suis ?')
+                this.storyManager.showNextIndicator()
+            })
+            
+            
+            .addPause("+=0.25", () => 
+            {
+                this.dialogueManager.show('Tu es sur Avalon !')
+                this.storyManager.showNextIndicator()
+            })
+
+        // exit
+        .call(() => 
+        {
+            this.dialogueManager.hide()
+            this.exit()
+        })
+    }
+
+
+    enter() 
+    {
+        this.timeline.play();
     }
     
-
-    enter()
-    {
-        // step par default
-        if(this.step ===0)
-        {
-            console.log(0)
-            // change de camera
-            this.camera.moveCamera(
-                new THREE.Vector3(52, 16, 49), 
-                new THREE.Vector3(13.5, 15, 8.2),
-                2,
-                () =>
-                {
-                    this.experience.world.portal.playSound()
-                    this.step = 1
-                    this.storyManager.unlock()
-                },
-            )
-        }
-
-        // step 1
-        else if(this.step === 1)
-        {
-            console.log(1)
-            this.camera.moveCamera(
-                new THREE.Vector3(38, 16, 38), 
-                new THREE.Vector3(33, 16.5, 50),
-                1.5,
-                () =>
-                {
-                    setTimeout(() => 
-                    {
-                        this.dialogueManager.show('Ou est-ce que je suis ?')
-                    }, "250");
-                    
-                    this.step = 2
-                    this.storyManager.unlock()
-                },
-            )
-        }
-
-        // step 2
-        else if(this.step === 2)
-        {
-            console.log(2)
-            this.camera.moveCamera(
-                new THREE.Vector3(38, 16, 38), 
-                new THREE.Vector3(33, 16.5, 50),
-                1,
-                () =>
-                {
-                    setTimeout(() => 
-                    {
-                        this.dialogueManager.show('Tu es sur Avalon !')
-                    }, "250");
-                    
-                    this.step = 3
-                    this.storyManager.unlock()
-                }
-            )
-
-            
-        }
-        
-        // step 3
-        else if(this.step === 3)
-        {
-            console.log(3)
-            // fin => suivant
-            this.exit()
-        }
-    }
-
 
     exit()
     {

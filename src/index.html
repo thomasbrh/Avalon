@@ -27,19 +27,33 @@
         </div>
     </div>
 
+
     <button class="start-experience hidden">Entrer</button>
+
 
     <button class="audio-btn">
         <img src="/icon/icon-sound.on.svg" class="on" alt="">
         <img src="/icon/icon-sound.off.svg" class="off" alt="">
     </button>
 
-    <p class="instructions">Press E</p>
-
+    
+    <div class="indicators" id="indicators">
+        <div class="indicator" id="next-indicator" style="display: none; top: 50%; left: 50%;">
+            <div class="group">
+                <span class="center"></span>
+                <span class="circle circle-0"></span>
+                <span class="circle circle-1"></span>
+                <span class="circle circle-2"></span>
+            </div>
+        </div>
+    </div>
+    
+    
     <!-- dialogue -->
-    <div class="dialogue-box hidden">
+    <div class="dialogue-box">
         <p class="dialogue-text"></p>
     </div>
+
 
     <canvas class="webgl"></canvas>
 
