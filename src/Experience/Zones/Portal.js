@@ -38,10 +38,13 @@ export default class Portal
         }
 
 
-        // récupère glb et textures
+        /**
+         * Récupéré les ressources chargées
+         */
         this.portalModel = this.resources.items.portalModel
-        this.portalTexture = this.resources.items.portalTexture
-        // ajoute la scène
+        this.portalTextureDiffuse = this.resources.items.portalTextureDiffuse
+        this.portalTextureNormal = this.resources.items.portalTextureNormal
+        this.portalTextureRoughness = this.resources.items.portalTextureRoughness
         this.model = this.portalModel.scene
 
 
@@ -50,8 +53,7 @@ export default class Portal
          */
         this.setModel()
         this.setTexture()
-        this.applyShader()
-        this.setAudio()   
+        this.applyShader() 
 
     }
 
@@ -67,13 +69,16 @@ export default class Portal
     {
 
         // Réglages texture
-        this.portalTexture.flipY = false
-        this.portalTexture.colorSpace = THREE.SRGBColorSpace
+        this.portalTextureDiffuse.flipY = false
+        this.portalTextureDiffuse.colorSpace = THREE.SRGBColorSpace
 
         // changer les matériaux
-        this.portalMaterial = new THREE.MeshBasicMaterial(
+        this.portalMaterial = new THREE.MeshStandardMaterial(
         {
-            map: this.portalTexture
+            map: this.portalTextureDiffuse,
+            normalMap: this.portalTextureNormal,
+            roughnessMap: this.portalTextureRoughness,
+            roughness: 1,
         })
 
         // Applique le matériau à tous les meshes du modèle
@@ -149,34 +154,6 @@ export default class Portal
                 })
         }
 
-    }
-
-
-    setAudio() 
-    {
-        this.portalAudio = new THREE.PositionalAudio(this.audioListener)
-
-        // récupère le path
-        const buffer = this.resources.items.portalAudio
-
-        if (buffer) 
-        {
-            this.portalAudio.setBuffer(buffer)
-            this.portalAudio.setRefDistance(2)
-            this.portalAudio.setLoop(false)
-            this.portalAudio.setVolume(0.3)
-
-            this.portalShaderMesh.add(this.portalAudio)
-        }
-    }
-
-
-    playSound() 
-    {
-        if (this.portalAudio && !this.portalAudio.isPlaying) 
-        {
-            this.portalAudio.play()
-        }
     }
 
 

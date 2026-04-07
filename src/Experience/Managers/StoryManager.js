@@ -1,5 +1,6 @@
 import Experience from '../Experience.js'
 import PortalManager from './PortalManager.js'
+import LakeManager from './LakeManager.js'
 import DialogueManager from './DialogueManager.js'
 
 export default class StoryManager
@@ -11,7 +12,9 @@ export default class StoryManager
          */
         this.experience = new Experience()
         this.dialogueManager = new DialogueManager()
+
         this.portalManager = new PortalManager(this)
+        this.lakeManager = new LakeManager(this)
 
 
         /**
@@ -19,10 +22,12 @@ export default class StoryManager
          */
         this.locked = false
         this.step = 0
-        this.zones = {
+        this.zones = 
+        {
             portal: this.portalManager,
+            lake: this.lakeManager,
         }
-        this.currentScene = this.zones.portal 
+        this.currentScene = this.zones.portal
 
 
         /**

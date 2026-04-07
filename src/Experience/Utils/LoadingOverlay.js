@@ -1,6 +1,6 @@
 // import base
-import Experience from '../Experience'
-import StoryManager from '../Managers/StoryManager'
+import Experience from '../Experience.js'
+import AudioManager from '../Managers/AudioManager.js'
 
 // import shaders
 import overlayVertexShader from '../shaders/overlay/vertex.glsl'
@@ -22,6 +22,7 @@ export default class LoadingOverlay
          * Base 
          */
         this.experience = new Experience()
+        this.audioManager = new AudioManager()
         this.scene = this.experience.scene
         this.camera = this.experience.camera.instance
         this.time = this.experience.time
@@ -155,7 +156,7 @@ export default class LoadingOverlay
                 // protection db click
                 this.startExperience.disabled = true
                 // lance l'audio
-                this.experience.startAudio()
+                this.audioManager.startAmbiantMusic()
 
                 // redirection direct vers portal
                 if(this.experience.storyManager.currentScene)

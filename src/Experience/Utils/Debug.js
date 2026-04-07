@@ -11,7 +11,6 @@ export default class Debug
 
     constructor()
     {
-
         /**
          * Setup
          */
@@ -23,6 +22,7 @@ export default class Debug
 
         // sécurité
         if(!this.active) return
+
 
         /**
          * Debug
@@ -49,7 +49,7 @@ export default class Debug
 
             // spector.js
             this.spector = new Spector()
-            /* this.spector.displayUI() */
+            this.spector.displayUI()
 
         }
 

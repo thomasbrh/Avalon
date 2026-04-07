@@ -18,9 +18,13 @@ export default class Sword
         this.scene = this.experience.scene
         this.resources = this.experience.resources
 
-        // récupère les ressources chargées
+        /**
+         * Récupéré les ressources chargées
+         */
         this.swordModel = this.resources.items.swordModel
-        this.swordTexture = this.resources.items.swordTexture
+        this.swordTextureDiffuse = this.resources.items.swordTextureDiffuse
+        this.swordTextureNormal = this.resources.items.swordTextureNormal
+        this.swordTextureRoughness = this.resources.items.swordTextureRoughness
         this.model = this.swordModel.scene
         
 
@@ -44,13 +48,16 @@ export default class Sword
     {
 
         // Réglages texture
-        this.swordTexture.flipY = false
-        this.swordTexture.colorSpace = THREE.SRGBColorSpace
+        this.swordTextureDiffuse.flipY = false
+        this.swordTextureDiffuse.colorSpace = THREE.SRGBColorSpace
 
         // Matériau
-        this.swordMaterial = new THREE.MeshBasicMaterial(
+        this.swordMaterial = new THREE.MeshStandardMaterial(
         {
-            map: this.swordTexture
+            map: this.swordTextureDiffuse,
+            normalMap: this.swordTextureNormal,
+            roughnessMap: this.swordTextureRoughness,
+            roughness: 1,
         })
 
         // Applique le matériau à tous les meshes du modèle
