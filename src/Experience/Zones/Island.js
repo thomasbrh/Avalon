@@ -24,7 +24,9 @@ export default class Island
          */
         this.islandGroup = this.resources.items.islandModel.scene
         this.oceanGroup = this.resources.items.oceanModel.scene
+        this.treesGroup = this.resources.items.treesModel.scene
         this.rocksGroup = this.resources.items.rocksModel.scene
+        /* this.fogGroup = this.resources.items.fogModel.scene */
 
 
         /**
@@ -49,9 +51,9 @@ export default class Island
         this.islandMaterial = new THREE.MeshStandardMaterial(
         {
             map: this.islandTextureDiffuse,
-            normalMap: this.resources.items.islandTextureNormal,
-            roughnessMap: this.resources.items.islandTextureRoughness,
-            roughness: 0.8,
+            /* normalMap: this.resources.items.islandTextureNormal, */
+            /* roughnessMap: this.resources.items.islandTextureRoughness,
+            roughness: 0.8, */
         })
 
         this.islandGroup.traverse((child) => 
@@ -59,6 +61,49 @@ export default class Island
             if (child.isMesh) 
                 child.material = this.islandMaterial
         })
+
+
+
+        /**
+         * Trees
+         */
+        this.treesTextureDiffuse = this.resources.items.treesTextureDiffuse
+        this.treesTextureDiffuse.flipY = false
+        this.treesTextureDiffuse.colorSpace = THREE.SRGBColorSpace
+
+        this.treesMaterial = new THREE.MeshStandardMaterial(
+        {
+            map: this.treesTextureDiffuse,
+            /* normalMap: this.resources.items.treesTextureNormal,
+            roughness: 1, */
+        })
+
+        this.treesGroup.traverse((child) => 
+        {
+            if (child.isMesh) child.material = this.treesMaterial
+        })
+
+
+
+        /**
+         * Rocks
+         */
+        this.rocksTextureDiffuse = this.resources.items.rocksTextureDiffuse
+        this.rocksTextureDiffuse.flipY = false
+        this.rocksTextureDiffuse.colorSpace = THREE.SRGBColorSpace
+
+        this.rocksMaterial = new THREE.MeshStandardMaterial(
+        {
+            map: this.rocksTextureDiffuse,
+            /* normalMap: this.resources.items.rocksTextureNormal,
+            roughness: 1, */
+        })
+
+        this.rocksGroup.traverse((child) => 
+        {
+            if (child.isMesh) child.material = this.rocksMaterial
+        })
+
 
 
         /**
@@ -71,10 +116,8 @@ export default class Island
         this.oceanMaterial = new THREE.MeshStandardMaterial(
         {
             map: this.oceanTextureDiffuse,
-            normalMap: this.resources.items.oceanTextureNormal,
-            roughnessMap: this.resources.items.oceanTextureRoughness,
-            roughness: 1,
-            /* side: THREE.DoubleSide */
+            /* normalMap: this.resources.items.oceanTextureNormal,
+            roughness: 1, */
         })
 
         this.oceanGroup.traverse((child) => 
@@ -82,34 +125,38 @@ export default class Island
             if (child.isMesh) child.material = this.oceanMaterial
         })
 
-        
+
+
         /**
-         * Rocks
+         * fog
          */
-        this.rocksTextureDiffuse = this.resources.items.rocksTextureDiffuse
-        this.rocksTextureDiffuse.flipY = false
-        this.rocksTextureDiffuse.colorSpace = THREE.SRGBColorSpace
+        /* this.fogTextureDiffuse = this.resources.items.fogTextureDiffuse
+        this.fogTextureDiffuse.flipY = false
+        this.fogTextureDiffuse.colorSpace = THREE.SRGBColorSpace
 
-        this.rocksMaterial = new THREE.MeshStandardMaterial(
+        this.fogTextureAlpha = this.resources.items.fogTextureAlpha
+
+        this.fogMaterial = new THREE.MeshStandardMaterial(
         {
-            map: this.rocksTextureDiffuse,
-            normalMap: this.resources.items.rocksTextureNormal,
-            roughnessMap: this.resources.items.rocksTextureRoughness,
-            roughness: 0.8,
+            map: this.fogTextureDiffuse,
+            alphaMap : this.fogTextureAlpha,
+            transparent: true,
+            depthWrite: false,
+            normalMap: this.resources.items.fogTextureNormal,
+            roughness: 1,
         })
 
-        this.rocksGroup.traverse((child) => 
+        this.fogGroup.traverse((child) => 
         {
-            if (child.isMesh) child.material = this.rocksMaterial
-        })
-
+            if (child.isMesh) child.material = this.fogMaterial
+        }) */
     }
 
         
     setModel()
     {
         // ajouter les groupes à la scène
-        this.scene.add(this.islandGroup, this.oceanGroup, this.rocksGroup)
+        this.scene.add(this.islandGroup, this.treesGroup, this.rocksGroup, this.oceanGroup, /* this.fogGroup */)
     }
 
 }

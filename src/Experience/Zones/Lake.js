@@ -24,8 +24,8 @@ export default class Lake
          */
         this.lakeModel = this.resources.items.lakeModel
         this.lakeTextureDiffuse = this.resources.items.lakeTextureDiffuse
-        this.lakeTextureNormal = this.resources.items.lakeTextureNormal
-        this.lakeTextureRoughness = this.resources.items.lakeTextureRoughness
+        /* this.lakeTextureNormal = this.resources.items.lakeTextureNormal */
+        /* this.lakeTextureRoughness = this.resources.items.lakeTextureRoughness */
         this.model = this.lakeModel.scene
 
 
@@ -34,7 +34,26 @@ export default class Lake
          */
         this.setTexture()
         this.setModel()
+        this.setTargets()
 
+    }
+
+
+    setTargets()
+    {
+        this.targets = {}
+
+        this.model.traverse((child) =>
+        {
+            if(child.name.includes('TargetLake_'))
+            {
+                // On sauvegarde sa position en utilisant son nom
+                this.targets[child.name] = new THREE.Vector3()
+                child.getWorldPosition(this.targets[child.name])
+            }
+        })
+        
+        console.log("targets :", this.targets)
     }
 
 
@@ -49,9 +68,9 @@ export default class Lake
         this.lakeMaterial = new THREE.MeshStandardMaterial
         ({
             map: this.lakeTextureDiffuse,
-            normalMap: this.lakeTextureNormal,
-            roughnessMap: this.lakeTextureRoughness,
-            roughness: 1,
+            /* normalMap: this.lakeTextureNormal, */
+            /* roughnessMap: this.lakeTextureRoughness,
+            roughness: 1, */
         })
 
         // Applique le matériau à tous les meshes du modèle

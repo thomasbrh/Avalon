@@ -24,8 +24,8 @@ export default class Manor
          */
         this.manorModel = this.resources.items.manorModel
         this.manorTextureDiffuse = this.resources.items.manorTextureDiffuse
-        this.manorTextureNormal = this.resources.items.manorTextureNormal
-        this.manorTextureRoughness = this.resources.items.manorTextureRoughness
+        /* this.manorTextureNormal = this.resources.items.manorTextureNormal */
+        /* this.manorTextureRoughness = this.resources.items.manorTextureRoughness */
         this.model = this.manorModel.scene
         
 
@@ -49,9 +49,9 @@ export default class Manor
         this.manorMaterial = new THREE.MeshStandardMaterial(
         {
             map: this.manorTextureDiffuse,
-            normalMap: this.manorTextureNormal,
-            roughnessMap: this.manorTextureRoughness,
-            roughness: 1,
+            /* normalMap: this.manorTextureNormal, */
+           /*  roughnessMap: this.manorTextureRoughness,
+            roughness: 1, */
         })
 
         // Applique le matériau à tous les meshes du modèle

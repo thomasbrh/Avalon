@@ -44,21 +44,25 @@ export default class AnimationsClip
     setTexture()
     {
 
-        // Matériau
-        this.animationsMaterial = new THREE.MeshBasicMaterial(
+        /**
+         * Bridges animations
+         */
+        this.animationsTextureDiffuse = this.resources.items.animationsTextureDiffuse
+        this.animationsTextureDiffuse.flipY = false
+        this.animationsTextureDiffuse.colorSpace = THREE.SRGBColorSpace
+
+        this.animationsMaterial = new THREE.MeshStandardMaterial(
         {
-            color: '#fff',
+            map: this.animationsTextureDiffuse,
+            /* normalMap: this.resources.items.animationsTextureNormal, */
+            /* roughnessMap: this.resources.items.animationsTextureRoughness,
+            roughness: 0.8, */
         })
 
-        // Applique le matériau à tous les meshes du modèle
-        this.model.traverse((child) =>
+        this.model .traverse((child) => 
         {
-
-            if(child.isMesh)
-            {
+            if (child.isMesh) 
                 child.material = this.animationsMaterial
-            }
-
         })
 
     }

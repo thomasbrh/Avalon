@@ -43,9 +43,11 @@ export default class Portal
          */
         this.portalModel = this.resources.items.portalModel
         this.portalTextureDiffuse = this.resources.items.portalTextureDiffuse
-        this.portalTextureNormal = this.resources.items.portalTextureNormal
-        this.portalTextureRoughness = this.resources.items.portalTextureRoughness
+        /* this.portalTextureNormal = this.resources.items.portalTextureNormal */
+        /* this.portalTextureRoughness = this.resources.items.portalTextureRoughness */
         this.model = this.portalModel.scene
+
+        console.log(this.model)
 
 
         /**
@@ -54,7 +56,26 @@ export default class Portal
         this.setModel()
         this.setTexture()
         this.applyShader() 
+        this.setTargets()
 
+    }
+
+
+    setTargets()
+    {
+        this.targets = {}
+
+        this.model.traverse((child) =>
+        {
+            if(child.name.includes('TargetPortal_'))
+            {
+                // On sauvegarde sa position en utilisant son nom
+                this.targets[child.name] = new THREE.Vector3()
+                child.getWorldPosition(this.targets[child.name])
+            }
+        })
+        
+        console.log("targets :", this.targets)
     }
 
 
@@ -76,9 +97,9 @@ export default class Portal
         this.portalMaterial = new THREE.MeshStandardMaterial(
         {
             map: this.portalTextureDiffuse,
-            normalMap: this.portalTextureNormal,
-            roughnessMap: this.portalTextureRoughness,
-            roughness: 1,
+            /* normalMap: this.portalTextureNormal, */
+            /* roughnessMap: this.portalTextureRoughness,
+            roughness: 1, */
         })
 
         // Applique le matériau à tous les meshes du modèle

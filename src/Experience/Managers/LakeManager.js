@@ -36,7 +36,10 @@ export default class LakeManager
         /**
          * Appel des instances
          */
-        this.LakeTimeline();
+        this.resources.on('ready', () => 
+        {
+            this.LakeTimeline();
+        });
 
     }
 
@@ -47,54 +50,70 @@ export default class LakeManager
     }
 
 
-LakeTimeline() 
-{
-    this.timeline
-        .to(this.camera.cameraTarget, { x: 7.5, y: 30, z: -35.5, duration: 3, ease: 'power2.inOut' })
-        .to(this.camera.instance.position, { x: 29.5, y: 14, z: -17.5, duration: 5, ease: 'power2.inOut' })
-
-
-        .to(this.camera.cameraTarget, { x: -21.1, y: 23, z: 92, duration: 2, ease: 'power2.inOut' }, ">")
-        .to(this.camera.instance.position, { x: 27, y: 14, z: -18.8, duration: 2, ease: 'power2.inOut' }, ">")
-        .to({}, { duration: 1 })
-
-
-        .call(() => { this.experience.world.animationsClip.playClip(5); })
-        .to({}, { duration: 0.2 })
-        
-        .call(() => { this.experience.world.animationsClip.playClip(4); })
-        .to({}, { duration: 0.8 }) 
-        
-        .call(() => { this.experience.world.animationsClip.playClip(3); })
-        .to({}, { duration: 3 }) 
-
-        .call(() => {
-            this.storyManager.showNextIndicator();
-        })
-        .addPause()
-
-
-        .to(this.camera.instance.position, { x: 9.5, y: 14.5, z: 7.5, duration: 4, ease: 'power2.inOut' })
-        .to(this.camera.cameraTarget, { x: -80, y: 20, z: 100, duration: 4, ease: 'power2.inOut' })
-        
-
-        .to({}, { duration: 1 }) 
-        
-        .call(() => {
-            this.storyManager.showNextIndicator();
-        })
-        .addPause()
-
-
-        .call(() => {
-            /* this.storyManager.goTo('sword'); */
-        });
-    }
-    
-
-    exit()
+    LakeTimeline() 
     {
+        this.targets = this.experience.world.lake.targets;
+        
+        this.timeline
+            // camera se déplace sur le pont du portal
+            .to(this.camera.instance.position, 
+                { 
+                    x: this.targets['TargetLake_towerDown'].x,
+                    y: this.targets['TargetLake_towerDown'].y,
+                    z: this.targets['TargetLake_towerDown'].z,
+                    duration: 6,    
+                    ease: 'power2.inOut' 
+                }, ">")
 
-    }
+            // camera regarde vers le lac
+            .to(this.camera.cameraTarget, 
+                { 
+                    x: this.targets['TargetLake_bridgeAnimation'].x, 
+                    y: this.targets['TargetLake_bridgeAnimation'].y, 
+                    z: this.targets['TargetLake_bridgeAnimation'].z, 
+                    duration: 2,
+                    ease: 'power2.inOut' 
+                }, ">")
+
+            .call(() => { this.experience.world.animationsClip.playClip(0); })
+            .to({}, { duration: 5 })
+
+            // camera se déplace sur le pont de la sword
+            .to(this.camera.instance.position, 
+                { 
+                    x: this.targets['TargetLake_bridgeAnimation'].x,
+                    y: this.targets['TargetLake_bridgeAnimation'].y,
+                    z: this.targets['TargetLake_bridgeAnimation'].z,
+                    duration: 6,    
+                    ease: 'power2.inOut' 
+                }, ">")
+        
+            .to(this.camera.cameraTarget, { x: -80, y: 20, z: 100, duration: 4, ease: 'power2.inOut' }, "<=+1")
+            
+            .call(() => 
+            {
+                this.storyManager.showNextIndicator();
+            })
+            .addPause()
+        
+            
+            .call(() => 
+            {
+                this.storyManager.showNextIndicator();
+            })
+            .addPause()
+
+
+            .call(() => 
+            {
+                /* this.storyManager.goTo('sword'); */
+            });
+        }
+        
+
+        exit()
+        {
+
+        }
     
 }

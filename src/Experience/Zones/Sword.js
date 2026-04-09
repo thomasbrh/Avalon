@@ -23,8 +23,8 @@ export default class Sword
          */
         this.swordModel = this.resources.items.swordModel
         this.swordTextureDiffuse = this.resources.items.swordTextureDiffuse
-        this.swordTextureNormal = this.resources.items.swordTextureNormal
-        this.swordTextureRoughness = this.resources.items.swordTextureRoughness
+        /* this.swordTextureNormal = this.resources.items.swordTextureNormal */
+        /* this.swordTextureRoughness = this.resources.items.swordTextureRoughness */
         this.model = this.swordModel.scene
         
 
@@ -55,9 +55,9 @@ export default class Sword
         this.swordMaterial = new THREE.MeshStandardMaterial(
         {
             map: this.swordTextureDiffuse,
-            normalMap: this.swordTextureNormal,
-            roughnessMap: this.swordTextureRoughness,
-            roughness: 1,
+            /* normalMap: this.swordTextureNormal, */
+            /* roughnessMap: this.swordTextureRoughness,
+            roughness: 1, */
         })
 
         // Applique le matériau à tous les meshes du modèle
