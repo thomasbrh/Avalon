@@ -56,56 +56,75 @@ export default class PortalManager
         this.targets = this.experience.world.portal.targets;
         this.targetsLake = this.experience.world.lake.targets;
 
+        this.dialogues = 
+        [
+            { speaker: "Arthur", text: "Où... où suis-je ? Je n'ai aucun souvenir..", audio: 'voice_arthur_1' },
+            { speaker: "Arthur", text: "Mais qu'est-ce que je fais ici ? Je suis mort ?", audio: 'voice_arthur_2' },
+            { speaker: "Morganne", text: "Bonjour Arthur, comment te sens-tu ?", audio: 'voice_morganne_1' }
+        ];
+        this.currentDialogueIndex = 0;
+
         this.timeline
             // camera se déplace vers le portal
-            .to(this.camera.instance.position, { x: 65, y: 15, z: 52.2, duration: 3.5, ease: 'power2.inOut' })
+            .to(this.camera.instance.position, 
+            { 
+                x: 65, 
+                y: 15, 
+                z: 52.2, 
+                duration: 3.5, 
+                ease: 'steps.inOut' 
+            })
             // camera regarde vers la stone
             .to(this.camera.cameraTarget, 
-                { 
-                    x: this.targets['TargetPortal_stone'].x, 
-                    y: this.targets['TargetPortal_stone'].y, 
-                    z: this.targets['TargetPortal_stone'].z, 
-                    duration: 3, 
-                    ease: 'power2.inOut' 
-                }, "<-=1.25")
+            { 
+                x: this.targets['TargetPortal_stone'].x, 
+                y: this.targets['TargetPortal_stone'].y, 
+                z: this.targets['TargetPortal_stone'].z, 
+                duration: 3, 
+                ease: 'steps.inOut' 
+            }, "<-=1.25")
             
-
-            // dialoguues
             .call(() => 
-            {
+            { 
+                // ajoute le mouseLook
+                this.camera.enableMouseLook = true;
                 this.audioManager.startAmbiantForest();
-                this.dialogueManager.show("Arthur : Où... où suis-je ? Pourquoi ce lieu ne me dis rien ? Je n'ai aucun souvenir..");
+                // On active le clic pour skip
+                this.dialogueManager.onSkipDialogue = () => this.skipDialogue();
             })
-            .to({}, { duration: 4 })
+
+            .addLabel("dialog_0")
+            .call(() => this.playLine(0, "Arthur", "Où... où suis-je ? Pourquoi ce lieu ne me dis rien ? Je n'ai aucun souvenir..", 'voice_arthur_1'))
+            .to({}, { duration: 4 }, "dialog_0") 
+
+            .addLabel("dialog_1")
+            .call(() => this.playLine(1, "Arthur", "Mais qu'est-ce que je fais ici ? Je suis mort ?", 'voice_arthur_2'))
+            .to({}, { duration: 3 }, "dialog_1")
+
+            .addLabel("dialog_2")
+            .call(() => this.playLine(2, "Morganne", "Bonjour Arthur, comment te sens-tu ?", 'voice_morganne_1'))
+            .to({}, { duration: 3 }, "dialog_2")
+
+            .addLabel("dialog_3")
+            .call(() => this.playLine(3, "Arthur", "Qui êtes-vous ?", 'voice_arthur_3'))
+            .to({}, { duration: 3 }, "dialog_3")
+
+            .addLabel("dialog_4")
+            .call(() => this.playLine(4, "Morganne", "Je m'appelle Morganne... Viens avec moi.", 'voice_morganne_2'))
+            .to({}, { duration: 6 }, "dialog_4")
 
 
+            // Fin des dialogues
+            .addLabel("dialog_end")
             .call(() => 
             {
-                this.dialogueManager.show("Arthur : Mais qu'est-ce que je fais ici ? Je suis mort ?");
+                this.dialogueManager.hide();
+                this.audioManager.stopVoice();
+                // désactive le clic
+                this.dialogueManager.onSkipDialogue = null;
+                this.storyManager.showNextIndicator();
             })
-            .to({}, { duration: 3 })
-
-
-            .call(() => 
-            {
-                this.dialogueManager.show("Morganne : Bonjour Arthur, comment te sens-tu ?");
-            })
-            .to({}, { duration: 3 })
-
-
-            .call(() => 
-            {
-                this.dialogueManager.show("Arthur : Qui êtes-vous ?");
-            })
-            .to({}, { duration: 3 })
-
-
-            .call(() => 
-            {
-                this.dialogueManager.show("Morganne : Je m'appelle Morganne, je suis une amie. Tu es sur les rives d'Avalon. Les brumes semblent avoir brouillé ton esprit, mais n'aie crainte. Viens avec moi, je vais t'aider à retrouver les morceaux de ton histoire.");
-            })
-            .to({}, { duration: 6 })
-
+            
 
             // pause
             .call(() => 
@@ -118,22 +137,22 @@ export default class PortalManager
 
             // camera regarde vers le bridge
             .to(this.camera.cameraTarget, 
-                { 
-                    x: this.targets['TargetPortal_bridge'].x, 
-                    y: this.targets['TargetPortal_bridge'].y, 
-                    z: this.targets['TargetPortal_bridge'].z, 
-                    duration: 2.5,
-                    ease: 'power2.inOut' 
-                }, ">")
+            { 
+                x: this.targets['TargetPortal_bridge'].x, 
+                y: this.targets['TargetPortal_bridge'].y, 
+                z: this.targets['TargetPortal_bridge'].z, 
+                duration: 2,
+                ease: 'steps.inOut' 
+            }, ">")
             // camera se déplace vers le bridge
             .to(this.camera.instance.position, 
                 { 
                     x: this.targets['TargetPortal_bridge'].x, 
                     y: this.targets['TargetPortal_bridge'].y, 
                     z: this.targets['TargetPortal_bridge'].z, 
-                    duration: 3.5, 
-                    ease: 'power2.inOut' 
-                }, ">=+1")
+                    duration: 5, 
+                    ease: 'steps.inOut' 
+                }, ">=+0.5")
 
                 
             // camera regarde vers l'animation
@@ -143,7 +162,7 @@ export default class PortalManager
                     y: this.targets['TargetPortal_treeAnimation'].y, 
                     z: this.targets['TargetPortal_treeAnimation'].z, 
                     duration: 4, 
-                    ease: 'power2.inOut' 
+                    ease: 'steps.inOut' 
                 }, ">=-0.5")
 
             // camera regarde vers le lac
@@ -153,7 +172,7 @@ export default class PortalManager
                     y: this.targetsLake['TargetLake_towerUp'].y, 
                     z: this.targetsLake['TargetLake_towerUp'].z, 
                     duration: 3,
-                    ease: 'power2.inOut' 
+                    ease: 'steps.inOut' 
                 }, ">")
             // camera se déplace vers le lake
             .to(this.camera.instance.position, 
@@ -162,7 +181,7 @@ export default class PortalManager
                     y: this.targets['TargetPortal_lake'].y,
                     z: this.targets['TargetPortal_lake'].z,
                     duration: 12,    
-                    ease: 'power2.inOut' 
+                    ease: 'steps.inOut' 
                 }, ">")
             
             // lance l'animation du pont
@@ -175,6 +194,36 @@ export default class PortalManager
             this.dialogueManager.hide();
             this.storyManager.goTo('lake');
         });
+    }
+
+
+    playLine(index, speaker, text, audioKey) 
+    {
+        // met à jour l'index actuel
+        this.currentDialogueIndex = index;
+
+        this.dialogueManager.show(speaker, text);
+        this.audioManager.playVoice(audioKey); 
+    }
+
+    // au clic
+    skipDialogue() 
+    {
+        // coupe l'audio
+        this.audioManager.stopVoice();
+        
+        // go to next
+        const nextIndex = this.currentDialogueIndex + 1;
+        const nextLabel = `dialog_${nextIndex}`;
+
+        // skip la timeline
+        if (this.timeline.labels[nextLabel] !== undefined) 
+        {
+            this.timeline.play(nextLabel);
+        } else 
+        {
+            this.timeline.play("dialog_end");
+        }
     }
     
 

@@ -71,7 +71,7 @@ export default class LakeManager
                     x: this.targets['TargetLake_bridgeAnimation'].x, 
                     y: this.targets['TargetLake_bridgeAnimation'].y, 
                     z: this.targets['TargetLake_bridgeAnimation'].z, 
-                    duration: 2,
+                    duration: 3,
                     ease: 'power2.inOut' 
                 }, ">")
 

@@ -4,6 +4,9 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 
 import Experience from './Experience.js'
 
+// import librairies
+import gsap from "gsap"
+
 
 export default class Camera
 {
@@ -19,6 +22,20 @@ export default class Camera
         this.scene = this.experience.scene
         this.canvas = this.experience.canvas
         this.debug = this.experience.debug
+
+
+        /**
+         * inisialisations 
+         */
+        this.enableMouseLook = false
+        this.mouseLookAmplitude = 2
+        this.cursor = { x: 0, y: 0 }
+        this.currentParallax = new THREE.Vector2(0, 0)
+
+        window.addEventListener('mousemove', (event) => {
+            this.cursor.x = - ((event.clientX / this.sizes.width) - 0.5)
+            this.cursor.y = - ((event.clientY / this.sizes.height) - 0.5)
+        })
         
 
         /**
@@ -27,6 +44,8 @@ export default class Camera
         if(this.debug.active)
         {
             this.debugFolder = this.debug.gui.addFolder('camera')
+            this.debugFolder.add(this, 'enableMouseLook').name('Mouse Look')
+            this.debugFolder.add(this, 'mouseLookAmplitude').min(0).max(50).step(0.1).name('Look Amplitude')
         }
 
         
@@ -152,7 +171,23 @@ export default class Camera
         }
         else
         {
-            this.instance.lookAt(this.cameraTarget)
+            // On vérifie si GSAP anime la position OU la cible de la caméra
+            const isAnimating = gsap.isTweening(this.instance.position) || gsap.isTweening(this.cameraTarget)
+
+            // On ne calcule le décalage que si la caméra n'est pas en mouvement
+            const targetX = (this.enableMouseLook && !isAnimating) ? this.cursor.x * this.mouseLookAmplitude : 0
+            const targetY = (this.enableMouseLook && !isAnimating) ? this.cursor.y * this.mouseLookAmplitude : 0
+
+            // Interpolation pour la fluidité
+            this.currentParallax.x += (targetX - this.currentParallax.x) * 0.05
+            this.currentParallax.y += (targetY - this.currentParallax.y) * 0.05
+
+            // Application sur la cible finale
+            const finalTarget = this.cameraTarget.clone()
+            finalTarget.x += this.currentParallax.x
+            finalTarget.y += this.currentParallax.y
+
+            this.instance.lookAt(finalTarget)
         }
 
     }

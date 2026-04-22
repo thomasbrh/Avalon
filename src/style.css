@@ -134,19 +134,37 @@ body
     position: fixed;
     left: 50%;
     transform: translateX(-50%);
-    bottom: 2rem;
-    color: white;
+    bottom: 1rem;
     z-index: 20;
     font-size: 1.2rem;
+    text-align: center;
+    width: 65%;
+
+    background-color: transparent;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 1), 0px 0px 10px rgba(0, 0, 0, 0.85);
+
+    padding: 1rem;
+    border-radius: 1rem;
 }
 
 .dialogue-box.is-visible {
     display: block;
 }
 
+.dialogue-speaker {
+    display: block;
+    color: #E1C4F4;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 1), 0px 0px 10px rgba(0, 0, 0, 0.85);
+    font-size: 1rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-bottom: 0.3rem;
+    letter-spacing: 1px;
+}
+
 .dialogue-text {
-    color: #ffffff !important;
-    font-size: 1.4rem;
+    color: #fff !important;
+    font-size: 1.3rem;
     margin: 0;
     display: block;
     opacity: 1;
