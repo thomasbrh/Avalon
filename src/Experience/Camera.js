@@ -28,9 +28,9 @@ export default class Camera
          * inisialisations 
          */
         this.enableMouseLook = false
-        this.mouseLookAmplitude = 2
+        this.mouseLookAmplitude = 1
         this.cursor = { x: 0, y: 0 }
-        this.currentParallax = new THREE.Vector2(0, 0)
+        this.smoothedCursor = { x: 0, y: 0 }
 
         window.addEventListener('mousemove', (event) => {
             this.cursor.x = - ((event.clientX / this.sizes.width) - 0.5)
@@ -45,7 +45,7 @@ export default class Camera
         {
             this.debugFolder = this.debug.gui.addFolder('camera')
             this.debugFolder.add(this, 'enableMouseLook').name('Mouse Look')
-            this.debugFolder.add(this, 'mouseLookAmplitude').min(0).max(50).step(0.1).name('Look Amplitude')
+            this.debugFolder.add(this, 'mouseLookAmplitude').min(0).max(10).step(0.01).name('Look Amplitude')
         }
 
         
@@ -84,10 +84,10 @@ export default class Camera
 
         this.instance = new THREE.PerspectiveCamera(
             // PerspectiveCamera( fov, aspect-ratio, near, far )
-            90, // fov
+            75, // fov
             this.experience.sizes.width / this.experience.sizes.height, // calcul avec la taille du wrapper
             0.001, // traverser les objets
-            175 // distance de visibilité
+            200 // distance de visibilité
         );
 
         // position 
@@ -163,33 +163,25 @@ export default class Camera
 
     update()
     {
-
-        // maj de la position et du lookAt()
         if(this.controls.enabled)
         {
             this.controls.update()
         }
         else
         {
-            // On vérifie si GSAP anime la position OU la cible de la caméra
-            const isAnimating = gsap.isTweening(this.instance.position) || gsap.isTweening(this.cameraTarget)
+            // update la target
+            this.instance.lookAt(this.cameraTarget)
 
-            // On ne calcule le décalage que si la caméra n'est pas en mouvement
-            const targetX = (this.enableMouseLook && !isAnimating) ? this.cursor.x * this.mouseLookAmplitude : 0
-            const targetY = (this.enableMouseLook && !isAnimating) ? this.cursor.y * this.mouseLookAmplitude : 0
+            if(this.enableMouseLook)
+            {
+                // lissage de la souris pour un mouvement fluide
+                this.smoothedCursor.x += (this.cursor.x - this.smoothedCursor.x) * 0.05
+                this.smoothedCursor.y += (this.cursor.y - this.smoothedCursor.y) * 0.05
 
-            // Interpolation pour la fluidité
-            this.currentParallax.x += (targetX - this.currentParallax.x) * 0.05
-            this.currentParallax.y += (targetY - this.currentParallax.y) * 0.05
-
-            // Application sur la cible finale
-            const finalTarget = this.cameraTarget.clone()
-            finalTarget.x += this.currentParallax.x
-            finalTarget.y += this.currentParallax.y
-
-            this.instance.lookAt(finalTarget)
+                this.instance.rotateY(this.smoothedCursor.x * this.mouseLookAmplitude)
+                this.instance.rotateX(this.smoothedCursor.y * this.mouseLookAmplitude)
+            }
         }
-
     }
 
 }

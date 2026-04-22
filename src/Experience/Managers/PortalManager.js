@@ -56,14 +56,6 @@ export default class PortalManager
         this.targets = this.experience.world.portal.targets;
         this.targetsLake = this.experience.world.lake.targets;
 
-        this.dialogues = 
-        [
-            { speaker: "Arthur", text: "Où... où suis-je ? Je n'ai aucun souvenir..", audio: 'voice_arthur_1' },
-            { speaker: "Arthur", text: "Mais qu'est-ce que je fais ici ? Je suis mort ?", audio: 'voice_arthur_2' },
-            { speaker: "Morganne", text: "Bonjour Arthur, comment te sens-tu ?", audio: 'voice_morganne_1' }
-        ];
-        this.currentDialogueIndex = 0;
-
         this.timeline
             // camera se déplace vers le portal
             .to(this.camera.instance.position, 
@@ -84,55 +76,26 @@ export default class PortalManager
                 ease: 'steps.inOut' 
             }, "<-=1.25")
             
-            .call(() => 
+
+            .call(async () => 
             { 
-                // ajoute le mouseLook
                 this.camera.enableMouseLook = true;
                 this.audioManager.startAmbiantForest();
-                // On active le clic pour skip
-                this.dialogueManager.onSkipDialogue = () => this.skipDialogue();
-            })
+                
 
-            .addLabel("dialog_0")
-            .call(() => this.playLine(0, "Arthur", "Où... où suis-je ? Pourquoi ce lieu ne me dis rien ? Je n'ai aucun souvenir..", 'voice_arthur_1'))
-            .to({}, { duration: 4 }, "dialog_0") 
+                this.timeline.pause();
 
-            .addLabel("dialog_1")
-            .call(() => this.playLine(1, "Arthur", "Mais qu'est-ce que je fais ici ? Je suis mort ?", 'voice_arthur_2'))
-            .to({}, { duration: 3 }, "dialog_1")
+                await this.dialogueManager.playLine("Arthur", "Où... où suis-je ?", './assets/sounds/voice_arthur_1.mp3');
+                await this.dialogueManager.playLine("Arthur", "Mais qu'est-ce que je fais ici ? Je suis mort ?", './assets/sounds/voice_arthur_2.mp3');
+                await this.dialogueManager.playLine("Morganne", "Bonjour Arthur, comment te sens-tu ?", './assets/sounds/voice_morganne_1.mp3');
+                await this.dialogueManager.playLine("Arthur", "Qui êtes-vous ?", './assets/sounds/voice_arthur_3.mp3');
+                await this.dialogueManager.playLine("Morganne", "Je m'appelle Morganne... Viens avec moi.", './assets/sounds/voice_morganne_2.mp3');
+                await this.dialogueManager.playLine("Morganne", "suce ma kekette j'ai une grand bite", './assets/sounds/voice_morganne_2.mp3');
+                await this.dialogueManager.playLine("Morganne", "six Mac Nuggets et une grande frite", './assets/sounds/voice_morganne_2.mp3');
 
-            .addLabel("dialog_2")
-            .call(() => this.playLine(2, "Morganne", "Bonjour Arthur, comment te sens-tu ?", 'voice_morganne_1'))
-            .to({}, { duration: 3 }, "dialog_2")
-
-            .addLabel("dialog_3")
-            .call(() => this.playLine(3, "Arthur", "Qui êtes-vous ?", 'voice_arthur_3'))
-            .to({}, { duration: 3 }, "dialog_3")
-
-            .addLabel("dialog_4")
-            .call(() => this.playLine(4, "Morganne", "Je m'appelle Morganne... Viens avec moi.", 'voice_morganne_2'))
-            .to({}, { duration: 6 }, "dialog_4")
-
-
-            // Fin des dialogues
-            .addLabel("dialog_end")
-            .call(() => 
-            {
-                this.dialogueManager.hide();
-                this.audioManager.stopVoice();
-                // désactive le clic
-                this.dialogueManager.onSkipDialogue = null;
-                this.storyManager.showNextIndicator();
-            })
-            
-
-            // pause
-            .call(() => 
-            { 
                 this.dialogueManager.hide();
                 this.storyManager.showNextIndicator();
             })
-            .addPause()
 
 
             // camera regarde vers le bridge
@@ -146,43 +109,51 @@ export default class PortalManager
             }, ">")
             // camera se déplace vers le bridge
             .to(this.camera.instance.position, 
-                { 
-                    x: this.targets['TargetPortal_bridge'].x, 
-                    y: this.targets['TargetPortal_bridge'].y, 
-                    z: this.targets['TargetPortal_bridge'].z, 
-                    duration: 5, 
-                    ease: 'steps.inOut' 
-                }, ">=+0.5")
+            { 
+                x: this.targets['TargetPortal_bridge'].x, 
+                y: this.targets['TargetPortal_bridge'].y, 
+                z: this.targets['TargetPortal_bridge'].z, 
+                duration: 5, 
+                ease: 'steps.inOut' 
+            }, ">=+0.5")
 
                 
             // camera regarde vers l'animation
             .to(this.camera.cameraTarget, 
-                { 
-                    x: this.targets['TargetPortal_treeAnimation'].x, 
-                    y: this.targets['TargetPortal_treeAnimation'].y, 
-                    z: this.targets['TargetPortal_treeAnimation'].z, 
-                    duration: 4, 
-                    ease: 'steps.inOut' 
-                }, ">=-0.5")
+            { 
+                x: this.targets['TargetPortal_treeAnimation'].x, 
+                y: this.targets['TargetPortal_treeAnimation'].y, 
+                z: this.targets['TargetPortal_treeAnimation'].z, 
+                duration: 4, 
+                ease: 'steps.inOut' 
+            }, ">=-0.5")
+
+            .call(async () => 
+            { 
+                /* this.timeline.pause(); */
+                await this.dialogueManager.playLine("Morganne", "Je m'appelle Morganne... Viens avec moi.", './assets/sounds/voice_morganne_2.mp3');
+                await this.dialogueManager.playLine("Morganne", "suce ma kekette j'ai une grand bite", './assets/sounds/voice_morganne_2.mp3');
+                await this.dialogueManager.playLine("Morganne", "six Mac Nuggets et une grande frite", './assets/sounds/voice_morganne_2.mp3');
+            })
 
             // camera regarde vers le lac
             .to(this.camera.cameraTarget, 
-                { 
-                    x: this.targetsLake['TargetLake_towerUp'].x, 
-                    y: this.targetsLake['TargetLake_towerUp'].y, 
-                    z: this.targetsLake['TargetLake_towerUp'].z, 
-                    duration: 3,
-                    ease: 'steps.inOut' 
-                }, ">")
+            { 
+                x: this.targetsLake['TargetLake_towerUp'].x, 
+                y: this.targetsLake['TargetLake_towerUp'].y, 
+                z: this.targetsLake['TargetLake_towerUp'].z, 
+                duration: 3,
+                ease: 'steps.inOut' 
+            }, ">")
             // camera se déplace vers le lake
             .to(this.camera.instance.position, 
-                { 
-                    x: this.targets['TargetPortal_lake'].x,
-                    y: this.targets['TargetPortal_lake'].y,
-                    z: this.targets['TargetPortal_lake'].z,
-                    duration: 12,    
-                    ease: 'steps.inOut' 
-                }, ">")
+            { 
+                x: this.targets['TargetPortal_lake'].x,
+                y: this.targets['TargetPortal_lake'].y,
+                z: this.targets['TargetPortal_lake'].z,
+                duration: 12,    
+                ease: 'steps.inOut' 
+            }, ">")
             
             // lance l'animation du pont
             .call(() => { this.experience.world.animationsClip.playClip(2); })

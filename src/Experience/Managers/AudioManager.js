@@ -62,34 +62,6 @@ export default class AudioManager
         // chargé le son
         this.musicTrack = new THREE.Audio(this.audioListener)
         this.forestTrack = new THREE.Audio(this.audioListener)
-
-        this.voiceTrack = new THREE.Audio(this.audioListener)
-    }
-
-
-    playVoice(soundName)
-    {
-        // Coupe la voix précédente si elle est en cours
-        this.stopVoice();
-
-        const buffer = this.resources.items[soundName]
-        
-        if(buffer)
-        {
-            this.voiceTrack.setBuffer(buffer)
-            this.voiceTrack.setLoop(false)
-            this.voiceTrack.setVolume(1)
-            this.voiceTrack.play()
-        }
-    }
-
-
-    stopVoice()
-    {
-        if(this.voiceTrack.isPlaying)
-        {
-            this.voiceTrack.stop()
-        }
     }
 
 
