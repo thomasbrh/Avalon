@@ -69,12 +69,30 @@ export default class PortalManager
             // camera regarde vers la stone
             .to(this.camera.cameraTarget, 
             { 
+                x: this.targets['TargetPortal_portal'].x, 
+                y: this.targets['TargetPortal_portal'].y, 
+                z: this.targets['TargetPortal_portal'].z, 
+                duration: 3,
+                ease: 'steps.inOut' 
+            }, "<-=1.25")
+
+            .to(this.camera.cameraTarget, 
+            { 
                 x: this.targets['TargetPortal_stone'].x, 
                 y: this.targets['TargetPortal_stone'].y, 
                 z: this.targets['TargetPortal_stone'].z, 
                 duration: 3, 
                 ease: 'steps.inOut' 
-            }, "<-=1.25")
+            }, ">+=1")
+
+            /* .to(this.camera.cameraTarget, 
+            { 
+                x: this.targets['TargetPortal_behind'].x, 
+                y: this.targets['TargetPortal_behind'].y, 
+                z: this.targets['TargetPortal_behind'].z, 
+                duration: 3, 
+                ease: 'steps.inOut' 
+            },">+=3") */
             
 
             .call(async () => 
@@ -85,13 +103,25 @@ export default class PortalManager
 
                 this.timeline.pause();
 
-                await this.dialogueManager.playLine("Arthur", "Où... où suis-je ?", './assets/sounds/voice_arthur_1.mp3');
-                await this.dialogueManager.playLine("Arthur", "Mais qu'est-ce que je fais ici ? Je suis mort ?", './assets/sounds/voice_arthur_2.mp3');
-                await this.dialogueManager.playLine("Morganne", "Bonjour Arthur, comment te sens-tu ?", './assets/sounds/voice_morganne_1.mp3');
-                await this.dialogueManager.playLine("Arthur", "Qui êtes-vous ?", './assets/sounds/voice_arthur_3.mp3');
-                await this.dialogueManager.playLine("Morganne", "Je m'appelle Morganne... Viens avec moi.", './assets/sounds/voice_morganne_2.mp3');
-                await this.dialogueManager.playLine("Morganne", "suce ma kekette j'ai une grand bite", './assets/sounds/voice_morganne_2.mp3');
-                await this.dialogueManager.playLine("Morganne", "six Mac Nuggets et une grande frite", './assets/sounds/voice_morganne_2.mp3');
+                await this.dialogueManager.playLine(
+                    "Arthur", 
+                    "Ce silence… Où sont les cris et le fracas de l'acier ? Pourquoi ses sons résonnent-ils dans ma tête ? J’ai l’impression de me réveiller d’un très long rêve. ",
+                    'audio/dialogue-portal/arthur_voices-1.mp3');
+
+                await this.dialogueManager.playLine(
+                    "Morganne", 
+                    "L'orage est terminé. Tu es arrivé sur des rives dont les fracas du monde sont fort fort loingtain. Tu peux souffler. Je suis Morgane. Et bien que les rives d’Avalon aient un peu brouillé ton espri, tu es mon frère.",
+                    'audio/dialogue-portal/morganne_voices-1.mp3');
+
+                await this.dialogueManager.playLine(
+                    "Arthur", 
+                    "Ton frère ? Je n'ai aucun souvenir de ce visage. Je n'ai aucun souvenir de mon propre nom. C'est comme si je n’avais aucun passé, recraché par cette brume. Dis-moi qu'est-ce que cet endroit ?", 
+                    'audio/dialogue-portal/arthur_voices-2.mp3');
+
+                await this.dialogueManager.playLine(
+                    "Morganne", 
+                    "Tu es sur l'île d'Avalon, le sanctuaire du repos et des pommiers éternels. Ton histoire n'est pas achevée. Tu es tombé, certes. De si haut que le choc a chassé ton esprit de ton corps. Mais soit tranquille, je vais t’aider à te rappeler la personne que tu es pas à pas.", 
+                    'audio/dialogue-portal/morganne_voices-2.mp3');
 
                 this.dialogueManager.hide();
                 this.storyManager.showNextIndicator();

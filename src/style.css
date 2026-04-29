@@ -129,7 +129,8 @@ body
 
 /* dialogue */
 .dialogue-box {
-    display: none;
+    opacity: 0;
+    visibility: hidden;
 
     position: fixed;
     left: 50%;
@@ -153,13 +154,24 @@ body
 
 .dialogue-speaker {
     display: block;
-    color: #E1C4F4;
     text-shadow: 1px 1px 3px rgba(0, 0, 0, 1), 0px 0px 10px rgba(0, 0, 0, 0.85);
     font-size: 1rem;
     font-weight: bold;
     text-transform: uppercase;
     margin-bottom: 0.3rem;
     letter-spacing: 1px;
+}
+
+.dialogue-box[data-speaker="arthur"] .dialogue-speaker {
+    color: #FAB56F;
+}
+
+.dialogue-box[data-speaker="morganne"] .dialogue-speaker {
+    color: #E1C4F4;
+}
+
+.dialogue-box[data-speaker="merlin"] .dialogue-speaker {
+    color: #82aaff;
 }
 
 .dialogue-text {
@@ -260,4 +272,5 @@ body
 .hidden
 {
     display: none;
+    opacity: 0;
 }

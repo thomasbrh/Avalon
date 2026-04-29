@@ -350,4 +350,15 @@ export default
         path: 'audio/sound-effetcs/sound-portal.wav'
     }, */
 
+
+    /**
+     * Dialogue
+     */
+    // portal
+    /* {
+        name: 'portalArthur1',
+        type: 'audio',
+        path: 'audio/dialogue-portal/avalon-arthur_voices-1.mp3'
+    }, */
+
 ]

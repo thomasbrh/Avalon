@@ -26,6 +26,9 @@ export default class StoryManager
         {
             portal: this.portalManager,
             lake: this.lakeManager,
+            /* sword: this.swordManager,
+            lake: this.lakeManager,
+            manor: this.manorManager, */
         }
         this.currentScene = this.zones.portal
 

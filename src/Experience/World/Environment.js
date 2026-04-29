@@ -41,7 +41,7 @@ export default class Environment
     setSunLight()
     {
         // crée la light
-        this.sunLight = new THREE.AmbientLight('#ffffff', 1.5)     
+        this.sunLight = new THREE.AmbientLight('#ffffff', 2)     
         // ajout de la light à la scène
         this.scene.add(this.sunLight)
 
@@ -71,6 +71,9 @@ export default class Environment
         this.environmentMap.texture.colorSpace = THREE.SRGBColorSpace
         
         this.scene.environment = this.environmentMap.texture
+
+        this.scene.environmentRotation.y = 0
+        this.scene.backgroundRotation.y = 4
 
         this.environmentMap.updateMaterials = () =>
         {
@@ -104,6 +107,17 @@ export default class Environment
                 .step(0.001)
                 .onChange(this.environmentMap.updateMaterials)
         }
+
+        /* this.debugFolder
+                .add(this.scene.environmentRotation, 'y')
+                .name('envMapRotation')
+                .min(0)
+                .max(Math.PI * 2)
+                .step(0.001)
+                .onChange((value) => 
+                {
+                    this.scene.backgroundRotation.y = value
+                }) */
 
     }
     

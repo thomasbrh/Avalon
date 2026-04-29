@@ -30,6 +30,10 @@ export default class DialogueManager
             // Affichage UI
             this.dialogueSpeaker.textContent = speaker
             this.dialogueText.textContent = content
+
+            // set attribute pour le css 
+            this.dialogueBox.setAttribute('data-speaker', speaker.toLowerCase())
+
             this.dialogueBox.classList.add('is-visible')
 
             this.voicePlayer.src = audioSrc 

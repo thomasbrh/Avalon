@@ -28,7 +28,8 @@ export default class Camera
          * inisialisations 
          */
         this.enableMouseLook = false
-        this.mouseLookAmplitude = 1
+        this.mouseLookAmplitudeX = 1
+        this.mouseLookAmplitudeY = 0.3
         this.cursor = { x: 0, y: 0 }
         this.smoothedCursor = { x: 0, y: 0 }
 
@@ -36,16 +37,14 @@ export default class Camera
             this.cursor.x = - ((event.clientX / this.sizes.width) - 0.5)
             this.cursor.y = - ((event.clientY / this.sizes.height) - 0.5)
         })
-        
+
 
         /**
          * Debug
          */
         if(this.debug.active)
         {
-            this.debugFolder = this.debug.gui.addFolder('camera')
-            this.debugFolder.add(this, 'enableMouseLook').name('Mouse Look')
-            this.debugFolder.add(this, 'mouseLookAmplitude').min(0).max(10).step(0.01).name('Look Amplitude')
+            this.debugFolder = this.debug.gui.addFolder('Camera')
         }
 
         
@@ -178,8 +177,8 @@ export default class Camera
                 this.smoothedCursor.x += (this.cursor.x - this.smoothedCursor.x) * 0.05
                 this.smoothedCursor.y += (this.cursor.y - this.smoothedCursor.y) * 0.05
 
-                this.instance.rotateY(this.smoothedCursor.x * this.mouseLookAmplitude)
-                this.instance.rotateX(this.smoothedCursor.y * this.mouseLookAmplitude)
+                this.instance.rotateY(this.smoothedCursor.x * this.mouseLookAmplitudeX)
+                this.instance.rotateX(this.smoothedCursor.y * this.mouseLookAmplitudeY)
             }
         }
     }
