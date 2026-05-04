@@ -47,14 +47,12 @@ export default class Morganne
             }
         })
 
-        // 3. Le Mesh (Points)
         this.mesh = new THREE.Points(geometry, this.material)
         this.scene.add(this.mesh)
     }
 
     update()
     {
-        // Mise à jour du temps pour ton animation sinusoïdale
         this.material.uniforms.uTime.value = this.time.elapsed * 0.001
     }
 }

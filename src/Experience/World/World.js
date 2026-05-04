@@ -59,6 +59,11 @@ export default class World
         {
             this.animationsClip.mixer.update(this.experience.time.delta * 0.001) 
         }
+
+        if(this.morganne) 
+        {
+            this.morganne.update();
+        }
     }
 
 }

@@ -123,7 +123,6 @@ export default class PortalManager
                     "J’ai l’impression de me réveiller d’un très long rêve.",
                     'audio/dialogue-portal/arthur_voices-1.4.mp3');
 
-
                 // morganne 1
                 await this.dialogueManager.playLine(
                     "Morganne", 
@@ -183,6 +182,7 @@ export default class PortalManager
                 this.dialogueManager.hide();
                 this.storyManager.showNextIndicator();
             })
+            
 
             .to(this.camera.cameraTarget, 
             { 
@@ -340,12 +340,6 @@ export default class PortalManager
         {
             this.timeline.play("dialog_end");
         }
-    }
-    
-
-    exit()
-    {
-
     }
     
 }
