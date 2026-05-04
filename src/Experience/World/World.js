@@ -9,6 +9,7 @@ import Portal from '../Zones/Portal.js'
 import Sword from '../Zones/Sword.js'
 import Lake from '../Zones/Lake.js'
 import Manor from '../Zones/Manor.js'
+import Morganne from '../personnages/Morganne.js'
 
 
 export default class World
@@ -39,6 +40,7 @@ export default class World
             this.lake = new Lake()
             this.sword = new Sword()
             this.manor = new Manor()
+            this.morganne = new Morganne()
 
         })
         

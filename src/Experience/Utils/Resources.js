@@ -75,6 +75,15 @@ export default class Resources extends EventEmitter
                     {
                         this.sourceLoaded(source, file)
                     }
+                    ,
+                    (progress) => 
+                    {
+                    },
+                    (error) => 
+                    {
+                        console.error(`crash : ${source.path}`)
+                        console.error(error)
+                    }
                 )
             }
             else if(source.type === 'texture')

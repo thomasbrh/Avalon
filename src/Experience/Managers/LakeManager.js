@@ -58,9 +58,9 @@ export default class LakeManager
             // camera se déplace sur le pont du portal
             .to(this.camera.instance.position, 
                 { 
-                    x: this.targets['TargetLake_towerDown'].x,
-                    y: this.targets['TargetLake_towerDown'].y,
-                    z: this.targets['TargetLake_towerDown'].z,
+                    x: this.targets['TargetLake_portalTowerDown'].x,
+                    y: this.targets['TargetLake_portalTowerDown'].y,
+                    z: this.targets['TargetLake_portalTowerDown'].z,
                     duration: 6,    
                     ease: 'power2.inOut' 
                 }, ">")
@@ -68,9 +68,9 @@ export default class LakeManager
             // camera regarde vers le lac
             .to(this.camera.cameraTarget, 
                 { 
-                    x: this.targets['TargetLake_bridgeAnimation'].x, 
-                    y: this.targets['TargetLake_bridgeAnimation'].y, 
-                    z: this.targets['TargetLake_bridgeAnimation'].z, 
+                    x: this.targets['TargetLake_portalTowerDown'].x, 
+                    y: this.targets['TargetLake_portalTowerDown'].y, 
+                    z: this.targets['TargetLake_portalTowerDown'].z, 
                     duration: 3,
                     ease: 'power2.inOut' 
                 }, ">")
@@ -81,9 +81,9 @@ export default class LakeManager
             // camera se déplace sur le pont de la sword
             .to(this.camera.instance.position, 
                 { 
-                    x: this.targets['TargetLake_bridgeAnimation'].x,
-                    y: this.targets['TargetLake_bridgeAnimation'].y,
-                    z: this.targets['TargetLake_bridgeAnimation'].z,
+                    x: this.targets['TargetLake_portalTowerDown'].x,
+                    y: this.targets['TargetLake_portalTowerDown'].y,
+                    z: this.targets['TargetLake_portalTowerDown'].z,
                     duration: 6,    
                     ease: 'power2.inOut' 
                 }, ">")

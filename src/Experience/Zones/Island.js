@@ -32,7 +32,7 @@ export default class Island
         /**
          * Appel des instances
          */
-        this.setTexture()
+        // this.setTexture()
         this.setModel()
 
     }
@@ -51,6 +51,7 @@ export default class Island
         this.islandMaterial = new THREE.MeshStandardMaterial(
         {
             map: this.islandTextureDiffuse,
+            
             /* normalMap: this.resources.items.islandTextureNormal, */
             /* roughnessMap: this.resources.items.islandTextureRoughness,
             roughness: 0.8, */
@@ -74,8 +75,10 @@ export default class Island
         this.treesMaterial = new THREE.MeshStandardMaterial(
         {
             map: this.treesTextureDiffuse,
-            /* normalMap: this.resources.items.treesTextureNormal,
-            roughness: 1, */
+
+            normalMap: this.resources.items.treesTextureNormal,
+            roughnessMap : this.resources.items.treesTextureRoughness,
+            roughness: 1,
         })
 
         this.treesGroup.traverse((child) => 
@@ -95,8 +98,10 @@ export default class Island
         this.rocksMaterial = new THREE.MeshStandardMaterial(
         {
             map: this.rocksTextureDiffuse,
-            /* normalMap: this.resources.items.rocksTextureNormal,
-            roughness: 1, */
+
+            normalMap: this.resources.items.rocksTextureNormal,
+            roughnessMap : this.resources.items.rocksTextureRoughness,
+            roughness: 1,
         })
 
         this.rocksGroup.traverse((child) => 
@@ -116,6 +121,7 @@ export default class Island
         this.oceanMaterial = new THREE.MeshStandardMaterial(
         {
             map: this.oceanTextureDiffuse,
+
             /* normalMap: this.resources.items.oceanTextureNormal,
             roughness: 1, */
         })

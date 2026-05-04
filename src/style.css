@@ -129,15 +129,12 @@ body
 
 /* dialogue */
 .dialogue-box {
-    opacity: 0;
-    visibility: hidden;
-
     position: fixed;
     left: 50%;
     transform: translateX(-50%);
     bottom: 1rem;
     z-index: 20;
-    font-size: 1.2rem;
+    font-size: 1.6rem;
     text-align: center;
     width: 65%;
 
@@ -155,11 +152,15 @@ body
 .dialogue-speaker {
     display: block;
     text-shadow: 1px 1px 3px rgba(0, 0, 0, 1), 0px 0px 10px rgba(0, 0, 0, 0.85);
-    font-size: 1rem;
+    font-size: 1.6rem;
     font-weight: bold;
     text-transform: uppercase;
     margin-bottom: 0.3rem;
     letter-spacing: 1px;
+}
+
+.dialogue-box[data-speaker="???"] .dialogue-speaker {
+    color: #FAB56F;
 }
 
 .dialogue-box[data-speaker="arthur"] .dialogue-speaker {
@@ -176,7 +177,7 @@ body
 
 .dialogue-text {
     color: #fff !important;
-    font-size: 1.3rem;
+    font-size: 1.6rem;
     margin: 0;
     display: block;
     opacity: 1;

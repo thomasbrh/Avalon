@@ -52,8 +52,10 @@ export default class DialogueManager
     skipDialogue() 
     {
         this.voicePlayer.pause()
+
         const resolve = this.skipResolver
         this.skipResolver = null
+        
         if (resolve) resolve()
     }
 
