@@ -1,17 +1,21 @@
 // import des sources
 import sources from './sources.js'
 
-// import base
-import AudioManager from './Managers/AudioManager.js'
-import StoryManager from './Managers/StoryManager.js'
+// import utils
 import Resources from './Utils/Resources.js'
-import LoadingOverlay from './Managers/LoadingManager.js'
 import Debug from './Utils/Debug.js'
 import Sizes from './Utils/Sizes.js'
 import Time from './Utils/Time.js'
+
+// import base
 import Camera from './Camera.js'
 import World from './World/World.js'
 import Renderer from './Renderer.js'
+
+// import Manager
+import AudioManager from './Managers/AudioManager.js'
+import StoryManager from './Managers/StoryManager.js'
+import LoadingManager from './Managers/LoadingManager.js'
 
 // import des librairies
 import * as THREE from 'three'
@@ -55,16 +59,16 @@ export default class Experience
 
 
         /**
-         * Loading overlay
+         * LoadingManager
          */
-        this.loadingOverlay = new LoadingOverlay()
-        this.loadingOverlay.setOverlay()
+        this.loadingManager = new LoadingManager()
+        this.loadingManager.setOverlay()
 
         // progrès du chargement
         this.resources.on('progress', (progress) =>
         {
             // calcul des assets chargé / total
-            this.loadingOverlay.updateProgress(progress)
+            this.loadingManager.updateProgress(progress)
         })
         
         // fin du chargement
@@ -88,13 +92,13 @@ export default class Experience
 
             // laodingProgress
             // force le pogresse à 100%
-            this.loadingOverlay.updateProgress(1)
+            this.loadingManager.updateProgress(1)
             // cache l'overlay
-            this.loadingOverlay.hideOverlay()
+            this.loadingManager.hideOverlay()
             // ajoute le bouton pour commencer
-            this.loadingOverlay.setStartExperience()
+            this.loadingManager.setStartExperience()
             // affiche le bouton pour commencer
-            this.loadingOverlay.showStartExperience()
+            this.loadingManager.showStartExperience()
 
         })
         
@@ -129,7 +133,7 @@ export default class Experience
         this.world.update()
 
         // portal shaders
-        this.loadingOverlay.update()
+        this.loadingManager.update()
 
         this.renderer.update()
     }
