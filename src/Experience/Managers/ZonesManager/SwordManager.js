@@ -23,7 +23,6 @@ export default class SwordManager
         this.time = this.experience.time
         this.storyManager = storyManager 
         this.dialogueManager = storyManager.dialogueManager
-
         this.animationsClip = this.experience.world.animationsClip
 
         
@@ -36,10 +35,10 @@ export default class SwordManager
         /**
          * Appel des instances
          */
-        /* this.resources.on('ready', () => 
+        this.resources.on('ready', () => 
         {
-            this.swordTimeline();
-        }); */
+            /* this.swordTimeline(); */ // remove
+        });
 
     }
 
@@ -51,9 +50,15 @@ export default class SwordManager
 
 
     swordTimeline() 
-    {
+    {    
+        /**
+         * Data
+         */
         this.targets = this.experience.world.sword.targets;
-        
+        this.morganne = this.experience.world.morganne.mesh;
+        this.arthur = this.experience.world.arthur.mesh;
+
+
         this.timeline
             /**
              * Scene 3.1

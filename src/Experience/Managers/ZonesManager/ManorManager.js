@@ -24,7 +24,6 @@ export default class ManorManager
         this.time = this.experience.time
         this.storyManager = storyManager 
         this.dialogueManager = storyManager.dialogueManager
-
         this.animationsClip = this.experience.world.animationsClip
 
         
@@ -37,10 +36,10 @@ export default class ManorManager
         /**
          * Appel des instances
          */
-        /* this.resources.on('ready', () => 
+        this.resources.on('ready', () => 
         {
-            this.manorTimeline();
-        }); */
+            /* this.manorTimeline(); */ // remove
+        });
 
     }
 
@@ -53,7 +52,13 @@ export default class ManorManager
 
     manorTimeline() 
     {
+        /**
+         * Data
+         */
         this.targets = this.experience.world.manor.targets;
+        this.morganne = this.experience.world.morganne.mesh;
+        this.arthur = this.experience.world.arthur.mesh;
+        
         
         this.timeline
 

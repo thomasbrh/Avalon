@@ -24,7 +24,6 @@ export default class LakeManager
         this.time = this.experience.time
         this.storyManager = storyManager 
         this.dialogueManager = storyManager.dialogueManager
-
         this.animationsClip = this.experience.world.animationsClip
 
         
@@ -37,10 +36,10 @@ export default class LakeManager
         /**
          * Appel des instances
          */
-        /* this.resources.on('ready', () => 
+        this.resources.on('ready', () => 
         {
             this.lakeTimeline();
-        }); */
+        });
 
     }
 
@@ -53,6 +52,12 @@ export default class LakeManager
 
     lakeTimeline() 
     {
+        /**
+         * Data
+         */
+        this.targets = this.experience.world.lake.targets;
+        this.morganne = this.experience.world.morganne.mesh;
+        this.arthur = this.experience.world.arthur.mesh;
         
         this.timeline
 

@@ -25,9 +25,6 @@ export default class Portal
         this.camera = this.experience.camera.instance
         this.time = this.experience.time
 
-        this.audioContext = new AudioContext();
-        this.audioListener = new THREE.AudioListener()
-
 
         /**
          * Debug

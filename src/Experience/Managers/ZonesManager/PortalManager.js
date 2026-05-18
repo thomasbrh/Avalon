@@ -23,10 +23,8 @@ export default class PortalManager
         this.resources = this.experience.resources
         this.camera = this.experience.camera
         this.time = this.experience.time
-
         this.storyManager = storyManager 
         this.dialogueManager = storyManager.dialogueManager
-
         this.animationsClip = this.experience.world.animationsClip
 
         
@@ -35,20 +33,19 @@ export default class PortalManager
          */
         this.timeline = gsap.timeline({ paused: true });
 
-
-        /**
-         * Appel des instances
-         */
         this.resources.on('ready', () => 
         {
             /**
+             * Data
+             */
+            this.targets = this.experience.world.portal.targets;
+            this.morganne = this.experience.world.morganne.mesh;
+            this.arthur = this.experience.world.arthur.mesh;
+
+
+            /**
              * Etat initial
              */
-            this.targets = this.world.portal.targets;
-
-            this.morganne = this.world.morganne.mesh;
-            this.arthur = this.world.arthur.mesh;
-
             this.arthur.position.set(
                 this.targets['TargetPortal_arthur1'].x, 
                 this.targets['TargetPortal_arthur1'].y, 
@@ -67,8 +64,13 @@ export default class PortalManager
                 this.targets['TargetPortal_arthur1'].z
             );
 
+
+            /**
+             * Appel des instances
+             */
             this.portalTimeline();
         });
+        
     }
 
 
@@ -80,8 +82,6 @@ export default class PortalManager
 
     portalTimeline() 
     {
-       
-
         this.timeline
 
             /**
@@ -499,36 +499,6 @@ export default class PortalManager
             this.dialogueManager.hide();
             this.storyManager.goTo('lake');
         });
-    }
-
-
-    playLine(index, speaker, text, audioKey) 
-    {
-        // met à jour l'index actuel
-        this.currentDialogueIndex = index;
-
-        this.dialogueManager.show(speaker, text);
-        this.audioManager.playVoice(audioKey); 
-    }
-
-    // au clic
-    skipDialogue() 
-    {
-        // coupe l'audio
-        this.audioManager.stopVoice();
-        
-        // go to next
-        const nextIndex = this.currentDialogueIndex + 1;
-        const nextLabel = `dialog_${nextIndex}`;
-
-        // skip la timeline
-        if (this.timeline.labels[nextLabel] !== undefined) 
-        {
-            this.timeline.play(nextLabel);
-        } else 
-        {
-            this.timeline.play("dialog_end");
-        }
     }
     
 }
