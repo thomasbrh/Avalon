@@ -1,10 +1,9 @@
-import * as THREE from 'three'
-
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
-
+// import base
 import Experience from './Experience.js'
 
 // import librairies
+import * as THREE from 'three'
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import gsap from "gsap"
 
 
@@ -22,18 +21,20 @@ export default class Camera
         this.scene = this.experience.scene
         this.canvas = this.experience.canvas
         this.debug = this.experience.debug
+        this.resources = this.experience.resources
 
 
         /**
          * inisialisations 
          */
         this.enableMouseLook = false
-        this.mouseLookAmplitudeX = 1
-        this.mouseLookAmplitudeY = 0.3
+        this.mouseLookAmplitudeX = 0.25
+        this.mouseLookAmplitudeY = 0.10
         this.cursor = { x: 0, y: 0 }
         this.smoothedCursor = { x: 0, y: 0 }
 
-        window.addEventListener('mousemove', (event) => {
+        window.addEventListener('mousemove', (event) => 
+        {
             this.cursor.x = - ((event.clientX / this.sizes.width) - 0.5)
             this.cursor.y = - ((event.clientY / this.sizes.height) - 0.5)
         })
@@ -54,6 +55,32 @@ export default class Camera
         this.setInstance()
         this.setControls()
         
+    }
+
+
+    setupCamera(CameraModel)
+    {
+        this.model = CameraModel
+        
+        // Ajoute la cam à la scène
+        this.scene.add(this.model)
+
+        // Configure les cibles
+        this.targets = {}
+        this.model.traverse((child) => 
+        {
+            if(child.name.includes('FirstCamPosition')) 
+            {
+                // On sauvegarde sa position en utilisant son nom
+                this.targets[child.name] = new THREE.Vector3()
+                child.getWorldPosition(this.targets[child.name])
+            }
+        })
+        
+        if(this.targets['FirstCamPosition']) 
+        {
+            this.instance.position.copy(this.targets['FirstCamPosition'])
+        }
     }
 
 
@@ -83,17 +110,17 @@ export default class Camera
 
         this.instance = new THREE.PerspectiveCamera(
             // PerspectiveCamera( fov, aspect-ratio, near, far )
-            75, // fov
+            35, // fov
             this.experience.sizes.width / this.experience.sizes.height, // calcul avec la taille du wrapper
             0.001, // traverser les objets
-            200 // distance de visibilité
+            250 // distance de visibilité
         );
 
         // position 
-        this.instance.position.set(75, 21.5, 92) // x, y, z
+        this.instance.position.set(0, 0, 0) // x, y, z
 
         // target
-        this.cameraTarget = new THREE.Vector3(-2, 12, -25.5) // x, y, z
+        this.cameraTarget = new THREE.Vector3(0, 0, 0) // x, y, z
         this.instance.lookAt(this.cameraTarget) // un vec3 est nécessaire pour tweak
 
         // ajoute la camera à la scène

@@ -1,6 +1,6 @@
 // import base
 import Experience from '../Experience.js'
-import AudioManager from '../Managers/AudioManager.js'
+import AudioManager from './AudioManager.js'
 
 // import shaders
 import overlayVertexShader from '../shaders/overlay/vertex.glsl'
@@ -178,6 +178,7 @@ export default class LoadingOverlay
         {
             transparent: true,
             depthWrite: false,
+            depthTest: false,
 
             uniforms: {
                 uTime: { value: 0 },
@@ -195,6 +196,7 @@ export default class LoadingOverlay
 
         // crée le mesh de start
         this.startMesh = new THREE.Mesh(this.startGeometry, this.startMaterial)
+        this.startMesh.frustumCulled = false
 
         // ajoute le mesh de start à la scène
         this.scene.add(this.startMesh)

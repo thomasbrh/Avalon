@@ -5,7 +5,7 @@ import sources from './sources.js'
 import AudioManager from './Managers/AudioManager.js'
 import StoryManager from './Managers/StoryManager.js'
 import Resources from './Utils/Resources.js'
-import LoadingOverlay from './Utils/LoadingOverlay.js'
+import LoadingOverlay from './Managers/LoadingManager.js'
 import Debug from './Utils/Debug.js'
 import Sizes from './Utils/Sizes.js'
 import Time from './Utils/Time.js'
@@ -47,8 +47,8 @@ export default class Experience
         this.sizes = new Sizes()
         this.time = new Time()
         this.scene = new THREE.Scene()
-        this.camera = new Camera()
         this.resources = new Resources(sources)
+        this.camera = new Camera()
         this.renderer = new Renderer()
         this.world = new World()
         this.storyManager = new StoryManager()
@@ -70,6 +70,13 @@ export default class Experience
         // fin du chargement
         this.resources.on('ready', () =>
         {
+
+            // setup la première camera
+            const cameraModel = this.resources.items.CameraModel
+            if(cameraModel) 
+            {
+                this.camera.setupCamera(cameraModel.scene)
+            }
 
             // environment map
             // récupére la texture chargée

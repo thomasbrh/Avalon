@@ -129,9 +129,6 @@ body
 
 /* dialogue */
 .dialogue-box {
-    opacity: 0;
-    visibility: hidden;
-
     position: fixed;
     left: 50%;
     transform: translateX(-50%);
@@ -155,11 +152,15 @@ body
 .dialogue-speaker {
     display: block;
     text-shadow: 1px 1px 3px rgba(0, 0, 0, 1), 0px 0px 10px rgba(0, 0, 0, 0.85);
-    font-size: 1rem;
+    font-size: 1.25rem;
     font-weight: bold;
     text-transform: uppercase;
     margin-bottom: 0.3rem;
     letter-spacing: 1px;
+}
+
+.dialogue-box[data-speaker="???"] .dialogue-speaker {
+    color: #FAB56F;
 }
 
 .dialogue-box[data-speaker="arthur"] .dialogue-speaker {
@@ -170,16 +171,52 @@ body
     color: #E1C4F4;
 }
 
-.dialogue-box[data-speaker="merlin"] .dialogue-speaker {
+.dialogue-box[data-speaker="Dame du Lac"] .dialogue-speaker {
     color: #82aaff;
 }
 
 .dialogue-text {
     color: #fff !important;
-    font-size: 1.3rem;
+    font-size: 1.6rem;
     margin: 0;
     display: block;
     opacity: 1;
+}
+
+
+/* Choix */
+#choices-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 150;
+    display: none;
+    flex-direction: row;
+    gap: 3rem;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.choice-btn {
+    border: 1px solid #ffffff;
+    background: transparent;
+    color: white;
+    font-family: "Faculty Glyphic", sans-serif;
+    font-size: 1.5rem;
+    padding: 1rem 3rem;
+    border-radius: 50px;
+    cursor: pointer;
+    backdrop-filter: blur(4px);
+    transition: all 0.3s ease;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.8);;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+}
+
+.choice-btn:hover {
+    border: 1px solid #ffffff;
+    transform: scale(1.05);
 }
 
 

@@ -1,7 +1,15 @@
+// import base
 import Experience from '../Experience.js'
-import PortalManager from './PortalManager.js'
-import LakeManager from './LakeManager.js'
+
+// import Manager
 import DialogueManager from './DialogueManager.js'
+import AudioManager from './AudioManager.js'
+
+// import ZonesManager
+import PortalManager from './ZonesManager/PortalManager.js'
+import LakeManager from './ZonesManager/LakeManager.js'
+import SwordManager from './ZonesManager/SwordManager.js'
+
 
 export default class StoryManager
 {
@@ -26,9 +34,8 @@ export default class StoryManager
         {
             portal: this.portalManager,
             lake: this.lakeManager,
-            /* sword: this.swordManager,
-            lake: this.lakeManager,
-            manor: this.manorManager, */
+            sword: this.swordManager,
+            manor: this.manorManager,
         }
         this.currentScene = this.zones.portal
 
@@ -38,6 +45,7 @@ export default class StoryManager
          * cible indicator cliquable
          */
         this.indicator = document.querySelector('#next-indicator')
+        this.choicesContainer = document.querySelector('#choices-container')
 
 
         /**
@@ -67,9 +75,41 @@ export default class StoryManager
     }
 
 
+    showChoices(choices, onResult) 
+    {
+        this.choicesContainer.style.display = 'flex'
+        this.choicesContainer.innerHTML = ''
+
+
+        choices.forEach(choice => 
+        {
+            const button = document.createElement('button')
+            button.innerText = choice.text
+            button.classList.add('choice-btn') 
+            
+            // Événement au clic
+            button.addEventListener('click', () => 
+            {
+                if (choice.isCorrect) 
+                {
+                    this.choicesContainer.style.display = 'none'
+                    onResult(true)
+                } else 
+                {
+                    onResult(false)
+                }
+            })
+
+            // On ajoute le bouton dans le HTML
+            this.choicesContainer.appendChild(button)
+        })
+    }
+
+
     goTo(name)
     {
-        if (this.currentScene?.exit) {
+        if (this.currentScene?.exit) 
+        {
             this.currentScene.exit()
         }
         this.currentScene = this.zones[name]

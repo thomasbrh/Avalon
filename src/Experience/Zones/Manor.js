@@ -32,9 +32,28 @@ export default class Manor
         /**
          * Appel des instances
          */
-        this.setTexture()
+        // this.setTexture()
         this.setModel()
+        this.setTargets()
 
+    }
+
+
+    setTargets()
+    {
+        this.targets = {}
+
+        this.model.traverse((child) =>
+        {
+            if(child.name.includes('TargetManor_'))
+            {
+                // On sauvegarde sa position en utilisant son nom
+                this.targets[child.name] = new THREE.Vector3()
+                child.getWorldPosition(this.targets[child.name])
+            }
+        })
+        
+        console.log("targets :", this.targets)
     }
 
 
@@ -49,9 +68,9 @@ export default class Manor
         this.manorMaterial = new THREE.MeshStandardMaterial(
         {
             map: this.manorTextureDiffuse,
-            /* normalMap: this.manorTextureNormal, */
-           /*  roughnessMap: this.manorTextureRoughness,
-            roughness: 1, */
+            normalMap: this.manorTextureNormal,
+            roughnessMap: this.manorTextureRoughness,
+            roughness: 1,
         })
 
         // Applique le matériau à tous les meshes du modèle

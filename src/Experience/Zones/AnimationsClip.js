@@ -35,7 +35,7 @@ export default class AnimationsClip
         /**
          * Appel des instances
          */
-        this.setTexture()
+        // this.setTexture()
         this.setModel()
 
     }
@@ -54,9 +54,9 @@ export default class AnimationsClip
         this.animationsMaterial = new THREE.MeshStandardMaterial(
         {
             map: this.animationsTextureDiffuse,
-            /* normalMap: this.resources.items.animationsTextureNormal, */
-            /* roughnessMap: this.resources.items.animationsTextureRoughness,
-            roughness: 0.8, */
+            normalMap: this.resources.items.animationsTextureNormal,
+            roughnessMap: this.resources.items.animationsTextureRoughness,
+            roughness: 0.8,
         })
 
         this.model .traverse((child) => 
