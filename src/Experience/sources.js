@@ -44,11 +44,11 @@ export default
 
     // texture
     // Diffuse
-    {
+    /* {
         name: 'animationsTextureDiffuse',
         type: 'texture',
         path: 'textures/animations/RockBridge_Bake1_PBR_Diffuse.webp'
-    },
+    }, */
     // Normal
     /* {
         name: 'animationsTextureNormal',
@@ -77,11 +77,11 @@ export default
 
     // texture
     // Diffuse
-    {
+    /* {
         name: 'islandTextureDiffuse',
         type: 'texture',
         path: 'textures/island/Island_Bake1_PBR_Diffuse.webp'
-    },
+    }, */
     // Normal
     /* {
         name: 'islandTextureNormal',
@@ -106,11 +106,11 @@ export default
 
     // texture
     // Diffuse
-    {
+    /* {
         name: 'oceanTextureDiffuse',
         type: 'texture',
         path: 'textures/island/ocean/Ocean_Bake1_PBR_Diffuse.webp'
-    },
+    }, */
     // Normal
     /* {
         name: 'oceanTextureNormal',
@@ -135,23 +135,23 @@ export default
 
     // texture
     // Diffuse
-    {
+    /* {
         name: 'rocksTextureDiffuse',
         type: 'texture',
         path: 'textures/island/rocks/Rock_Bake1_PBR_Diffuse.png'
-    },
+    }, */
     // Normal
-    {
+    /* {
         name: 'rocksTextureNormal',
         type: 'texture',
         path: 'textures/island/rocks/Rock_Bake1_PBR_Normal.png'
-    },
+    }, */
     // Roughness
-    {
+    /* {
         name: 'rocksTextureRoughness',
         type: 'texture',
         path: 'textures/island/rocks/Rock_Bake1_PBR_Roughness.png'
-    },
+    }, */
 
 
     // Tree sources
@@ -164,23 +164,23 @@ export default
 
     // texture
     // Diffuse
-    {
+    /* {
         name: 'treesTextureDiffuse',
         type: 'texture',
         path: 'textures/island/trees/Tree_Bake1_PBR_Diffuse.png'
-    },
+    }, */
     // Normal
-    {
+    /* {
         name: 'treesTextureNormal',
         type: 'texture',
         path: 'textures/island/trees/Tree_Bake1_PBR_Normal.png'
-    },
+    }, */
     // Roughness
-    {
+    /* {
         name: 'treesTextureRoughness',
         type: 'texture',
         path: 'textures/island/trees/Tree_Bake1_PBR_Roughness.png'
-    },
+    }, */
 
 
 
@@ -221,23 +221,23 @@ export default
 
     // texture
     // Diffuse
-    {
+    /* {
         name: 'lakeTextureDiffuse',
         type: 'texture',
         path: 'textures/lake/Lac_Bake1_PBR_Diffuse.png'
-    },
+    }, */
     // Normal
-    {
+    /* {
         name: 'lakeTextureNormal',
         type: 'texture',
         path: 'textures/lake/Lac_Bake1_PBR_Normal.png'
-    },
+    }, */
     // Roughness
-    {
+    /* {
         name: 'lakeTextureRoughness',
         type: 'texture',
         path: 'textures/lake/Lac_Bake1_PBR_Roughness.png'
-    },
+    }, */
 
 
 
@@ -253,11 +253,11 @@ export default
 
     // texture
     // Diffuse
-    {
+    /* {
         name: 'manorTextureDiffuse',
         type: 'texture',
         path: 'textures/manor/Manoir_Bake1_PBR_Diffuse.webp'
-    },
+    }, */
     // Normal
     /* {
         name: 'manorTextureNormal',
@@ -285,23 +285,23 @@ export default
 
     // texture
     // Diffuse
-    {
+    /* {
         name: 'portalTextureDiffuse',
         type: 'texture',
         path: 'textures/portal/Portail_Bake1_PBR_Diffuse.png'
-    },
+    }, */
     // Normal
-    {
+    /* {
         name: 'portalTextureNormal',
         type: 'texture',
         path: 'textures/portal/Portail_Bake1_PBR_Normal.png'
-    },
+    }, */
     // Roughness
-    {
+    /* {
         name: 'portalTextureRoughness',
         type: 'texture',
         path: 'textures/portal/Portail_Bake1_PBR_Roughness.png'
-    },
+    }, */
 
 
 
@@ -317,25 +317,25 @@ export default
 
     // texture
     // Diffuse
-    {
+    /* {
         name: 'swordTextureDiffuse',
         type: 'texture',
         path: 'textures/sword/Sword_Bake1_PBR_Diffuse.png'
-    },
+    }, */
     // texture
     // Normal
-    {
+    /* {
         name: 'swordTextureNormal',
         type: 'texture',
         path: 'textures/sword/Sword_Bake1_PBR_Normal.png'
-    },
+    }, */
     // texture
     // Roughness
-    {
+    /* {
         name: 'swordTextureRoughness',
         type: 'texture',
         path: 'textures/sword/Sword_Bake1_PBR_Roughness.png'
-    },
+    }, */
 
 
 

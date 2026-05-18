@@ -9,6 +9,7 @@ import AudioManager from './AudioManager.js'
 import PortalManager from './ZonesManager/PortalManager.js'
 import LakeManager from './ZonesManager/LakeManager.js'
 import SwordManager from './ZonesManager/SwordManager.js'
+import ManorManager from './ZonesManager/ManorManager.js'
 
 
 export default class StoryManager
@@ -23,6 +24,8 @@ export default class StoryManager
 
         this.portalManager = new PortalManager(this)
         this.lakeManager = new LakeManager(this)
+        this.swordManager = new SwordManager(this)
+        this.manorManager = new ManorManager(this)
 
 
         /**

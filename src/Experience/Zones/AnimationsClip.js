@@ -35,7 +35,7 @@ export default class AnimationsClip
         /**
          * Appel des instances
          */
-        // this.setTexture()
+        /* this.setTexture() */
         this.setModel()
 
     }
@@ -61,8 +61,10 @@ export default class AnimationsClip
 
         this.model .traverse((child) => 
         {
-            if (child.isMesh) 
+            if (child.isMesh)
+            {
                 child.material = this.animationsMaterial
+            }
         })
 
     }
@@ -78,7 +80,6 @@ export default class AnimationsClip
     // bloc pour jouer une animation
     playClip(index) 
     {
-
         if (!this.mixer || !this.clips[index]) return
 
         const action = this.mixer.clipAction(this.clips[index])
@@ -86,7 +87,6 @@ export default class AnimationsClip
         action.setLoop(THREE.LoopOnce, 1)
         action.clampWhenFinished = true
         action.play()
-
     }
 
 }

@@ -24,15 +24,15 @@ export default class Manor
          */
         this.manorModel = this.resources.items.manorModel
         this.manorTextureDiffuse = this.resources.items.manorTextureDiffuse
-        /* this.manorTextureNormal = this.resources.items.manorTextureNormal */
-        /* this.manorTextureRoughness = this.resources.items.manorTextureRoughness */
+        this.manorTextureNormal = this.resources.items.manorTextureNormal
+        this.manorTextureRoughness = this.resources.items.manorTextureRoughness
         this.model = this.manorModel.scene
         
 
         /**
          * Appel des instances
          */
-        // this.setTexture()
+        /* this.setTexture() */
         this.setModel()
         this.setTargets()
 

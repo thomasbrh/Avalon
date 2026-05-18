@@ -5,7 +5,7 @@ import AudioManager from '../AudioManager.js'
 // import librairies
 import gsap from "gsap"
 
-export default class LakeManager
+export default class SwordManager
 {
 
     constructor(storyManager)
@@ -38,7 +38,7 @@ export default class LakeManager
          */
         /* this.resources.on('ready', () => 
         {
-            this.LakeTimeline();
+            this.swordTimeline();
         }); */
 
     }
@@ -50,9 +50,9 @@ export default class LakeManager
     }
 
 
-    LakeTimeline() 
+    swordTimeline() 
     {
-        /* this.targets = this.experience.world.lake.targets; */
+        this.targets = this.experience.world.sword.targets;
         
         this.timeline
             /**
@@ -346,12 +346,8 @@ export default class LakeManager
                 duration: 3.5, 
                 ease: 'power2.inOut' 
             }, "<")
-
-
-
-            .call(() => { this.experience.world.animationsClip.playClip(0); })
-            .to({}, { duration: 5 })
             
+
             .call(() => 
             {
                 this.storyManager.showNextIndicator();
@@ -359,16 +355,10 @@ export default class LakeManager
             .addPause()
 
 
-            .call(() => 
-            {
-                this.storyManager.goTo('manor');
-            });
-        }
-        
-
-        exit()
+        .call(() => 
         {
-
-        }
+            this.storyManager.goTo('manor');
+        });
+    }
     
 }

@@ -37,10 +37,10 @@ export default class LakeManager
         /**
          * Appel des instances
          */
-        this.resources.on('ready', () => 
+        /* this.resources.on('ready', () => 
         {
-            this.LakeTimeline();
-        });
+            this.lakeTimeline();
+        }); */
 
     }
 
@@ -51,7 +51,7 @@ export default class LakeManager
     }
 
 
-    LakeTimeline() 
+    lakeTimeline() 
     {
         
         this.timeline

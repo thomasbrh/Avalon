@@ -108,17 +108,6 @@ export default class Environment
                 .onChange(this.environmentMap.updateMaterials)
         }
 
-        /* this.debugFolder
-                .add(this.scene.environmentRotation, 'y')
-                .name('envMapRotation')
-                .min(0)
-                .max(Math.PI * 2)
-                .step(0.001)
-                .onChange((value) => 
-                {
-                    this.scene.backgroundRotation.y = value
-                }) */
-
     }
     
 }

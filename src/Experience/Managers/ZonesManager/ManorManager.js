@@ -6,7 +6,7 @@ import AudioManager from '../AudioManager.js'
 import gsap from "gsap"
 
 
-export default class LakeManager
+export default class ManorManager
 {
 
     constructor(storyManager)
@@ -37,10 +37,10 @@ export default class LakeManager
         /**
          * Appel des instances
          */
-        this.resources.on('ready', () => 
+        /* this.resources.on('ready', () => 
         {
-            this.LakeTimeline();
-        });
+            this.manorTimeline();
+        }); */
 
     }
 
@@ -51,9 +51,9 @@ export default class LakeManager
     }
 
 
-    LakeTimeline() 
+    manorTimeline() 
     {
-        this.targets = this.experience.world.lake.targets;
+        this.targets = this.experience.world.manor.targets;
         
         this.timeline
 
@@ -357,10 +357,10 @@ export default class LakeManager
             .addPause()
 
 
-            .call(() => 
-            {
-                this.storyManager.goTo('manor');
-            });
-        }
+        .call(() => 
+        {
+            this.storyManager.goTo('manor');
+        });
+    }
     
 }

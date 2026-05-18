@@ -12,7 +12,7 @@ import startExperienceFragmentShader from '../shaders/startExperience/fragment.g
 import * as THREE from 'three'
 
 
-export default class LoadingOverlay
+export default class LoadingManager
 {
 
     constructor()

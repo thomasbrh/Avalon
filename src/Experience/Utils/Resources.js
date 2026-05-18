@@ -122,7 +122,7 @@ export default class Resources extends EventEmitter
     }
 
 
-    // Loading overlay
+    // LoadingManager
     sourceLoaded(source, file)
     {
 

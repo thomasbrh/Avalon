@@ -18,6 +18,7 @@ export default class Sword
         this.scene = this.experience.scene
         this.resources = this.experience.resources
 
+
         /**
          * Récupéré les ressources chargées
          */
@@ -31,12 +32,13 @@ export default class Sword
         /**
          * Appel des instances
          */
-        // this.setTexture()
+        /* this.setTexture() */
         this.setModel()
         this.setTargets()
 
     }
 
+    
     setTargets()
     {
         this.targets = {}

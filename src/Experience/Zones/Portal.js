@@ -54,7 +54,7 @@ export default class Portal
          * Appel des instances
          */
         this.setModel()
-        // this.setTexture()
+        /* this.setTexture() */
         this.applyShader() 
         this.setTargets()
 
