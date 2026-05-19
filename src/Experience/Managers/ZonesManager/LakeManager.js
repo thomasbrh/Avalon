@@ -47,6 +47,7 @@ export default class LakeManager
     enter() 
     {
         this.timeline.play();
+        console.log('lake')
     }
 
 
@@ -68,11 +69,11 @@ export default class LakeManager
             .to({}, { duration: 5 })
 
             
-            .call(() => 
+            /* .call(() => 
             {
                 this.storyManager.showNextIndicator();
             })
-            .addPause()
+            .addPause() */
 
 
         .call(() => 

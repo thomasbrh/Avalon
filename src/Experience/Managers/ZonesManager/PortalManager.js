@@ -148,7 +148,7 @@ export default class PortalManager
                     'audio/dialogue-portal/morganne_voices-1.3.mp3');
                 await this.dialogueManager.playLine(
                     "Morganne", 
-                    "Je suis Morgane. Et bien que les rives d’Avalon aient un peu brouillé ton espri, tu es mon frère.",
+                    "Je suis Morgane. Et bien que les brumes d’Avalon aient un peu brouillé ton espri, tu es mon frère.",
                     'audio/dialogue-portal/morganne_voices-1.4.mp3');
 
 

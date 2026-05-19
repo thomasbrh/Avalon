@@ -37,7 +37,7 @@ export default class SwordManager
          */
         this.resources.on('ready', () => 
         {
-            /* this.swordTimeline(); */ // remove
+            this.swordTimeline();   
         });
 
     }
@@ -46,6 +46,7 @@ export default class SwordManager
     enter() 
     {
         this.timeline.play();
+        console.log('sword')
     }
 
 
@@ -248,15 +249,6 @@ export default class SwordManager
                 z: this.targets['TargetSword_arthur5'].z, 
                 duration: 3,
                 ease: 'steps.inOut' 
-            }, "<")
-            // morganne psoition
-            .to(this.morganne.position, 
-            { 
-                x: this.targets['TargetSword_morganne5'].x, 
-                y: this.targets['TargetSword_morganne5'].y, 
-                z: this.targets['TargetSword_morganne5'].z, 
-                duration: 3, 
-                ease: 'power2.inOut' 
             }, "<")
             // arthur position
             .to(this.arthur.position, 
