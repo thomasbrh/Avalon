@@ -69,11 +69,11 @@ export default class LakeManager
             .to({}, { duration: 5 })
 
             
-            /* .call(() => 
+            .call(() => 
             {
                 this.storyManager.showNextIndicator();
             })
-            .addPause() */
+            .addPause()
 
 
         .call(() => 
