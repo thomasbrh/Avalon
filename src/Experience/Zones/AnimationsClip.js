@@ -47,16 +47,15 @@ export default class AnimationsClip
         /**
          * Bridges animations
          */
-        this.animationsTextureDiffuse = this.resources.items.animationsTextureDiffuse
-        this.animationsTextureDiffuse.flipY = false
-        this.animationsTextureDiffuse.colorSpace = THREE.SRGBColorSpace
+        this.animationsTextureLightmap = this.resources.items.animationsTextureLightmap
+        this.animationsTextureLightmap.flipY = false
+        this.animationsTextureLightmap.colorSpace = THREE.SRGBColorSpace
 
         this.animationsMaterial = new THREE.MeshStandardMaterial(
         {
-            map: this.animationsTextureDiffuse,
-            normalMap: this.resources.items.animationsTextureNormal,
-            roughnessMap: this.resources.items.animationsTextureRoughness,
-            roughness: 0.8,
+            map: this.animationsTextureLightmap,
+
+            normalMap: this.resources.items.animationsTextureNormalmap,
         })
 
         this.model .traverse((child) => 

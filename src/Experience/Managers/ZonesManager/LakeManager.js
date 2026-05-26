@@ -68,13 +68,6 @@ export default class LakeManager
             .call(() => { this.experience.world.animationsClip.playClip(0); })
             .to({}, { duration: 5 })
 
-            
-            .call(() => 
-            {
-                this.storyManager.showNextIndicator();
-            })
-            .addPause()
-
 
         .call(() => 
         {

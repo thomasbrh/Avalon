@@ -38,7 +38,7 @@ export default class ManorManager
          */
         this.resources.on('ready', () => 
         {
-            /* this.manorTimeline(); */ // remove
+            this.manorTimeline();
         });
 
     }
@@ -47,6 +47,7 @@ export default class ManorManager
     enter() 
     {
         this.timeline.play();
+        console.log('manor')
     }
 
 

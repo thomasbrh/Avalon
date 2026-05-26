@@ -10,4 +10,5 @@ void main()
     vec3 color = mix(uColorEnd, uColorStart, screenGradient);
 
     gl_FragColor = vec4(color, uAlpha);
+    #include <colorspace_fragment>
 }

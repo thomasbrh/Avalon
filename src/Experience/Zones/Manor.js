@@ -23,16 +23,15 @@ export default class Manor
          * Récupéré les ressources chargées
          */
         this.manorModel = this.resources.items.manorModel
-        this.manorTextureDiffuse = this.resources.items.manorTextureDiffuse
-        this.manorTextureNormal = this.resources.items.manorTextureNormal
-        this.manorTextureRoughness = this.resources.items.manorTextureRoughness
+        this.manorTextureLightmap = this.resources.items.manorTextureLightmap
+        this.manorTextureNormalmap = this.resources.items.manorTextureNormalmap
         this.model = this.manorModel.scene
         
 
         /**
          * Appel des instances
          */
-        /* this.setTexture() */
+        this.setTexture()
         this.setModel()
         this.setTargets()
 
@@ -61,16 +60,15 @@ export default class Manor
     {
 
         // Réglages texture
-        this.manorTextureDiffuse.flipY = false
-        this.manorTextureDiffuse.colorSpace = THREE.SRGBColorSpace
+        this.manorTextureLightmap.flipY = false
+        this.manorTextureLightmap.colorSpace = THREE.SRGBColorSpace
 
         // Matériau
         this.manorMaterial = new THREE.MeshStandardMaterial(
         {
-            map: this.manorTextureDiffuse,
-            normalMap: this.manorTextureNormal,
-            roughnessMap: this.manorTextureRoughness,
-            roughness: 1,
+            map: this.manorTextureLightmap,
+
+            normalMap: this.manorTextureNormalmap,
         })
 
         // Applique le matériau à tous les meshes du modèle

@@ -39,9 +39,8 @@ export default class Portal
          * Récupéré les ressources chargées
          */
         this.portalModel = this.resources.items.portalModel
-        this.portalTextureDiffuse = this.resources.items.portalTextureDiffuse
-        this.portalTextureNormal = this.resources.items.portalTextureNormal
-        this.portalTextureRoughness = this.resources.items.portalTextureRoughness
+        this.portalTextureLightmap = this.resources.items.portalTextureLightmap
+        this.portalTextureNormalmap = this.resources.items.portalTextureNormalmap
         this.model = this.portalModel.scene
 
         /* console.log(this.model) */
@@ -51,7 +50,7 @@ export default class Portal
          * Appel des instances
          */
         this.setModel()
-        /* this.setTexture() */
+        this.setTexture()
         this.applyShader() 
         this.setTargets()
 
@@ -87,16 +86,15 @@ export default class Portal
     {
 
         // Réglages texture
-        this.portalTextureDiffuse.flipY = false
-        this.portalTextureDiffuse.colorSpace = THREE.SRGBColorSpace
+        this.portalTextureLightmap.flipY = false
+        this.portalTextureLightmap.colorSpace = THREE.SRGBColorSpace
 
         // changer les matériaux
         this.portalMaterial = new THREE.MeshStandardMaterial(
         {
-            map: this.portalTextureDiffuse,
-            normalMap: this.portalTextureNormal,
-            roughnessMap: this.portalTextureRoughness,
-            roughness: 1,
+            map: this.portalTextureLightmap,
+
+            normalMap: this.portalTextureNormalmap,
         })
 
         // Applique le matériau à tous les meshes du modèle

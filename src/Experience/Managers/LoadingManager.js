@@ -42,7 +42,7 @@ export default class LoadingManager
         this.enterProgress = 0
         // couleurs shaders
         this.portalColorStart = new THREE.Color('#3D2A47')
-        this.portalColorEnd = new THREE.Color('#3D2A47')
+        this.portalColorEnd = new THREE.Color('#3D2A47')    
         
 
         /**

@@ -129,4 +129,5 @@ void main()
     float alpha = 1.0 - portal;
 
     gl_FragColor = vec4(overlayColor, alpha);
+    #include <colorspace_fragment>
 }

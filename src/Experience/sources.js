@@ -41,25 +41,18 @@ export default
         type: 'gltfModel',
         path: 'models/animations/animations.glb'
     },
-
     // texture
-    // Diffuse
+    // Lightmap
     /* {
-        name: 'animationsTextureDiffuse',
+        name: 'animationsTextureLightmap',
         type: 'texture',
-        path: 'textures/animations/RockBridge_Bake1_PBR_Diffuse.webp'
+        path: 'textures/animations/animations_lightmap.webp'
     }, */
-    // Normal
+    // Normalmap
     /* {
-        name: 'animationsTextureNormal',
+        name: 'animationsTextureNormalmap',
         type: 'texture',
-        path: 'textures/animations/RockBridge_Bake1_PBR_Normal.png'
-    }, */
-    // Roughness
-    /* {
-        name: 'animationsTextureRoughness',
-        type: 'texture',
-        path: 'textures/animations/animations_Bake1_PBR_Roughness.png'
+        path: 'textures/animations/animations_normalmap.png'
     }, */
     
 
@@ -74,26 +67,19 @@ export default
         type: 'gltfModel',
         path: 'models/island/island.glb'
     },
-
     // texture
-    // Diffuse
-    /* {
-        name: 'islandTextureDiffuse',
+    // Lightmap
+    {
+        name: 'islandTextureLightmap',
         type: 'texture',
-        path: 'textures/island/Island_Bake1_PBR_Diffuse.webp'
-    }, */
-    // Normal
-    /* {
-        name: 'islandTextureNormal',
+        path: 'textures/island/island_lightmap.webp'
+    },
+    // Normalmap
+    {
+        name: 'islandTextureNormalmap',
         type: 'texture',
-        path: 'textures/island/Island_Bake1_PBR_Normal.png'
-    }, */
-    // Roughness
-    /* {
-        name: 'islandTextureRoughness',
-        type: 'texture',
-        path: 'textures/island/Island_Bake1_PBR_Roughness.png'
-    }, */
+        path: 'textures/island/island_normalmap.webp'
+    },
 
 
     // Ocean sources
@@ -103,25 +89,18 @@ export default
         type: 'gltfModel',
         path: 'models/island/ocean.glb'
     },
-
     // texture
-    // Diffuse
+    // Lightmap
     /* {
-        name: 'oceanTextureDiffuse',
+        name: 'oceanTextureLightmap',
         type: 'texture',
-        path: 'textures/island/ocean/Ocean_Bake1_PBR_Diffuse.webp'
+        path: 'textures/island/ocean/ocean_lightmap.webp'
     }, */
-    // Normal
+    // Normalmap
     /* {
-        name: 'oceanTextureNormal',
+        name: 'oceanTextureNormalmap',
         type: 'texture',
-        path: 'textures/island/ocean/Ocean_Bake1_PBR_Normal.png'
-    }, */
-    // Roughness
-    /* {
-        name: 'oceanTextureRoughness',
-        type: 'texture',
-        path: 'textures/island/ocean/Ocean_Bake1_PBR_Roughness.png'
+        path: 'textures/island/ocean/ocean_normalmap.webp'
     }, */
 
 
@@ -132,25 +111,18 @@ export default
         type: 'gltfModel',
         path: 'models/island/rocks.glb'
     },
-
     // texture
-    // Diffuse
+    // Lightmap
     /* {
-        name: 'rocksTextureDiffuse',
+        name: 'rocksTextureLightmap',
         type: 'texture',
-        path: 'textures/island/rocks/Rock_Bake1_PBR_Diffuse.png'
+        path: 'textures/island/rocks/rocks_lightmap.webp'
     }, */
-    // Normal
+    // Normalmap
     /* {
-        name: 'rocksTextureNormal',
+        name: 'rocksTextureNormalmap',
         type: 'texture',
-        path: 'textures/island/rocks/Rock_Bake1_PBR_Normal.png'
-    }, */
-    // Roughness
-    /* {
-        name: 'rocksTextureRoughness',
-        type: 'texture',
-        path: 'textures/island/rocks/Rock_Bake1_PBR_Roughness.png'
+        path: 'textures/island/rocks/rocks_normalmap.webp'
     }, */
 
 
@@ -163,49 +135,18 @@ export default
     },
 
     // texture
-    // Diffuse
-    /* {
-        name: 'treesTextureDiffuse',
+    // Lightmap
+    {   
+        name: 'treesTextureLightmap',
         type: 'texture',
-        path: 'textures/island/trees/Tree_Bake1_PBR_Diffuse.png'
-    }, */
-    // Normal
-    /* {
-        name: 'treesTextureNormal',
-        type: 'texture',
-        path: 'textures/island/trees/Tree_Bake1_PBR_Normal.png'
-    }, */
-    // Roughness
-    /* {
-        name: 'treesTextureRoughness',
-        type: 'texture',
-        path: 'textures/island/trees/Tree_Bake1_PBR_Roughness.png'
-    }, */
-
-
-
-    // fog sources
-    // glb
-    /* {
-        name: 'fogModel',
-        type: 'gltfModel',
-        path: 'models/island/fog.glb'
-    }, */
-
-    // texture
-    // Diffuse
-    /* {
-        name: 'fogTextureDiffuse',
-        type: 'texture',
-        path: 'textures/island/Fog_Bake1_PBR_Diffuse.png'
+        path: 'textures/island/trees/trees_lightmap.webp'
     },
-    // Alpha
-    {
-        name: 'fogTextureAlpha',
+    // Normalmap
+    /* {
+        name: 'treesTextureNormalmap',
         type: 'texture',
-        path: 'textures/island/Fog_Bake1_PBR_Alpha.png'
+        path: 'textures/island/trees/trees_normalmap.webp'
     }, */
-
 
 
 
@@ -220,24 +161,18 @@ export default
     },
 
     // texture
-    // Diffuse
-    /* {
-        name: 'lakeTextureDiffuse',
+    // Lightmap
+    {
+        name: 'lakeTextureLightmap',
         type: 'texture',
-        path: 'textures/lake/Lac_Bake1_PBR_Diffuse.png'
-    }, */
-    // Normal
-    /* {
-        name: 'lakeTextureNormal',
+        path: 'textures/lake/lake_lightmap.webp'
+    },
+    // Normalmap
+    {
+        name: 'lakeTextureNormalmap',
         type: 'texture',
-        path: 'textures/lake/Lac_Bake1_PBR_Normal.png'
-    }, */
-    // Roughness
-    /* {
-        name: 'lakeTextureRoughness',
-        type: 'texture',
-        path: 'textures/lake/Lac_Bake1_PBR_Roughness.png'
-    }, */
+        path: 'textures/lake/lake_normalmap.webp'
+    },
 
 
 
@@ -252,24 +187,18 @@ export default
     },
 
     // texture
-    // Diffuse
-    /* {
-        name: 'manorTextureDiffuse',
+    // Lightmap
+    {
+        name: 'manorTextureLightmap',
         type: 'texture',
-        path: 'textures/manor/Manoir_Bake1_PBR_Diffuse.webp'
-    }, */
-    // Normal
-    /* {
-        name: 'manorTextureNormal',
+        path: 'textures/manor/manor_lightmap.webp'
+    },
+    // Normalmap
+    {
+        name: 'manorTextureNormalmap',
         type: 'texture',
-        path: 'textures/manor/Manoir_Bake1_PBR_Normal.png'
-    }, */
-    // Roughness
-    /* {
-        name: 'manorTextureRoughness',
-        type: 'texture',
-        path: 'textures/manor/Manoir_Bake1_PBR_Roughness.png'
-    }, */
+        path: 'textures/manor/manor_normalmap.webp'
+    },
 
 
 
@@ -284,24 +213,18 @@ export default
     },
 
     // texture
-    // Diffuse
-    /* {
-        name: 'portalTextureDiffuse',
+    // Lightmap
+    {
+        name: 'portalTextureLightmap',
         type: 'texture',
-        path: 'textures/portal/Portail_Bake1_PBR_Diffuse.png'
-    }, */
-    // Normal
-    /* {
-        name: 'portalTextureNormal',
+        path: 'textures/portal/portal_lightmap.webp'
+    },
+    // Normalmap
+    {
+        name: 'portalTextureNormalmap',
         type: 'texture',
-        path: 'textures/portal/Portail_Bake1_PBR_Normal.png'
-    }, */
-    // Roughness
-    /* {
-        name: 'portalTextureRoughness',
-        type: 'texture',
-        path: 'textures/portal/Portail_Bake1_PBR_Roughness.png'
-    }, */
+        path: 'textures/portal/portal_normalmap.webp'
+    },
 
 
 
@@ -316,25 +239,18 @@ export default
     },
 
     // texture
-    // Diffuse
+    // Lightmap
     /* {
-        name: 'swordTextureDiffuse',
+        name: 'swordTextureLightmap',
         type: 'texture',
-        path: 'textures/sword/Sword_Bake1_PBR_Diffuse.png'
+        path: 'textures/sword/sword_lightmap.webp'
     }, */
     // texture
-    // Normal
+    // Normalmap
     /* {
-        name: 'swordTextureNormal',
+        name: 'swordTextureNormalmap',
         type: 'texture',
-        path: 'textures/sword/Sword_Bake1_PBR_Normal.png'
-    }, */
-    // texture
-    // Roughness
-    /* {
-        name: 'swordTextureRoughness',
-        type: 'texture',
-        path: 'textures/sword/Sword_Bake1_PBR_Roughness.png'
+        path: 'textures/sword/sword_normalmap.webp'
     }, */
 
 

@@ -23,16 +23,15 @@ export default class Lake
          * Récupéré les ressources chargées
          */
         this.lakeModel = this.resources.items.lakeModel
-        this.lakeTextureDiffuse = this.resources.items.lakeTextureDiffuse
-        this.lakeTextureNormal = this.resources.items.lakeTextureNormal
-        this.lakeTextureRoughness = this.resources.items.lakeTextureRoughness
+        this.lakeTextureLightmap = this.resources.items.lakeTextureLightmap
+        this.lakeTextureNormalmap = this.resources.items.lakeTextureNormalmap
         this.model = this.lakeModel.scene
 
 
         /**
          * Appel des instances
          */
-        // this.setTexture()
+        /* this.setTexture() */
         this.setModel()
 
     }
@@ -42,16 +41,15 @@ export default class Lake
     {
 
         // Réglages texture
-        this.lakeTextureDiffuse.flipY = false
-        this.lakeTextureDiffuse.colorSpace = THREE.SRGBColorSpace
+        this.lakeTextureLightmap.flipY = false
+        this.lakeTextureLightmap.colorSpace = THREE.SRGBColorSpace
 
         // Matériau
         this.lakeMaterial = new THREE.MeshStandardMaterial
         ({
-            map: this.lakeTextureDiffuse,
-            normalMap: this.lakeTextureNormal,
-            roughnessMap: this.lakeTextureRoughness,
-            roughness: 1,
+            map: this.lakeTextureLightmap,
+
+            normalMap: this.lakeTextureNormalmap,
         })
 
         // Applique le matériau à tous les meshes du modèle
