@@ -52,7 +52,7 @@ export default
     /* {
         name: 'animationsTextureNormalmap',
         type: 'texture',
-        path: 'textures/animations/animations_normalmap.png'
+        path: 'textures/animations/animations_normalmap.webp'
     }, */
     
 
@@ -126,7 +126,7 @@ export default
     }, */
 
 
-    // Tree sources
+    // Trees sources
     // glb
     {
         name: 'treesModel',
@@ -142,11 +142,11 @@ export default
         path: 'textures/island/trees/trees_lightmap.webp'
     },
     // Normalmap
-    /* {
+    {
         name: 'treesTextureNormalmap',
         type: 'texture',
         path: 'textures/island/trees/trees_normalmap.webp'
-    }, */
+    },
 
 
 

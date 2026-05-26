@@ -31,7 +31,7 @@ export default class Lake
         /**
          * Appel des instances
          */
-        /* this.setTexture() */
+        this.setTexture()
         this.setModel()
 
     }
