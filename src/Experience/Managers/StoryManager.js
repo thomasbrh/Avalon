@@ -88,7 +88,7 @@ export default class StoryManager
         {
             const button = document.createElement('button')
             button.innerText = choice.text
-            button.classList.add('choice-btn') 
+            button.classList.add('btn', 'btn--large')
             
             // Événement au clic
             button.addEventListener('click', () => 

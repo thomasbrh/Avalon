@@ -1,8 +1,7 @@
-/* base */
-:root {
-    --bg-color: #FAB56F;
-    --text-color: #ffffff;
-}
+@use './variables' as *;
+@use './responsive' as *;
+@use './button' as *;
+
 
 *
 {
@@ -14,11 +13,12 @@
 html,
 body
 {
-    overflow: hidden;
-    background: transparent;
-    font-family: "Faculty Glyphic", sans-serif; 
+    font-family: $font-secondary;
     font-size: 16px;
+    background: transparent;
+    overflow: hidden;
 }
+
 
 /* canvas */
 .webgl
@@ -30,18 +30,20 @@ body
     outline: none;
 }
 
+
 /* loading overlay */
 .loading-overlay
 {
     position: fixed;
-    inset: 0;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 1rem;
+
+    color: $color-text-white;
     background: transparent;
-    color: var(--text-color);
+    gap: 1rem;
+    inset: 0;
     z-index: 1000;
 }
 
@@ -49,7 +51,8 @@ body
 {
     width: 25%;
     height: 3px;
-    background: rgba(255, 255, 255, 0.2);
+    border-radius: 1rem;
+    background: rgba($color-accent-gold, $opacity-low);
     overflow: hidden;
 }
 
@@ -57,48 +60,33 @@ body
 {
     width: 100%;
     height: 100%;
-    background: white;
+    background: $color-accent-gold;
     transform: scaleX(0);
     transform-origin: left center;
 }
 
 
 /* start-experience */
-.start-experience {
+.start-experience
+{
     position: fixed;
     z-index: 10;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-
-    color: #FFF;
-    font-family: "Uncial Antiqua";
     font-size: 38px;
-    font-weight: 400;
-    /* text-transform: uppercase; */
-
-    border: none;
-    background: transparent;
-    cursor: pointer;
-    text-align: center;
-
-    transition: opacity 0.4s ease, transform 0.6s ease;
+    padding: 1rem 3rem;
 }
 
-.start-experience:hover {
+.start-experience:hover
+{
     transform: translate(-50%, -50%) scale(1.05);
-    transition: opacity 0.2s ease, transform 0.2s ease;
-}
-
-.start-experience.is-entering {
-    opacity: 0;
-    transform: scale(0.95);
-    pointer-events: none;
 }
 
 
 /* audio-btn */
-.audio-btn {
+.audio-btn
+{
     position: fixed;
     z-index: 10;
 
@@ -109,26 +97,31 @@ body
     border-style: none;
 }
 
-.audio-btn:hover {
+.audio-btn:hover
+{
     transform: scale(1.05);
 }
 
-.audio-btn .off {
+.audio-btn .off
+{
     display: none;
 }
 
 /* mode muet */
-.audio-btn.is-muted .on {
+.audio-btn.is-muted .on
+{
     display: none;
 }
 /* mode audio */
-.audio-btn.is-muted .off {
+.audio-btn.is-muted .off
+{
     display: block;
 }
 
 
 /* dialogue */
-.dialogue-box {
+.dialogue-box
+{
     position: fixed;
     left: 50%;
     transform: translateX(-50%);
@@ -144,11 +137,13 @@ body
     border-radius: 1rem;
 }
 
-.dialogue-box.is-visible {
+.dialogue-box.is-visible
+{
     display: block;
 }
 
-.dialogue-speaker {
+.dialogue-speaker
+{
     display: block;
     text-shadow: 1px 1px 3px rgba(0, 0, 0, 1), 0px 0px 10px rgba(0, 0, 0, 0.85);
     font-size: 1.25rem;
@@ -158,74 +153,64 @@ body
     letter-spacing: 1px;
 }
 
-.dialogue-box[data-speaker="???"] .dialogue-speaker {
-    color: #FAB56F;
+.dialogue-box[data-speaker="???"] .dialogue-speaker
+{
+    color: $color-accent-gold;
 }
 
-.dialogue-box[data-speaker="arthur"] .dialogue-speaker {
-    color: #FAB56F;
+.dialogue-box[data-speaker="arthur"] .dialogue-speaker
+{
+    color: $color-accent-gold;
 }
 
-.dialogue-box[data-speaker="morganne"] .dialogue-speaker {
-    color: #E1C4F4;
+.dialogue-box[data-speaker="morganne"] .dialogue-speaker
+{
+    color: $color-accent-rose;
 }
 
-.dialogue-box[data-speaker="Dame du Lac"] .dialogue-speaker {
-    color: #82aaff;
+.dialogue-box[data-speaker="Dame du Lac"] .dialogue-speaker
+{
+    color: $color-text-muted;
 }
 
-.dialogue-text {
-    color: #fff !important;
-    font-size: 1.6rem;
-    margin: 0;
+.dialogue-text
+{
     display: block;
+    font-size: 1.6rem;
+    color: $color-text-white;
+    margin: 0;
     opacity: 1;
 }
 
 
 /* Choix */
-#choices-container {
+#choices-container
+{
     position: fixed;
+    display: none;
+    
+    width: 100%;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 150;
-    display: none;
+
     flex-direction: row;
-    gap: 3rem;
-    align-items: center;
     justify-content: center;
-    width: 100%;
-}
-
-.choice-btn {
-    border: 1px solid #ffffff;
-    background: transparent;
-    color: white;
-    font-family: "Faculty Glyphic", sans-serif;
-    font-size: 1.5rem;
-    padding: 1rem 3rem;
-    border-radius: 50px;
-    cursor: pointer;
-    backdrop-filter: blur(4px);
-    transition: all 0.3s ease;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.8);;
-    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
-}
-
-.choice-btn:hover {
-    border: 1px solid #ffffff;
-    transform: scale(1.05);
+    align-items: center;
+    gap: 3rem;
 }
 
 
 /* Keyframes */
-@keyframes fadeInOut {
+@keyframes fadeInOut
+{
     0% { opacity: 0.5; }
     100% { opacity: 1; }
 }
 
-@keyframes scaleOut {
+@keyframes scaleOut
+{
     0% { transform: scale(1, 1); opacity: 0; }
     10% { opacity: 0.25; }
     60% { opacity: 0.75; }
@@ -234,37 +219,42 @@ body
 
 /* indicators */
 /* Conteneur global */
-.indicators {
+.indicators
+{
     position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
     height: 100vh;
-    pointer-events: none !important;
+
     background: transparent;
+    pointer-events: none;
     z-index: 100;
 }
 
 /* La zone cliquable */
-.indicators .indicator {
+.indicators .indicator
+{
     position: absolute;
     transform-origin: 50% 50%;
     width: 80px;
     height: 80px;
-    cursor: pointer;
+
     box-sizing: border-box;
-    pointer-events: auto !important;
-    -webkit-tap-highlight-color: transparent;
+    pointer-events: auto;
+    cursor: pointer;
 }
 
-.indicators .indicator .group {
+.indicators .indicator .group
+{
     width: 100%;
     height: 100%;
     transform-origin: 50% 50%;
 }
 
 /* Le point central */
-.indicators .indicator .center {
+.indicators .indicator .center
+{
     display: block;
     position: absolute;
     transform-origin: 50% 50%;
@@ -272,25 +262,29 @@ body
     left: 36px;
     width: 8px;
     height: 8px;
-    background-color: #fff;
+
     border-radius: 10px;
     opacity: 0;
+    background-color: $color-text-white;
     animation: fadeInOut 1s 0s infinite linear alternate;
 }
 
-/* Les ondes (invisibles de base) */
-.indicators .indicator .circle {
+/* Les ondes */
+.indicators .indicator .circle
+{
     display: block;
     position: absolute;
     top: 0;
     left: 0;
     width: 80px;
     height: 80px;
-    border: 2px solid #fff;
+
+    border: 2px solid $color-text-white;
     border-radius: 50px;
     box-sizing: border-box;
+
     pointer-events: none;
-    opacity: 0; 
+    opacity: 0;
     transform: scale(0, 0);
 }
 

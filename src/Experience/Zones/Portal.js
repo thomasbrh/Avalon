@@ -128,8 +128,8 @@ export default class Portal
             uniforms:
             {
                 uTime: { value: 0 },
-                uColorStart: { value: new THREE.Color('#8aaee5') },
-                uColorEnd: { value: new THREE.Color('#36507A') }
+                uColorStart: { value: new THREE.Color('#3D2A47') },
+                uColorEnd: { value: new THREE.Color('#2d1e35') }
             },
 
             vertexShader: portalVertexShader,
