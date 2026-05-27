@@ -43,7 +43,7 @@ export default class Personnages
             {
                 uTime: { value: 0 },
                 uPixelRatio: { value: Math.min(window.devicePixelRatio, 2) },
-                uSize: { value: 1000.0 },
+                uSize: { value: 4200.0 },
 
                 uColor: { value: new THREE.Color(this.colorHex) } 
             }

@@ -112,8 +112,8 @@ export default class Camera
             // PerspectiveCamera( fov, aspect-ratio, near, far )
             35, // fov
             this.experience.sizes.width / this.experience.sizes.height, // calcul avec la taille du wrapper
-            0.001, // traverser les objets
-            250 // distance de visibilité
+            1, // traverser les objets
+            300 // distance de visibilité
         );
 
         // position 

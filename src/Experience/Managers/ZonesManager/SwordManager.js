@@ -106,6 +106,54 @@ export default class SwordManager
             /**
              * Scene 3.2
              */
+            // Question
+            .call(async () => 
+            { 
+                this.timeline.pause(); 
+                
+                // question
+                this.dialogueManager.playLine(
+                    "Morganne", 
+                    "Arthur, Te souviens-tu du nom de ton épée ?", 
+                    './assets/sounds/morganne_question.mp3'
+                );
+
+                // choix
+                const choices = [
+                    { text: "Excalibur", isCorrect: true },
+                    { text: "Durandal", isCorrect: false },
+                ];
+
+                // afffiche les choix 
+                this.storyManager.showChoices(choices, async (isCorrect) => 
+                {
+                    if (isCorrect) 
+                    {
+                        this.dialogueManager.playLine(
+                            "Morganne", 
+                            "C'est exact. Ta mémoire te revient pas à pas. Regarde le chemin qui se dessine devant toi.", 
+                            '/audio/morganne_success.mp3'
+                        );
+                        this.dialogueManager.hide();
+
+                        this.timeline.play();
+
+                    } 
+                    else 
+                    {
+                        this.dialogueManager.playLine(
+                            "Morganne", 
+                            "Non Arthur, ce n'est pas ça, essaye encore.", 
+                            '/audio/morganne_fail.mp3'
+                        );
+                    }
+                });
+            })
+            
+            // lance l'animation du pont
+            .call(() => { this.experience.world.animationsClip.playClip(0); }, null, "+=0.1")
+            .to({}, { duration: 5 })
+
             // camera se déplace vers scène 2
             .to(this.camera.instance.position, 
             { 
@@ -343,13 +391,48 @@ export default class SwordManager
                 duration: 3.5, 
                 ease: 'power2.inOut' 
             }, "<")
-            
 
-            .call(() => 
-            {
-                this.storyManager.showNextIndicator();
+
+
+            /**
+             * Scene 3.8
+             */
+            // camera se déplace vers scène 8
+            .to(this.camera.instance.position, 
+            { 
+                x: this.targets['TargetSword_camera8'].x, 
+                y: this.targets['TargetSword_camera8'].y, 
+                z: this.targets['TargetSword_camera8'].z, 
+                duration: 3, 
+                ease: 'power2.inOut' 
             })
-            .addPause()
+            // camera regarde vers scène 8
+            .to(this.camera.cameraTarget, 
+            { 
+                x: this.targets['TargetSword_arthur8'].x, 
+                y: this.targets['TargetSword_arthur8'].y, 
+                z: this.targets['TargetSword_arthur8'].z, 
+                duration: 3,
+                ease: 'steps.inOut' 
+            }, "<")
+            // morganne psoition
+            .to(this.morganne.position, 
+            { 
+                x: this.targets['TargetSword_morganne8'].x, 
+                y: this.targets['TargetSword_morganne8'].y, 
+                z: this.targets['TargetSword_morganne8'].z, 
+                duration: 3, 
+                ease: 'power2.inOut' 
+            }, "<")
+            // arthur position
+            .to(this.arthur.position, 
+            { 
+                x: this.targets['TargetSword_arthur8'].x, 
+                y: this.targets['TargetSword_arthur8'].y, 
+                z: this.targets['TargetSword_arthur8'].z, 
+                duration: 3.5, 
+                ease: 'power2.inOut' 
+            }, "<")
 
 
         .call(() => 

@@ -22,10 +22,14 @@ export default class Island
         /**
          * Récupéré les ressources chargées
          */
-        this.islandGroup = this.resources.items.islandModel.scene
-        this.oceanGroup = this.resources.items.oceanModel.scene
-        this.treesGroup = this.resources.items.treesModel.scene
-        this.rocksGroup = this.resources.items.rocksModel.scene
+        this.islandPack = this.resources.items.islandModel.scene
+        this.oceanPack = this.resources.items.oceanModel.scene
+
+        this.treesPack1 = this.resources.items.treesModelPack01.scene
+        this.treesPack2 = this.resources.items.treesModelPack02.scene
+        this.treesPack3 = this.resources.items.treesModelPack03.scene
+
+        this.rocksPack = this.resources.items.rocksModel.scene
 
 
         /**
@@ -54,7 +58,7 @@ export default class Island
             normalMap: this.resources.items.islandTextureNormal,
         })
 
-        this.islandGroup.traverse((child) => 
+        this.islandPack.traverse((child) => 
         {
             if (child.isMesh) 
                 child.material = this.islandMaterial
@@ -65,18 +69,53 @@ export default class Island
         /**
          * Trees
          */
-        this.treesTextureLightmap = this.resources.items.treesTextureLightmap
-        this.treesTextureLightmap.flipY = false
-        this.treesTextureLightmap.colorSpace = THREE.SRGBColorSpace
+        // Pack01
+        this.treesTextureLightmapPack01 = this.resources.items.treesTextureLightmapPack01
+        this.treesTextureLightmapPack01.flipY = false
+        this.treesTextureLightmapPack01.colorSpace = THREE.SRGBColorSpace
 
         this.treesMaterial = new THREE.MeshStandardMaterial(
         {
-            map: this.treesTextureLightmap,
+            map: this.treesTextureLightmapPack01,
 
-            /* normalMap: this.resources.items.treesTextureNormalmap, */
+            normalMap: this.resources.items.treesTextureNormalmapPack01,
         })
 
-        this.treesGroup.traverse((child) => 
+        this.treesPack1.traverse((child) => 
+        {
+            if (child.isMesh) child.material = this.treesMaterial
+        })
+
+        // Pack02
+        this.treesTextureLightmapPack02 = this.resources.items.treesTextureLightmapPack02
+        this.treesTextureLightmapPack02.flipY = false
+        this.treesTextureLightmapPack02.colorSpace = THREE.SRGBColorSpace
+
+        this.treesMaterial = new THREE.MeshStandardMaterial(
+        {
+            map: this.treesTextureLightmapPack02,
+
+            normalMap: this.resources.items.treesTextureNormalmapPack02,
+        })
+
+        this.treesPack2.traverse((child) => 
+        {
+            if (child.isMesh) child.material = this.treesMaterial
+        })
+
+        // Pack03
+        this.treesTextureLightmapPack03 = this.resources.items.treesTextureLightmapPack03
+        this.treesTextureLightmapPack03.flipY = false
+        this.treesTextureLightmapPack03.colorSpace = THREE.SRGBColorSpace
+
+        this.treesMaterial = new THREE.MeshStandardMaterial(
+        {
+            map: this.treesTextureLightmapPack03,
+
+            normalMap: this.resources.items.treesTextureNormalmapPack03,
+        })
+
+        this.treesPack3.traverse((child) => 
         {
             if (child.isMesh) child.material = this.treesMaterial
         })
@@ -97,7 +136,7 @@ export default class Island
             normalMap: this.resources.items.rocksTextureNormalmap,
         })
 
-        this.rocksGroup.traverse((child) => 
+        this.rocksPack.traverse((child) => 
         {
             if (child.isMesh) child.material = this.rocksMaterial
         }) */
@@ -118,7 +157,7 @@ export default class Island
             normalMap: this.resources.items.oceanTextureNormalmap,
         })
 
-        this.oceanGroup.traverse((child) => 
+        this.oceanPack.traverse((child) => 
         {
             if (child.isMesh) child.material = this.oceanMaterial
         }) */
@@ -128,7 +167,15 @@ export default class Island
     setModel()
     {
         // ajouter les groupes à la scène
-        this.scene.add(this.islandGroup, this.treesGroup, this.rocksGroup, this.oceanGroup)
+        this.scene.add(
+            this.islandPack, 
+            
+            this.treesPack1,
+            this.treesPack2,
+            this.treesPack3,
+            
+            this.rocksPack, 
+            this.oceanPack)
     }
 
 }

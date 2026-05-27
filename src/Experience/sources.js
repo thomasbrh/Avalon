@@ -129,23 +129,53 @@ export default
     // Trees sources
     // glb
     {
-        name: 'treesModel',
+        name: 'treesModelPack01',
         type: 'gltfModel',
-        path: 'models/island/trees.glb'
+        path: 'models/island/trees/TreesPack01.glb'
+    },
+    {
+        name: 'treesModelPack02',
+        type: 'gltfModel',
+        path: 'models/island/trees/TreesPack02.glb'
+    },
+    {
+        name: 'treesModelPack03',
+        type: 'gltfModel',
+        path: 'models/island/trees/TreesPack03.glb'
     },
 
     // texture
     // Lightmap
     {   
-        name: 'treesTextureLightmap',
+        name: 'treesTextureLightmapPack01',
         type: 'texture',
-        path: 'textures/island/trees/trees_lightmap.webp'
+        path: 'textures/island/trees/trees_lightmapPack01.webp'
+    },
+    {   
+        name: 'treesTextureLightmapPack02',
+        type: 'texture',
+        path: 'textures/island/trees/trees_lightmapPack02.webp'
+    },
+    {   
+        name: 'treesTextureLightmapPack03',
+        type: 'texture',
+        path: 'textures/island/trees/trees_lightmapPack03.webp'
     },
     // Normalmap
     {
-        name: 'treesTextureNormalmap',
+        name: 'treesTextureNormalmapPack01',
         type: 'texture',
-        path: 'textures/island/trees/trees_normalmap.webp'
+        path: 'textures/island/trees/trees_normalmapPack01.webp'
+    },
+    {
+        name: 'treesTextureNormalmapPack02',
+        type: 'texture',
+        path: 'textures/island/trees/trees_normalmapPack02.webp'
+    },
+    {
+        name: 'treesTextureNormalmapPack03',
+        type: 'texture',
+        path: 'textures/island/trees/trees_normalmapPack03.webp'
     },
 
 

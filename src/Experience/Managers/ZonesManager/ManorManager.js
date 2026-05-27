@@ -150,6 +150,54 @@ export default class ManorManager
             /**
              * Scene 4.3
              */
+            // Question
+            .call(async () => 
+            { 
+                this.timeline.pause(); 
+                
+                // question
+                this.dialogueManager.playLine(
+                    "Morganne", 
+                    "Arthur, Te souviens-tu du nom de ton épée ?", 
+                    './assets/sounds/morganne_question.mp3'
+                );
+
+                // choix
+                const choices = [
+                    { text: "Excalibur", isCorrect: true },
+                    { text: "Durandal", isCorrect: false },
+                ];
+
+                // afffiche les choix 
+                this.storyManager.showChoices(choices, async (isCorrect) => 
+                {
+                    if (isCorrect) 
+                    {
+                        this.dialogueManager.playLine(
+                            "Morganne", 
+                            "C'est exact. Ta mémoire te revient pas à pas. Regarde le chemin qui se dessine devant toi.", 
+                            '/audio/morganne_success.mp3'
+                        );
+                        this.dialogueManager.hide();
+
+                        this.timeline.play();
+
+                    } 
+                    else 
+                    {
+                        this.dialogueManager.playLine(
+                            "Morganne", 
+                            "Non Arthur, ce n'est pas ça, essaye encore.", 
+                            '/audio/morganne_fail.mp3'
+                        );
+                    }
+                });
+            })
+            
+            // lance l'animation du pont
+            .call(() => { this.experience.world.animationsClip.playClip(1); }, null, "+=0.1")
+            .to({}, { duration: 5 })
+
             // camera se déplace vers scène 3
             .to(this.camera.instance.position, 
             { 

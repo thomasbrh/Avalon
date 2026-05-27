@@ -65,8 +65,6 @@ export default class LakeManager
             /**
              * Scene 2.1
              */
-            .call(() => { this.experience.world.animationsClip.playClip(0); })
-            .to({}, { duration: 5 })
 
 
         .call(() => 
