@@ -38,8 +38,8 @@ export default class AudioManager
          * DOM
          */
         this.audioBtn = document.querySelector('.audio-btn')
-        // écoute du btn
-        this.audioBtn.addEventListener('click', () => 
+
+        this.audioBtn.addEventListener('click', () =>
         {
             this.toggleMute()
         })
@@ -100,10 +100,9 @@ export default class AudioManager
     {
         this.isMuted = !this.isMuted
 
-        // change le volume de l'AudioListener
         this.audioListener.setMasterVolume(this.isMuted ? 0 : 1)
-        // maj bouton
         this.audioBtn.classList.toggle('is-muted', this.isMuted)
+        this.audioBtn.textContent = this.isMuted ? 'Muet' : 'Son'
     }
 
 }

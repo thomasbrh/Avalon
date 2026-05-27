@@ -15,7 +15,7 @@ body
 {
     font-family: $font-secondary;
     font-size: 16px;
-    background: transparent;
+    background: $color-bg-deep;
     overflow: hidden;
 }
 
@@ -34,6 +34,7 @@ body
 /* loading overlay */
 .loading-overlay
 {
+    font-size: 1.2rem;
     position: fixed;
     display: flex;
     flex-direction: column;
@@ -75,7 +76,7 @@ body
     left: 50%;
     transform: translate(-50%, -50%);
     font-size: 38px;
-    padding: 1rem 3rem;
+    padding: 1rem 2rem;
 }
 
 .start-experience:hover
@@ -84,38 +85,59 @@ body
 }
 
 
-/* audio-btn */
-.audio-btn
+/* header */
+.header
 {
     position: fixed;
-    z-index: 10;
-
-    top: 2rem;
-    right: 2rem;
-
-    background: transparent;
-    border-style: none;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    padding: 24px 48px;
+    background: rgba($color-text-white, 0.12);
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
+    border-bottom: 1px solid $color-border-gold;
 }
 
-.audio-btn:hover
+.header__credit
 {
-    transform: scale(1.05);
+    font-family: $font-secondary;
+    font-size: 12px;
+    letter-spacing: $letter-spacing-paragraph;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: $color-accent-gold;
+    opacity: $opacity-medium;
+    justify-self: start;
+
+    &:hover { text-decoration: underline; opacity: $opacity-high; }
 }
 
-.audio-btn .off
+.header__logo
 {
-    display: none;
+    font-family: $font-primary;
+    font-size: 18px;
+    letter-spacing: $letter-spacing-muted;
+    color: $color-accent-gold;
+    text-decoration: none;
+    justify-self: center;
+    transition: opacity 0.2s;
+
+    &:hover { opacity: $opacity-high; }
 }
 
-/* mode muet */
-.audio-btn.is-muted .on
+.header .audio-btn
 {
-    display: none;
+    justify-self: end;
 }
-/* mode audio */
-.audio-btn.is-muted .off
+
+.audio-btn.is-muted
 {
-    display: block;
+    opacity: $opacity-high;
 }
 
 
@@ -131,7 +153,7 @@ body
     width: 65%;
 
     background-color: transparent;
-    text-shadow: 1px 1px 3px rgba(0, 0, 0, 1), 0px 0px 10px rgba(0, 0, 0, 0.85);
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, $opacity-full), 0px 0px 10px rgba(0, 0, 0, $opacity-high);
 
     padding: 1rem;
     border-radius: 1rem;
@@ -145,12 +167,12 @@ body
 .dialogue-speaker
 {
     display: block;
-    text-shadow: 1px 1px 3px rgba(0, 0, 0, 1), 0px 0px 10px rgba(0, 0, 0, 0.85);
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, $opacity-full), 0px 0px 10px rgba(0, 0, 0, $opacity-high);
     font-size: 1.25rem;
     font-weight: bold;
     text-transform: uppercase;
     margin-bottom: 0.3rem;
-    letter-spacing: 1px;
+    letter-spacing: $letter-spacing-muted;
 }
 
 .dialogue-box[data-speaker="???"] .dialogue-speaker
@@ -216,6 +238,7 @@ body
     60% { opacity: 0.75; }
     100% { transform: scale(0, 0); opacity: 1; }
 }
+
 
 /* indicators */
 /* Conteneur global */
