@@ -13,9 +13,14 @@ export default class DialogueManager
         this.dialogueSpeaker = document.querySelector('.dialogue-speaker')
         this.dialogueText = document.querySelector('.dialogue-text')
 
-        // gestion du clic
+        // gestion du clic + touch
         this.skipResolver = null
-        window.addEventListener('click', () => {
+        window.addEventListener('click', () => 
+        {
+            if (this.skipResolver) this.skipDialogue()
+        })
+        window.addEventListener('touchstart', () => 
+        {
             if (this.skipResolver) this.skipDialogue()
         })
     }

@@ -76,8 +76,11 @@ body
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    font-size: 38px;
+    font-size: 22px;
     padding: 1rem 2rem;
+
+    @include responsive(tablet) { font-size: 30px; }
+    @include responsive(desktop) { font-size: 38px; }
 }
 
 .start-experience:hover
@@ -150,8 +153,10 @@ body
 {
     position: fixed;
     top: 18px;
-    right: 96px;
+    right: 16px;
     z-index: 200;
+
+    @include responsive(desktop) { right: 96px; }
 }
 
 .audio-btn.is-muted
@@ -170,14 +175,21 @@ body
     bottom: 1.5rem;
     z-index: 20;
     text-align: center;
-    min-width: 45%;
+    width: 90%;
 
     background: transparent;
     -webkit-backdrop-filter: blur(12px);
     backdrop-filter: blur(12px);
     border: 2px solid $color-border-gold;
     border-radius: 8px;
-    padding: 1.5rem 2rem;
+    padding: 1rem 1.25rem;
+
+    @include responsive(tablet)
+    {
+        width: auto;
+        min-width: 45%;
+        padding: 1.5rem 2rem;
+    }
 }
 
 .dialogue-box.is-visible
@@ -188,12 +200,15 @@ body
 .dialogue-speaker
 {
     display: block;
-    font-size: 1.25rem;
+    font-size: 0.9rem;
     font-weight: bold;
     text-transform: uppercase;
     margin-bottom: 0.3rem;
     letter-spacing: $letter-spacing-muted;
     text-shadow: 0px 1px 4px rgba(0, 0, 0, 0.5);
+
+    @include responsive(tablet) { font-size: 1.1rem; }
+    @include responsive(desktop) { font-size: 1.25rem; }
 }
 
 .dialogue-box[data-speaker="???"] .dialogue-speaker
@@ -219,11 +234,14 @@ body
 .dialogue-text
 {
     display: block;
-    font-size: 1.6rem;
+    font-size: 1.1rem;
     color: $color-text-white;
     margin: 0;
     opacity: 1;
     text-shadow: 0px 1px 4px rgba(0, 0, 0, 0.5);
+
+    @include responsive(tablet) { font-size: 1.35rem; }
+    @include responsive(desktop) { font-size: 1.6rem; }
 }
 
 
@@ -232,17 +250,23 @@ body
 {
     position: fixed;
     display: none;
-    
+
     width: 100%;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 150;
 
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 3rem;
+    gap: 1.25rem;
+
+    @include responsive(tablet)
+    {
+        flex-direction: row;
+        gap: 3rem;
+    }
 }
 
 

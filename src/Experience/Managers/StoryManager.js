@@ -59,15 +59,17 @@ export default class StoryManager
 
     initInteraction() 
     {
-        this.indicator.addEventListener('click', () => {
-            // remet le none
+        this.indicator.addEventListener('click', () => 
+        {
             this.indicator.style.display = 'none'
-
-            // relance la timeline
             if (this.currentScene && this.currentScene.timeline)
-            {
                 this.currentScene.timeline.play()
-            }
+        })
+        this.indicator.addEventListener('touchstart', () => 
+        {
+            this.indicator.style.display = 'none'
+            if (this.currentScene && this.currentScene.timeline)
+                this.currentScene.timeline.play()
         })
     }
 
