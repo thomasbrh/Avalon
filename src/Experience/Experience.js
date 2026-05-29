@@ -90,6 +90,16 @@ export default class Experience
             // reflets de la lumière sur les modèles
             this.scene.environment = envMap
 
+            // pré chargé les textures même si hors champ 
+            // fix freeze trees
+            Object.values(this.resources.items).forEach(item => 
+            {
+                if (item?.isTexture) 
+                {
+                    this.renderer.instance.initTexture(item)
+                }
+            })
+
             // laodingProgress
             // force le pogresse à 100%
             this.loadingManager.updateProgress(1)

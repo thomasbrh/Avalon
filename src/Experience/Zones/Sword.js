@@ -31,7 +31,7 @@ export default class Sword
         /**
          * Appel des instances
          */
-        /* this.setTexture() */
+        this.setTexture()
         this.setModel()
         this.setTargets()
 

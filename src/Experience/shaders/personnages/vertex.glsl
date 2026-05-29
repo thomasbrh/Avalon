@@ -18,7 +18,8 @@ void main()
 
     gl_Position = projectionPosition;
 
-    float pulsation = 1.0 + sin(uTime * 3.0) * 0.25;
+    // respiration 
+    float pulsation = 1.0 + sin(uTime * 3.0) * 0.15;
 
     gl_PointSize = uSize * aScale * uPixelRatio * pulsation;
     gl_PointSize *= (1.0 / - viewPosition.z);

@@ -62,9 +62,9 @@ export default class StoryManager
         this.indicator.addEventListener('click', () => {
             // remet le none
             this.indicator.style.display = 'none'
-            
+
             // relance la timeline
-            if (this.currentScene && this.currentScene.timeline) 
+            if (this.currentScene && this.currentScene.timeline)
             {
                 this.currentScene.timeline.play()
             }

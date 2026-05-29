@@ -237,6 +237,8 @@ export default class LoadingManager
     {
         this.startExperience.classList.add('hidden')
         this.startExperience.disabled = true
+        // hide le header 
+        document.querySelector('.header').classList.add('header--playing')
         this.experience.storyManager.goTo('portal');
 
         if(this.startMesh)

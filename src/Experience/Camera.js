@@ -25,10 +25,9 @@ export default class Camera
 
 
         /**
-         * inisialisations 
+         * inisialisations
          */
-        this.enableMouseLook = false
-        this.mouseLookAmplitudeX = 0.25
+        this.mouseLookAmplitudeX = 0.20
         this.mouseLookAmplitudeY = 0.10
         this.cursor = { x: 0, y: 0 }
         this.smoothedCursor = { x: 0, y: 0 }
@@ -112,7 +111,7 @@ export default class Camera
             // PerspectiveCamera( fov, aspect-ratio, near, far )
             35, // fov
             this.experience.sizes.width / this.experience.sizes.height, // calcul avec la taille du wrapper
-            1, // traverser les objets
+            0.1, // traverser les objets
             300 // distance de visibilité
         );
 
@@ -198,7 +197,9 @@ export default class Camera
             // update la target
             this.instance.lookAt(this.cameraTarget)
 
-            if(this.enableMouseLook)
+            const cameraMoving = gsap.isTweening(this.instance.position) || gsap.isTweening(this.cameraTarget)
+
+            if(!cameraMoving)
             {
                 // lissage de la souris pour un mouvement fluide
                 this.smoothedCursor.x += (this.cursor.x - this.smoothedCursor.x) * 0.05

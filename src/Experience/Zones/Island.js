@@ -55,7 +55,7 @@ export default class Island
         {
             map: this.islandTextureLightmap,
             
-            normalMap: this.resources.items.islandTextureNormal,
+            normalMap: this.resources.items.islandTextureNormalmap,
         })
 
         this.islandPack.traverse((child) => 
@@ -125,7 +125,7 @@ export default class Island
         /**
          * Rocks
          */
-        /* this.rocksTextureLightmap = this.resources.items.rocksTextureLightmap
+        this.rocksTextureLightmap = this.resources.items.rocksTextureLightmap
         this.rocksTextureLightmap.flipY = false
         this.rocksTextureLightmap.colorSpace = THREE.SRGBColorSpace
 
@@ -139,14 +139,14 @@ export default class Island
         this.rocksPack.traverse((child) => 
         {
             if (child.isMesh) child.material = this.rocksMaterial
-        }) */
+        })
 
 
 
         /**
          * Ocean
          */
-        /* this.oceanTextureLightmap = this.resources.items.oceanTextureLightmap
+        this.oceanTextureLightmap = this.resources.items.oceanTextureLightmap
         this.oceanTextureLightmap.flipY = false
         this.oceanTextureLightmap.colorSpace = THREE.SRGBColorSpace
 
@@ -160,7 +160,7 @@ export default class Island
         this.oceanPack.traverse((child) => 
         {
             if (child.isMesh) child.material = this.oceanMaterial
-        }) */
+        })
     }
 
         

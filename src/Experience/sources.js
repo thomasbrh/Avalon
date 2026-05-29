@@ -43,17 +43,17 @@ export default
     },
     // texture
     // Lightmap
-    /* {
+    {
         name: 'animationsTextureLightmap',
         type: 'texture',
         path: 'textures/animations/animations_lightmap.webp'
-    }, */
+    },
     // Normalmap
-    /* {
+    {
         name: 'animationsTextureNormalmap',
         type: 'texture',
         path: 'textures/animations/animations_normalmap.webp'
-    }, */
+    },
     
 
 
@@ -91,17 +91,17 @@ export default
     },
     // texture
     // Lightmap
-    /* {
+    {
         name: 'oceanTextureLightmap',
         type: 'texture',
         path: 'textures/island/ocean/ocean_lightmap.webp'
-    }, */
+    },
     // Normalmap
-    /* {
+    {
         name: 'oceanTextureNormalmap',
         type: 'texture',
         path: 'textures/island/ocean/ocean_normalmap.webp'
-    }, */
+    },
 
 
     // Rocks sources
@@ -113,17 +113,17 @@ export default
     },
     // texture
     // Lightmap
-    /* {
+    {
         name: 'rocksTextureLightmap',
         type: 'texture',
         path: 'textures/island/rocks/rocks_lightmap.webp'
-    }, */
+    },
     // Normalmap
-    /* {
+    {
         name: 'rocksTextureNormalmap',
         type: 'texture',
         path: 'textures/island/rocks/rocks_normalmap.webp'
-    }, */
+    },
 
 
     // Trees sources
@@ -270,18 +270,18 @@ export default
 
     // texture
     // Lightmap
-    /* {
+    {
         name: 'swordTextureLightmap',
         type: 'texture',
         path: 'textures/sword/sword_lightmap.webp'
-    }, */
+    },
     // texture
     // Normalmap
-    /* {
+    {
         name: 'swordTextureNormalmap',
         type: 'texture',
         path: 'textures/sword/sword_normalmap.webp'
-    }, */
+    },
 
 
 

@@ -78,11 +78,11 @@ export default class ManorManager
             // camera regarde vers scène 1
             .to(this.camera.cameraTarget, 
             { 
-                x: this.targets['TargetManor_arthur1'].x, 
-                y: this.targets['TargetManor_arthur1'].y, 
-                z: this.targets['TargetManor_arthur1'].z, 
+                x: this.targets['TargetManor_target1'].x, 
+                y: this.targets['TargetManor_target1'].y, 
+                z: this.targets['TargetManor_target1'].z, 
                 duration: 3,
-                ease: 'steps.inOut' 
+                ease: 'power2.inOut' 
             }, "<")
             // morganne psoition
             .to(this.morganne.position, 
@@ -120,11 +120,11 @@ export default class ManorManager
             // camera regarde vers scène 2
             .to(this.camera.cameraTarget, 
             { 
-                x: this.targets['TargetManor_arthur2'].x, 
-                y: this.targets['TargetManor_arthur2'].y, 
-                z: this.targets['TargetManor_arthur2'].z, 
+                x: this.targets['TargetManor_target2'].x, 
+                y: this.targets['TargetManor_target2'].y, 
+                z: this.targets['TargetManor_target2'].z, 
                 duration: 3,
-                ease: 'steps.inOut' 
+                ease: 'power2.inOut' 
             }, "<")
             // morganne psoition
             .to(this.morganne.position, 
@@ -210,11 +210,11 @@ export default class ManorManager
             // camera regarde vers scène 3
             .to(this.camera.cameraTarget, 
             { 
-                x: this.targets['TargetManor_arthur3'].x, 
-                y: this.targets['TargetManor_arthur3'].y, 
-                z: this.targets['TargetManor_arthur3'].z, 
+                x: this.targets['TargetManor_target3'].x, 
+                y: this.targets['TargetManor_target3'].y, 
+                z: this.targets['TargetManor_target3'].z, 
                 duration: 3,
-                ease: 'steps.inOut' 
+                ease: 'power2.inOut' 
             }, "<")
             // morganne psoition
             .to(this.morganne.position, 
@@ -252,11 +252,11 @@ export default class ManorManager
             // camera regarde vers scène 4
             .to(this.camera.cameraTarget, 
             { 
-                x: this.targets['TargetManor_arthur4'].x, 
-                y: this.targets['TargetManor_arthur4'].y, 
-                z: this.targets['TargetManor_arthur4'].z, 
+                x: this.targets['TargetManor_target4'].x, 
+                y: this.targets['TargetManor_target4'].y, 
+                z: this.targets['TargetManor_target4'].z, 
                 duration: 3,
-                ease: 'steps.inOut' 
+                ease: 'power2.inOut' 
             }, "<")
             // morganne psoition
             .to(this.morganne.position, 
@@ -294,11 +294,11 @@ export default class ManorManager
             // camera regarde vers scène 5
             .to(this.camera.cameraTarget, 
             { 
-                x: this.targets['TargetManor_arthur5'].x, 
-                y: this.targets['TargetManor_arthur5'].y, 
-                z: this.targets['TargetManor_arthur5'].z, 
+                x: this.targets['TargetManor_target5'].x, 
+                y: this.targets['TargetManor_target5'].y, 
+                z: this.targets['TargetManor_target5'].z, 
                 duration: 3,
-                ease: 'steps.inOut' 
+                ease: 'power2.inOut' 
             }, "<")
             // morganne psoition
             .to(this.morganne.position, 
@@ -336,11 +336,11 @@ export default class ManorManager
             // camera regarde vers scène 6
             .to(this.camera.cameraTarget, 
             { 
-                x: this.targets['TargetManor_arthur6'].x, 
-                y: this.targets['TargetManor_arthur6'].y, 
-                z: this.targets['TargetManor_arthur6'].z, 
+                x: this.targets['TargetManor_target6'].x, 
+                y: this.targets['TargetManor_target6'].y, 
+                z: this.targets['TargetManor_target6'].z, 
                 duration: 3,
-                ease: 'steps.inOut' 
+                ease: 'power2.inOut' 
             }, "<")
             // morganne psoition
             .to(this.morganne.position, 
@@ -378,11 +378,11 @@ export default class ManorManager
             // camera regarde vers scène 7
             .to(this.camera.cameraTarget, 
             { 
-                x: this.targets['TargetManor_arthur7'].x, 
-                y: this.targets['TargetManor_arthur7'].y, 
-                z: this.targets['TargetManor_arthur7'].z, 
+                x: this.targets['TargetManor_target7'].x, 
+                y: this.targets['TargetManor_target7'].y, 
+                z: this.targets['TargetManor_target7'].z, 
                 duration: 3,
-                ease: 'steps.inOut' 
+                ease: 'power2.inOut' 
             }, "<")
             // morganne psoition
             .to(this.morganne.position, 
