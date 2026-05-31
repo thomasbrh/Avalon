@@ -109,10 +109,17 @@ export default class PortalManager
 
             .call(async () =>
             {
-                await this.resources.deferredReady;
-                this.audioManager.startAmbiantForest();
-
                 this.timeline.pause();
+                await this.resources.deferredReady;
+                // fix freeze deferred textures — caméra stationnaire, même fix que les arbres
+                Object.values(this.resources.items).forEach(item =>
+                {
+                    if (item?.isTexture)
+                    {
+                        this.experience.renderer.instance.initTexture(item)
+                    }
+                })
+                this.audioManager.startAmbiantForest();
 
                 // arthur 1.1-1
                 await this.dialogueManager.playLine(
@@ -291,15 +298,6 @@ export default class PortalManager
             /**
              * Scene 1.3
              */
-            // camera regarde vers scène 3
-            .to(this.camera.cameraTarget,
-            {
-                x: this.targets['TargetPortal_target3'].x,
-                y: this.targets['TargetPortal_target3'].y,
-                z: this.targets['TargetPortal_target3'].z,
-                duration: 3.5,
-                ease: 'power2.inOut'
-            })
             // camera se déplace vers scène 3
             .to(this.camera.instance.position,
             {
@@ -307,6 +305,15 @@ export default class PortalManager
                 y: this.targets['TargetPortal_camera3'].y,
                 z: this.targets['TargetPortal_camera3'].z,
                 duration: 3.2,
+                ease: 'power2.inOut'
+            })
+                        // camera regarde vers scène 3
+            .to(this.camera.cameraTarget,
+            {
+                x: this.targets['TargetPortal_target3'].x,
+                y: this.targets['TargetPortal_target3'].y,
+                z: this.targets['TargetPortal_target3'].z,
+                duration: 3.5,
                 ease: 'power2.inOut'
             }, "<")
             // morganne psoition
@@ -390,21 +397,21 @@ export default class PortalManager
             /**
              * Scene 1.4
              */
-            // camera regarde vers scène 4
-            .to(this.camera.cameraTarget,
-            {
-                x: this.targets['TargetPortal_target4'].x,
-                y: this.targets['TargetPortal_target4'].y,
-                z: this.targets['TargetPortal_target4'].z,
-                duration: 3,
-                ease: 'power2.inOut'
-            })
             // camera se déplace vers scène 4
             .to(this.camera.instance.position,
             {
                 x: this.targets['TargetPortal_camera4'].x,
                 y: this.targets['TargetPortal_camera4'].y,
                 z: this.targets['TargetPortal_camera4'].z,
+                duration: 3,
+                ease: 'power2.inOut'
+            })
+            // camera regarde vers scène 4
+            .to(this.camera.cameraTarget,
+            {
+                x: this.targets['TargetPortal_target4'].x,
+                y: this.targets['TargetPortal_target4'].y,
+                z: this.targets['TargetPortal_target4'].z,
                 duration: 3,
                 ease: 'power2.inOut'
             }, "<")
@@ -526,7 +533,10 @@ export default class PortalManager
                     'audio/dialogue-portal/morgane_voices-1.5-5.ogg'
                 );
 
-                // choix
+
+                /**
+                 * Choix 1
+                 */
                 const choices = [
                     { text: "Arthur", isCorrect: true },
                     { text: "Lancelot", isCorrect: false },

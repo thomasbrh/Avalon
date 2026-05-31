@@ -25,6 +25,7 @@ export default class LoadingManager
         this.experience = new Experience()
         this.audioManager = new AudioManager()
         this.scene = this.experience.scene
+        this.resources = this.experience.resources
         this.camera = this.experience.camera.instance
         this.time = this.experience.time
         this.debug = this.experience.debug
@@ -159,6 +160,10 @@ export default class LoadingManager
                 // lance l'audio
                 this.audioManager.startAmbiantMusic()
 
+
+                /**
+                 * Deferred
+                 */
                 // charge sword, manor et ambiant-forest en arrière-plan
                 this.resources.deferredReady = this.resources.loadSources(deferredSources)
                 this.resources.deferredReady.then(() =>
