@@ -37,12 +37,12 @@
 .header__credit 
 {
     font-family: $font-secondary;
-    font-size: 12px;
+    font-size: 13px;
     letter-spacing: $letter-spacing-paragraph;
     text-transform: uppercase;
     text-decoration: none;
     color: $color-text-muted;
-    opacity: 0.5;
+    opacity: $opacity-medium;
     justify-self: start;
 
     &:hover
@@ -55,13 +55,16 @@
 {
     font-family: $font-primary;
     font-size: 18px;
-    letter-spacing: 1.5px;
+    letter-spacing: $letter-spacing-low;
     color: $color-accent-gold;
     text-decoration: none;
     justify-self: center;
     transition: opacity 0.2s;
 
-    &:hover { opacity: 0.75; }
+    &:hover 
+    { 
+        opacity: $opacity-high; 
+    }
 }
 
 
@@ -121,7 +124,7 @@
     letter-spacing: $letter-spacing-muted;
     text-transform: uppercase;
     color: $color-text-muted;
-    line-height: 1;
+    line-height: $line-height-base;
     margin: 0;
 }
 
@@ -138,9 +141,9 @@
 .hero__scroll-label 
 {
     font-family: $font-secondary;
-    font-size: 12px;
+    font-size: 13px;
     letter-spacing: $letter-spacing-paragraph;
     text-transform: uppercase;
     color: $color-text-muted;
-    opacity: 0.5;
+    opacity: $opacity-medium;
 }

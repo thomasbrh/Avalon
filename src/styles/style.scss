@@ -89,66 +89,6 @@ body
 }
 
 
-/* header */
-/* .header
-{
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 100;
-    display: grid;
-    grid-template-columns: 1fr auto 1fr;
-    align-items: center;
-    padding: 24px 96px;
-
-    -webkit-backdrop-filter: blur(3px);
-    backdrop-filter: blur(3px);
-    border-bottom: 1px solid $color-border-gold;
-    transition: background 0.4s ease, backdrop-filter 0.4s ease;
-}
-
-.header__credit
-{
-    font-family: $font-secondary;
-    font-size: 12px;
-    letter-spacing: $letter-spacing-paragraph;
-    text-transform: uppercase;
-    text-decoration: none;
-    color: $color-text-muted;
-    opacity: $opacity-medium;
-    justify-self: start;
-
-    &:hover
-    {
-        text-decoration: underline;
-        opacity: $opacity-high;
-    }
-}
-
-.header--playing
-{
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.5s ease;
-}
-
-.header__logo
-{
-    font-family: $font-primary;
-    font-size: 18px;
-    letter-spacing: $letter-spacing-muted;
-    color: $color-accent-gold;
-    text-decoration: none;
-    justify-self: center;
-    transition: opacity 0.2s;
-
-    &:hover 
-    { 
-        opacity: $opacity-high; 
-    }
-} */
-
 .audio-btn
 {
     position: fixed;
@@ -221,12 +161,12 @@ body
     color: $color-accent-gold;
 }
 
-.dialogue-box[data-speaker="morganne"] .dialogue-speaker
+.dialogue-box[data-speaker="morgane"] .dialogue-speaker
 {
     color: $color-accent-rose;
 }
 
-.dialogue-box[data-speaker="Dame du Lac"] .dialogue-speaker
+.dialogue-box[data-speaker="dame du lac"] .dialogue-speaker
 {
     color: $color-text-muted;
 }
