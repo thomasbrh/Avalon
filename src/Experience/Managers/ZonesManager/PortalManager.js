@@ -223,7 +223,7 @@ export default class PortalManager
                 y: this.targets['TargetPortal_morganne2'].y,
                 z: this.targets['TargetPortal_morganne2'].z,
                 duration: 3.2,
-                ease: 'none'
+                ease: 'sine.inOut'
             }, "<")
             // arthur position
             .to(this.arthur.position,
@@ -232,7 +232,7 @@ export default class PortalManager
                 y: this.targets['TargetPortal_arthur2'].y,
                 z: this.targets['TargetPortal_arthur2'].z,
                 duration: 3.6,
-                ease: 'none'
+                ease: 'sine.inOut'
             }, "<")
 
             .call(async () =>
@@ -316,7 +316,7 @@ export default class PortalManager
                 y: this.targets['TargetPortal_morganne3'].y,
                 z: this.targets['TargetPortal_morganne3'].z,
                 duration: 4,
-                ease: 'none'
+                ease: 'sine.inOut'
             }, "<")
             // arthur position
             .to(this.arthur.position,
@@ -325,7 +325,7 @@ export default class PortalManager
                 y: this.targets['TargetPortal_arthur3'].y,
                 z: this.targets['TargetPortal_arthur3'].z,
                 duration: 4.2,
-                ease: 'none'
+                ease: 'sine.inOut'
             },"<")
 
             .call(async () =>
@@ -415,7 +415,7 @@ export default class PortalManager
                 y: this.targets['TargetPortal_morganne4'].y,
                 z: this.targets['TargetPortal_morganne4'].z,
                 duration: 4,
-                ease: 'none'
+                ease: 'sine.inOut'
             }, "<")
             // arthur position
             .to(this.arthur.position,
@@ -424,7 +424,7 @@ export default class PortalManager
                 y: this.targets['TargetPortal_arthur4'].y,
                 z: this.targets['TargetPortal_arthur4'].z,
                 duration: 4.5,
-                ease: 'none'
+                ease: 'sine.inOut'
             }, "<")
 
             .call(async () =>
@@ -478,7 +478,7 @@ export default class PortalManager
                 y: this.targets['TargetPortal_morganne5'].y,
                 z: this.targets['TargetPortal_morganne5'].z,
                 duration: 3.2,
-                ease: 'none'
+                ease: 'sine.inOut'
             }, "<")
             // arthur position
             .to(this.arthur.position,
@@ -487,7 +487,7 @@ export default class PortalManager
                 y: this.targets['TargetPortal_arthur5'].y,
                 z: this.targets['TargetPortal_arthur5'].z,
                 duration: 3.5,
-                ease: 'none'
+                ease: 'sine.inOut'
             }, "<")
 
             // Question
@@ -601,7 +601,7 @@ export default class PortalManager
                 y: this.targets['TargetPortal_morganne6'].y,
                 z: this.targets['TargetPortal_morganne6'].z,
                 duration: 3,
-                ease: 'none'
+                ease: 'sine.inOut'
             }, "<")
             // arthur position
             .to(this.arthur.position,
@@ -610,7 +610,7 @@ export default class PortalManager
                 y: this.targets['TargetPortal_arthur6'].y,
                 z: this.targets['TargetPortal_arthur6'].z,
                 duration: 3.2,
-                ease: 'none'
+                ease: 'sine.inOut'
             }, "<")
 
 
@@ -643,7 +643,7 @@ export default class PortalManager
                 y: this.targets['TargetPortal_morganne7'].y,
                 z: this.targets['TargetPortal_morganne7'].z,
                 duration: 3,
-                ease: 'none'
+                ease: 'sine.inOut'
             }, "<")
             // arthur position
             .to(this.arthur.position,
@@ -652,7 +652,7 @@ export default class PortalManager
                 y: this.targets['TargetPortal_arthur7'].y,
                 z: this.targets['TargetPortal_arthur7'].z,
                 duration: 3.5,
-                ease: 'none'
+                ease: 'sine.inOut'
             }, "<")
 
             .call(async () =>
