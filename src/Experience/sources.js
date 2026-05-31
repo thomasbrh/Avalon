@@ -1,3 +1,6 @@
+/**
+ * Start loading
+ */
 export default 
 [
 
@@ -207,32 +210,6 @@ export default
 
 
     /**
-     * Manor sources
-     */
-    // glb
-    {
-        name: 'manorModel',
-        type: 'gltfModel',
-        path: 'models/manor/manor.glb'
-    },
-
-    // texture
-    // Lightmap
-    {
-        name: 'manorTextureLightmap',
-        type: 'texture',
-        path: 'textures/manor/manor_lightmap.webp'
-    },
-    // Normalmap
-    {
-        name: 'manorTextureNormalmap',
-        type: 'texture',
-        path: 'textures/manor/manor_normalmap.webp'
-    },
-
-
-
-    /**
      * portal sources
      */
     // glb
@@ -259,24 +236,38 @@ export default
 
 
     /**
+     * audio sources 
+     */
+    // ambiance
+    {
+        name: 'ambiantMusic',
+        type: 'audio',
+        path: 'audio/ambiant-music/ambiant-music.ogg'
+    },
+
+]
+
+
+
+/**
+ * Deferred
+ */
+export const deferredSources =
+[
+
+    /**
      * Sword sources
      */
-    // glb
     {
         name: 'swordModel',
         type: 'gltfModel',
         path: 'models/sword/sword.glb'
     },
-
-    // texture
-    // Lightmap
     {
         name: 'swordTextureLightmap',
         type: 'texture',
         path: 'textures/sword/sword_lightmap.webp'
     },
-    // texture
-    // Normalmap
     {
         name: 'swordTextureNormalmap',
         type: 'texture',
@@ -286,20 +277,33 @@ export default
 
 
     /**
-     * audio sources 
+     * Manor sources
      */
-    // ambiance
     {
-        name: 'ambiantMusic',
-        type: 'audio',
-        path: 'audio/ambiant-music/ambiant-music.mp3'
+        name: 'manorModel',
+        type: 'gltfModel',
+        path: 'models/manor/manor.glb'
+    },
+    {
+        name: 'manorTextureLightmap',
+        type: 'texture',
+        path: 'textures/manor/manor_lightmap.webp'
+    },
+    {
+        name: 'manorTextureNormalmap',
+        type: 'texture',
+        path: 'textures/manor/manor_normalmap.webp'
     },
 
-    // ambiant forest
+
+
+    /**
+     * Audio
+     */
     {
         name: 'ambiantForest',
         type: 'audio',
-        path: 'audio/ambiant-forest/ambiant-forest.mp3'
+        path: 'audio/ambiant-forest/ambiant-forest.ogg'
     },
 
 ]

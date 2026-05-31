@@ -60,6 +60,9 @@ export default class Resources extends EventEmitter
     }
 
 
+    /**
+     * Start
+     */
     startLoading()
     {
 
@@ -119,6 +122,42 @@ export default class Resources extends EventEmitter
 
         }
 
+    }
+
+
+    /**
+     * Deferred
+     */
+    loadSources(sources)
+    {
+        return new Promise((resolve) =>
+        {
+            let loaded = 0
+            const total = sources.length
+
+            const onLoad = (source, file) =>
+            {
+                this.items[source.name] = file
+                loaded++
+                if(loaded === total) resolve()
+            }
+
+            for(const source of sources)
+            {
+                if(source.type === 'gltfModel')
+                {
+                    this.loaders.gltfLoader.load(source.path, (file) => onLoad(source, file))
+                }
+                else if(source.type === 'texture')
+                {
+                    this.loaders.textureLoader.load(source.path, (file) => onLoad(source, file))
+                }
+                else if(source.type === 'audio')
+                {
+                    this.loaders.audioLoader.load(source.path, (file) => onLoad(source, file))
+                }
+            }
+        })
     }
 
 

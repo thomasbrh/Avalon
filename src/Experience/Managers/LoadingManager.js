@@ -1,6 +1,7 @@
 // import base
 import Experience from '../Experience.js'
 import AudioManager from './AudioManager.js'
+import { deferredSources } from '../sources.js'
 
 // import shaders
 import overlayVertexShader from '../shaders/overlay/vertex.glsl'
@@ -157,6 +158,13 @@ export default class LoadingManager
                 this.startExperience.disabled = true
                 // lance l'audio
                 this.audioManager.startAmbiantMusic()
+
+                // charge sword, manor et ambiant-forest en arrière-plan
+                this.resources.deferredReady = this.resources.loadSources(deferredSources)
+                this.resources.deferredReady.then(() =>
+                {
+                    this.experience.world.createDeferredZones()
+                })
 
                 // redirection direct vers portal
                 if(this.experience.storyManager.currentScene)

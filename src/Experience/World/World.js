@@ -38,14 +38,24 @@ export default class World
             this.island = new Island()
             this.portal = new Portal()
             this.lake = new Lake()
-            this.sword = new Sword()
-            this.manor = new Manor()
-            
+
             this.morganne = new Personnages('#E1C4F4')
             this.arthur = new Personnages('#FAB56F')
 
         })
         
+    }
+
+
+    /**
+     * Deferred 
+     */
+    createDeferredZones()
+    {
+        this.sword = new Sword()
+        this.manor = new Manor()
+        this.experience.storyManager.swordManager.init()
+        this.experience.storyManager.manorManager.init()
     }
 
 
