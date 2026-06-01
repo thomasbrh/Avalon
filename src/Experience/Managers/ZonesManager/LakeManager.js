@@ -153,61 +153,13 @@ export default class LakeManager
                 "Souviens-toi pour que le chemin se dévoile. Dis-moi… qu'est-ce qui la retient dans ton souvenir ?",
                 'audio/dialogue-lake/damedulac_voices-2.1-8.ogg');
 
-
-
-            /**
-             * Choix 2
-             */
-            const choices = [
-                { text: "Le roc", isCorrect: true },
-                { text: "Un tronc", isCorrect: false },
-            ];
-
-            // affiche les choix
-            this.storyManager.showChoices(choices, async (isCorrect) =>
-            {
-                if (isCorrect)
-                {
-                    // dame du lac 2.1-success-1
-                    await this.dialogueManager.playLine(
-                        "Dame du Lac",
-                        "Oui. Le roc. La pierre de ton destin.",
-                        'audio/dialogue-lake/damedulac_voices-2.1-success-1.ogg');
-                    this.dialogueManager.hide();
-
-                    this.timeline.play();
-
-                }
-                else
-                {
-                    // dame du lac 2.1-fail-1
-                    await this.dialogueManager.playLine(
-                        "Dame du Lac",
-                        "Non. Ce n'est pas le bois, creuse encore.",
-                        'audio/dialogue-lake/damedulac_voices-2.1-fail-1.ogg');
-                }
-            });
+            this.dialogueManager.hide();
+            this.storyManager.showNextIndicator();
         })
 
-        // lance l'animation du pont
-        .call(() => { this.experience.world.animationsClip.playClip(0); }, null, "+=0.1")
-        .to({}, { duration: 5 })
-
-
         
-        /**
-         * Scene 2.2
-         */
         .call(async () =>
         {
-            this.timeline.pause();
-
-            // dame du lac 2.2-1
-            await this.dialogueManager.playLine(
-                "Dame du Lac",
-                "Va jusqu'à la grotte. Puis reviens à moi.",
-                'audio/dialogue-lake/damedulac_voices-2.2-1.ogg');
-
             this.dialogueManager.hide();
             this.storyManager.goTo('sword');
         });

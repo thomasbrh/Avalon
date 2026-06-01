@@ -46,7 +46,7 @@ export default
     },
     // texture
     // Lightmap
-    {
+    /* {
         name: 'animationsTextureLightmap',
         type: 'texture',
         path: 'textures/animations/animations_lightmap.webp'
@@ -56,7 +56,7 @@ export default
         name: 'animationsTextureNormalmap',
         type: 'texture',
         path: 'textures/animations/animations_normalmap.webp'
-    },
+    }, */
     
 
 

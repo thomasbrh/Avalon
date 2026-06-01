@@ -33,18 +33,16 @@ export default class ManorManager
         this.timeline = gsap.timeline({ paused: true });
 
 
-        /**
-         * Appel des instances
-         */
-        this.resources.on('ready', () => 
-        {
-            this.manorTimeline();
-        });
-
     }
 
 
-    enter() 
+    init()
+    {
+        this.manorTimeline()
+    }
+
+
+    enter()
     {
         this.timeline.play();
         console.log('manor')
@@ -94,14 +92,33 @@ export default class ManorManager
                 ease: 'power2.inOut' 
             }, "<")
             // arthur position
-            .to(this.arthur.position, 
-            { 
-                x: this.targets['TargetManor_arthur1'].x, 
-                y: this.targets['TargetManor_arthur1'].y, 
-                z: this.targets['TargetManor_arthur1'].z, 
-                duration: 3.5, 
-                ease: 'power2.inOut' 
+            .to(this.arthur.position,
+            {
+                x: this.targets['TargetManor_arthur1'].x,
+                y: this.targets['TargetManor_arthur1'].y,
+                z: this.targets['TargetManor_arthur1'].z,
+                duration: 3.5,
+                ease: 'power2.inOut'
             }, "<")
+
+            .call(async () =>
+            {
+                this.timeline.pause();
+
+                // dame du lac 4.1-1
+                await this.dialogueManager.playLine(
+                    "Dame du Lac",
+                    "Te voilà revenu. Je vois que la pierre t'a reconnu.",
+                    'audio/dialogue-manor/damedulac_voices-4.1-1.ogg');
+                // arthur 4.1-1
+                await this.dialogueManager.playLine(
+                    "Arthur",
+                    "Oui, j'ai vu le jour où tout a commencé.",
+                    'audio/dialogue-manor/arthur_voices-4.1-1.ogg');
+
+                this.dialogueManager.hide();
+                this.storyManager.showNextIndicator();
+            })
 
 
 
@@ -136,60 +153,88 @@ export default class ManorManager
                 ease: 'power2.inOut' 
             }, "<")
             // arthur position
-            .to(this.arthur.position, 
-            { 
-                x: this.targets['TargetManor_arthur2'].x, 
-                y: this.targets['TargetManor_arthur2'].y, 
-                z: this.targets['TargetManor_arthur2'].z, 
-                duration: 3.5, 
-                ease: 'power2.inOut' 
+            .to(this.arthur.position,
+            {
+                x: this.targets['TargetManor_arthur2'].x,
+                y: this.targets['TargetManor_arthur2'].y,
+                z: this.targets['TargetManor_arthur2'].z,
+                duration: 3.5,
+                ease: 'power2.inOut'
             }, "<")
+
+            .call(async () =>
+            {
+                this.timeline.pause();
+
+                // dame du lac 4.2-1
+                await this.dialogueManager.playLine(
+                    "Dame du Lac",
+                    "Excalibur t'a rappelé autre chose… Un roi n'est pas seulement celui qui règne.",
+                    'audio/dialogue-manor/damedulac_voices-4.2-1.ogg');
+                // dame du lac 4.2-2
+                await this.dialogueManager.playLine(
+                    "Dame du Lac",
+                    "C'est celui qui protège, sert et porte le poids des autres.",
+                    'audio/dialogue-manor/damedulac_voices-4.2-2.ogg');
+                // arthur 4.2-1
+                await this.dialogueManager.playLine(
+                    "Arthur",
+                    "Ce n'était donc pas une récompense ?",
+                    'audio/dialogue-manor/arthur_voices-4.2-1.ogg');
+                // dame du lac 4.2-3
+                await this.dialogueManager.playLine(
+                    "Dame du Lac",
+                    "Non, c'était un serment.",
+                    'audio/dialogue-manor/damedulac_voices-4.2-3.ogg');
+                // dame du lac 4.2-4
+                await this.dialogueManager.playLine(
+                    "Dame du Lac",
+                    "Maintenant que tu as compris, rejoins le sommet de la montagne. Là-bas, un château t'attend.",
+                    'audio/dialogue-manor/damedulac_voices-4.2-4.ogg');
+
+                this.dialogueManager.hide();
+                this.storyManager.showNextIndicator();
+            })
 
 
 
             /**
              * Scene 4.3
              */
-            // Question
-            .call(async () => 
-            { 
-                this.timeline.pause(); 
-                
-                // question
-                this.dialogueManager.playLine(
-                    "Morganne", 
-                    "Arthur, Te souviens-tu du nom de ton épée ?", 
-                    './assets/sounds/morganne_question.mp3'
-                );
+            .call(async () =>
+            {
+                this.timeline.pause();
+
+                // morgane 4.3-1
+                await this.dialogueManager.playLine(
+                    "Morgane",
+                    "Pour avancer, souviens-toi du nom de ton royaume.",
+                    'audio/dialogue-manor/morgane_voices-4.3-1.ogg');
 
                 // choix
                 const choices = [
-                    { text: "Excalibur", isCorrect: true },
-                    { text: "Durandal", isCorrect: false },
+                    { text: "Camelot", isCorrect: true },
+                    { text: "Tintagel", isCorrect: false },
                 ];
 
-                // afffiche les choix 
-                this.storyManager.showChoices(choices, async (isCorrect) => 
+                // affiche les choix
+                this.storyManager.showChoices(choices, async (isCorrect) =>
                 {
-                    if (isCorrect) 
+                    if (isCorrect)
                     {
-                        this.dialogueManager.playLine(
-                            "Morganne", 
-                            "C'est exact. Ta mémoire te revient pas à pas. Regarde le chemin qui se dessine devant toi.", 
-                            '/audio/morganne_success.mp3'
-                        );
+                        await this.dialogueManager.playLine(
+                            "Morgane",
+                            "Oui, Camelot. C'était le cœur de ton royaume et le siège de la Table Ronde.",
+                            'audio/dialogue-manor/morgane_voices-4.3-success-1.ogg');
                         this.dialogueManager.hide();
-
                         this.timeline.play();
-
-                    } 
-                    else 
+                    }
+                    else
                     {
-                        this.dialogueManager.playLine(
-                            "Morganne", 
-                            "Non Arthur, ce n'est pas ça, essaye encore.", 
-                            '/audio/morganne_fail.mp3'
-                        );
+                        await this.dialogueManager.playLine(
+                            "Morgane",
+                            "Non, Tintagel est ton lieu de naissance. Ton château se trouve plus au centre du royaume.",
+                            'audio/dialogue-manor/morgane_voices-4.3-fail-1.ogg');
                     }
                 });
             })
@@ -268,14 +313,33 @@ export default class ManorManager
                 ease: 'power2.inOut' 
             }, "<")
             // arthur position
-            .to(this.arthur.position, 
-            { 
-                x: this.targets['TargetManor_arthur4'].x, 
-                y: this.targets['TargetManor_arthur4'].y, 
-                z: this.targets['TargetManor_arthur4'].z, 
-                duration: 3.5, 
-                ease: 'power2.inOut' 
+            .to(this.arthur.position,
+            {
+                x: this.targets['TargetManor_arthur4'].x,
+                y: this.targets['TargetManor_arthur4'].y,
+                z: this.targets['TargetManor_arthur4'].z,
+                duration: 3.5,
+                ease: 'power2.inOut'
             }, "<")
+
+            .call(async () =>
+            {
+                this.timeline.pause();
+
+                // arthur 4.4-1
+                await this.dialogueManager.playLine(
+                    "Arthur",
+                    "Mes souvenirs sont vagues. Les visages restent flous. Les voix se mélangent.",
+                    'audio/dialogue-manor/arthur_voices-4.4-1.ogg');
+                // morgane 4.4-1
+                await this.dialogueManager.playLine(
+                    "Morgane",
+                    "Sois patient. Continuons notre ascension.",
+                    'audio/dialogue-manor/morgane_voices-4.4-1.ogg');
+
+                this.dialogueManager.hide();
+                this.storyManager.showNextIndicator();
+            })
 
 
 
@@ -310,14 +374,33 @@ export default class ManorManager
                 ease: 'power2.inOut' 
             }, "<")
             // arthur position
-            .to(this.arthur.position, 
-            { 
-                x: this.targets['TargetManor_arthur5'].x, 
-                y: this.targets['TargetManor_arthur5'].y, 
-                z: this.targets['TargetManor_arthur5'].z, 
-                duration: 3.5, 
-                ease: 'power2.inOut' 
+            .to(this.arthur.position,
+            {
+                x: this.targets['TargetManor_arthur5'].x,
+                y: this.targets['TargetManor_arthur5'].y,
+                z: this.targets['TargetManor_arthur5'].z,
+                duration: 3.5,
+                ease: 'power2.inOut'
             }, "<")
+
+            .call(async () =>
+            {
+                this.timeline.pause();
+
+                // arthur 4.5-1
+                await this.dialogueManager.playLine(
+                    "Arthur",
+                    "Je me souviens d'une table, d'un serment et d'hommes que j'appelais mes frères…",
+                    'audio/dialogue-manor/arthur_voices-4.5-1.ogg');
+                // morgane 4.5-1
+                await this.dialogueManager.playLine(
+                    "Morgane",
+                    "Alors tu es prêt pour le dernier lieu.",
+                    'audio/dialogue-manor/morgane_voices-4.5-1.ogg');
+
+                this.dialogueManager.hide();
+                this.storyManager.showNextIndicator();
+            })
 
 
 
@@ -352,14 +435,38 @@ export default class ManorManager
                 ease: 'power2.inOut' 
             }, "<")
             // arthur position
-            .to(this.arthur.position, 
-            { 
-                x: this.targets['TargetManor_arthur6'].x, 
-                y: this.targets['TargetManor_arthur6'].y, 
-                z: this.targets['TargetManor_arthur6'].z, 
-                duration: 3.5, 
-                ease: 'power2.inOut' 
+            .to(this.arthur.position,
+            {
+                x: this.targets['TargetManor_arthur6'].x,
+                y: this.targets['TargetManor_arthur6'].y,
+                z: this.targets['TargetManor_arthur6'].z,
+                duration: 3.5,
+                ease: 'power2.inOut'
             }, "<")
+
+            .call(async () =>
+            {
+                this.timeline.pause();
+
+                // arthur 4.6-1
+                await this.dialogueManager.playLine(
+                    "Arthur",
+                    "Mes frères d'armes… Lancelot. Gauvain. Perceval.",
+                    'audio/dialogue-manor/arthur_voices-4.6-1.ogg');
+                // arthur 4.6-2
+                await this.dialogueManager.playLine(
+                    "Arthur",
+                    "Je vais enfin les revoir.",
+                    'audio/dialogue-manor/arthur_voices-4.6-2.ogg');
+                // morgane 4.6-1
+                await this.dialogueManager.playLine(
+                    "Morgane",
+                    "Mais rappelle-toi : Avalon ne montre jamais un souvenir sans raison.",
+                    'audio/dialogue-manor/morgane_voices-4.6-1.ogg');
+
+                this.dialogueManager.hide();
+                this.storyManager.showNextIndicator();
+            })
 
 
 
@@ -394,17 +501,86 @@ export default class ManorManager
                 ease: 'power2.inOut' 
             }, "<")
             // arthur position
-            .to(this.arthur.position, 
-            { 
-                x: this.targets['TargetManor_arthur7'].x, 
-                y: this.targets['TargetManor_arthur7'].y, 
-                z: this.targets['TargetManor_arthur7'].z, 
-                duration: 3.5, 
-                ease: 'power2.inOut' 
+            .to(this.arthur.position,
+            {
+                x: this.targets['TargetManor_arthur7'].x,
+                y: this.targets['TargetManor_arthur7'].y,
+                z: this.targets['TargetManor_arthur7'].z,
+                duration: 3.5,
+                ease: 'power2.inOut'
             }, "<")
 
-            
-            .call(() => 
+            .call(async () =>
+            {
+                this.timeline.pause();
+
+                // arthur 4.7-1
+                await this.dialogueManager.playLine(
+                    "Arthur",
+                    "Je croyais avancer vers un festin.",
+                    'audio/dialogue-manor/arthur_voices-4.7-1.ogg');
+                // arthur 4.7-2
+                await this.dialogueManager.playLine(
+                    "Arthur",
+                    "Vers des rires, des chants, des coupes levées autour de la Table Ronde.",
+                    'audio/dialogue-manor/arthur_voices-4.7-2.ogg');
+                // arthur 4.7-3
+                await this.dialogueManager.playLine(
+                    "Arthur",
+                    "Mais plus nous approchons… plus mon cœur se serre.",
+                    'audio/dialogue-manor/arthur_voices-4.7-3.ogg');
+                // morgane 4.7-1
+                await this.dialogueManager.playLine(
+                    "Morgane",
+                    "Parce qu'une part de toi sait déjà.",
+                    'audio/dialogue-manor/morgane_voices-4.7-1.ogg');
+                // arthur 4.7-4
+                await this.dialogueManager.playLine(
+                    "Arthur",
+                    "Sait quoi ?",
+                    'audio/dialogue-manor/arthur_voices-4.7-4.ogg');
+                // morgane 4.7-2
+                await this.dialogueManager.playLine(
+                    "Morgane",
+                    "Que les frères que l'on retrouve ne sont pas toujours ceux que l'on a perdus.",
+                    'audio/dialogue-manor/morgane_voices-4.7-2.ogg');
+                // morgane 4.7-3
+                await this.dialogueManager.playLine(
+                    "Morgane",
+                    "Et que le pardon est parfois une épreuve plus lourde que la guerre.",
+                    'audio/dialogue-manor/morgane_voices-4.7-3.ogg');
+                // arthur 4.7-5
+                await this.dialogueManager.playLine(
+                    "Arthur",
+                    "Alors qu'Avalon me montre la vérité.",
+                    'audio/dialogue-manor/arthur_voices-4.7-5.ogg');
+                // arthur 4.7-6
+                await this.dialogueManager.playLine(
+                    "Arthur",
+                    "Même si elle doit me briser une seconde fois.",
+                    'audio/dialogue-manor/arthur_voices-4.7-6.ogg');
+                // morgane 4.7-4
+                await this.dialogueManager.playLine(
+                    "Morgane",
+                    "C'est pour cela que tu es ici, mon frère.",
+                    'audio/dialogue-manor/morgane_voices-4.7-4.ogg');
+                // morgane 4.7-5
+                await this.dialogueManager.playLine(
+                    "Morgane",
+                    "Et non pour oublier ta vie.",
+                    'audio/dialogue-manor/morgane_voices-4.7-5.ogg');
+                // morgane 4.7-6
+                await this.dialogueManager.playLine(
+                    "Morgane",
+                    "Mais pour décider ce qu'elle signifie encore.",
+                    'audio/dialogue-manor/morgane_voices-4.7-6.ogg');
+
+                this.dialogueManager.hide();
+                this.timeline.play();
+            })
+
+
+            .call(() =>
             {
                 this.storyManager.showNextIndicator();
             })

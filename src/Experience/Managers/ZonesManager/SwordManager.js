@@ -32,18 +32,16 @@ export default class SwordManager
         this.timeline = gsap.timeline({ paused: true });
 
 
-        /**
-         * Appel des instances
-         */
-        this.resources.on('ready', () => 
-        {
-            this.swordTimeline();   
-        });
-
     }
 
 
-    enter() 
+    init()
+    {
+        this.swordTimeline()
+    }
+
+
+    enter()
     {
         this.timeline.play();
         console.log('sword')
@@ -92,68 +90,90 @@ export default class SwordManager
                 ease: 'power2.inOut' 
             }, "<")
             // arthur position
-            .to(this.arthur.position, 
-            { 
-                x: this.targets['TargetSword_arthur1'].x, 
-                y: this.targets['TargetSword_arthur1'].y, 
-                z: this.targets['TargetSword_arthur1'].z, 
-                duration: 3.5, 
-                ease: 'power2.inOut' 
+            .to(this.arthur.position,
+            {
+                x: this.targets['TargetSword_arthur1'].x,
+                y: this.targets['TargetSword_arthur1'].y,
+                z: this.targets['TargetSword_arthur1'].z,
+                duration: 3.5,
+                ease: 'power2.inOut'
             }, "<")
+
+            .call(async () =>
+            {
+                this.timeline.pause();
+
+                // choix
+                const choices = [
+                    { text: "Le roc", isCorrect: true },
+                    { text: "Un tronc", isCorrect: false },
+                ];
+
+                this.storyManager.showChoices(choices, async (isCorrect) =>
+                {
+                    if (isCorrect)
+                    {
+                        // dame du lac 2.1-success-1
+                        await this.dialogueManager.playLine(
+                            "Dame du Lac",
+                            "Oui. Le roc. La pierre de ton destin.",
+                            'audio/dialogue-lake/damedulac_voices-2.1-success-1.ogg');
+                        this.dialogueManager.hide();
+                        this.timeline.play();
+                    }
+                    else
+                    {
+                        // dame du lac 2.1-fail-1
+                        await this.dialogueManager.playLine(
+                            "Dame du Lac",
+                            "Non. Ce n'est pas le bois, creuse encore.",
+                            'audio/dialogue-lake/damedulac_voices-2.1-fail-1.ogg');
+                    }
+                });
+            })
+
+            // lance l'animation du pont
+            .call(() => { this.experience.world.animationsClip.playClip(0); }, null, "+=0.1")
+            .to({}, { duration: 5 })
+
+            .call(async () =>
+            {
+                this.timeline.pause();
+
+                // dame du lac 2.2-1
+                await this.dialogueManager.playLine(
+                    "Dame du Lac",
+                    "Va jusqu'à la grotte. Puis reviens à moi.",
+                    'audio/dialogue-lake/damedulac_voices-2.2-1.ogg');
+
+                this.dialogueManager.hide();
+                this.storyManager.showNextIndicator();
+            })
+
+            .call(async () =>
+            {
+                this.timeline.pause();
+
+                // arthur 3.1-1
+                await this.dialogueManager.playLine(
+                    "Arthur",
+                    "Là bas, dans la grotte… Il y a quelque chose qui m'appelle. Je ne le vois pas mais je le sens.",
+                    'audio/dialogue-sword/arthur_voices-3.1-1.ogg');
+                // morgane 3.1-1
+                await this.dialogueManager.playLine(
+                    "Morgane",
+                    "Alors suis ton instinct. Ce qui t'attend dans cette grotte t'appartient déjà.",
+                    'audio/dialogue-sword/morgane_voices-3.1-1.ogg');
+
+                this.dialogueManager.hide();
+                this.storyManager.showNextIndicator();
+            })
 
 
 
             /**
              * Scene 3.2
              */
-            // Question
-            .call(async () => 
-            { 
-                this.timeline.pause(); 
-                
-                // question
-                this.dialogueManager.playLine(
-                    "Morganne", 
-                    "Arthur, Te souviens-tu du nom de ton épée ?", 
-                    './assets/sounds/morganne_question.mp3'
-                );
-
-                // choix
-                const choices = [
-                    { text: "Excalibur", isCorrect: true },
-                    { text: "Durandal", isCorrect: false },
-                ];
-
-                // afffiche les choix 
-                this.storyManager.showChoices(choices, async (isCorrect) => 
-                {
-                    if (isCorrect) 
-                    {
-                        this.dialogueManager.playLine(
-                            "Morganne", 
-                            "C'est exact. Ta mémoire te revient pas à pas. Regarde le chemin qui se dessine devant toi.", 
-                            '/audio/morganne_success.mp3'
-                        );
-                        this.dialogueManager.hide();
-
-                        this.timeline.play();
-
-                    } 
-                    else 
-                    {
-                        this.dialogueManager.playLine(
-                            "Morganne", 
-                            "Non Arthur, ce n'est pas ça, essaye encore.", 
-                            '/audio/morganne_fail.mp3'
-                        );
-                    }
-                });
-            })
-            
-            // lance l'animation du pont
-            .call(() => { this.experience.world.animationsClip.playClip(0); }, null, "+=0.1")
-            .to({}, { duration: 5 })
-
             // camera se déplace vers scène 2
             .to(this.camera.instance.position, 
             { 
@@ -224,14 +244,33 @@ export default class SwordManager
                 ease: 'power2.inOut' 
             }, "<")
             // arthur position
-            .to(this.arthur.position, 
-            { 
-                x: this.targets['TargetSword_arthur3'].x, 
-                y: this.targets['TargetSword_arthur3'].y, 
-                z: this.targets['TargetSword_arthur3'].z, 
-                duration: 3.5, 
-                ease: 'power2.inOut' 
+            .to(this.arthur.position,
+            {
+                x: this.targets['TargetSword_arthur3'].x,
+                y: this.targets['TargetSword_arthur3'].y,
+                z: this.targets['TargetSword_arthur3'].z,
+                duration: 3.5,
+                ease: 'power2.inOut'
             }, "<")
+
+            .call(async () =>
+            {
+                this.timeline.pause();
+
+                // arthur 3.3-1
+                await this.dialogueManager.playLine(
+                    "Arthur",
+                    "Des souvenirs me reviennent…",
+                    'audio/dialogue-sword/arthur_voices-3.3-1.ogg');
+                // arthur 3.3-2
+                await this.dialogueManager.playLine(
+                    "Arthur",
+                    "Une pierre, des regards, une foule à genoux…",
+                    'audio/dialogue-sword/arthur_voices-3.3-2.ogg');
+
+                this.dialogueManager.hide();
+                this.storyManager.showNextIndicator();
+            })
 
 
 
@@ -266,14 +305,33 @@ export default class SwordManager
                 ease: 'power2.inOut' 
             }, "<")
             // arthur position
-            .to(this.arthur.position, 
-            { 
-                x: this.targets['TargetSword_arthur4'].x, 
-                y: this.targets['TargetSword_arthur4'].y, 
-                z: this.targets['TargetSword_arthur4'].z, 
-                duration: 3.5, 
-                ease: 'power2.inOut' 
+            .to(this.arthur.position,
+            {
+                x: this.targets['TargetSword_arthur4'].x,
+                y: this.targets['TargetSword_arthur4'].y,
+                z: this.targets['TargetSword_arthur4'].z,
+                duration: 3.5,
+                ease: 'power2.inOut'
             }, "<")
+
+            .call(async () =>
+            {
+                this.timeline.pause();
+
+                // morgane 3.4-1
+                await this.dialogueManager.playLine(
+                    "Morgane",
+                    "N'avance pas trop vite.",
+                    'audio/dialogue-sword/morgane_voices-3.4-1.ogg');
+                // morgane 3.4-2
+                await this.dialogueManager.playLine(
+                    "Morgane",
+                    "Laisse les souvenirs traverser la brume.",
+                    'audio/dialogue-sword/morgane_voices-3.4-2.ogg');
+
+                this.dialogueManager.hide();
+                this.storyManager.showNextIndicator();
+            })
 
 
 
@@ -299,14 +357,43 @@ export default class SwordManager
                 ease: 'power2.inOut' 
             }, "<")
             // arthur position
-            .to(this.arthur.position, 
-            { 
-                x: this.targets['TargetSword_arthur5'].x, 
-                y: this.targets['TargetSword_arthur5'].y, 
-                z: this.targets['TargetSword_arthur5'].z, 
-                duration: 3.5, 
-                ease: 'power2.inOut' 
+            .to(this.arthur.position,
+            {
+                x: this.targets['TargetSword_arthur5'].x,
+                y: this.targets['TargetSword_arthur5'].y,
+                z: this.targets['TargetSword_arthur5'].z,
+                duration: 3.5,
+                ease: 'power2.inOut'
             }, "<")
+
+            .call(async () =>
+            {
+                this.timeline.pause();
+
+                // arthur 3.5-1
+                await this.dialogueManager.playLine(
+                    "Arthur",
+                    "J'ai tiré cette épée. Personne n'y croyait. Pas même moi.",
+                    'audio/dialogue-sword/arthur_voices-3.5-1.ogg');
+                // arthur 3.5-2
+                await this.dialogueManager.playLine(
+                    "Arthur",
+                    "Et lorsqu'elle est sortie du roc… tout a changé.",
+                    'audio/dialogue-sword/arthur_voices-3.5-2.ogg');
+                // morgane 3.5-1
+                await this.dialogueManager.playLine(
+                    "Morgane",
+                    "Ce jour-là, quelque chose s'est éveillé en toi.",
+                    'audio/dialogue-sword/morgane_voices-3.5-1.ogg');
+                // arthur 3.5-3
+                await this.dialogueManager.playLine(
+                    "Arthur",
+                    "Qu'est-ce que cela signifiait ?",
+                    'audio/dialogue-sword/arthur_voices-3.5-3.ogg');
+
+                this.dialogueManager.hide();
+                this.storyManager.showNextIndicator();
+            })
 
 
 
@@ -351,14 +438,33 @@ export default class SwordManager
             },)
             
             // arthur position
-            .to(this.arthur.position, 
-            { 
-                x: this.targets['TargetSword_arthur6'].x, 
-                y: this.targets['TargetSword_arthur6'].y, 
-                z: this.targets['TargetSword_arthur6'].z, 
-                duration: 3.5, 
-                ease: 'power2.inOut' 
+            .to(this.arthur.position,
+            {
+                x: this.targets['TargetSword_arthur6'].x,
+                y: this.targets['TargetSword_arthur6'].y,
+                z: this.targets['TargetSword_arthur6'].z,
+                duration: 3.5,
+                ease: 'power2.inOut'
             }, "<")
+
+            .call(async () =>
+            {
+                this.timeline.pause();
+
+                // morgane 3.6-1
+                await this.dialogueManager.playLine(
+                    "Morgane",
+                    "Cette lame ne pouvait être tirée que par celui qui portait le sang royal. Ce jour-là, Arthur, le royaume a reconnu son roi.",
+                    'audio/dialogue-sword/morgane_voices-3.6-1.ogg');
+                // arthur 3.6-1
+                await this.dialogueManager.playLine(
+                    "Arthur",
+                    "Roi… J'étais donc roi.",
+                    'audio/dialogue-sword/arthur_voices-3.6-1.ogg');
+
+                this.dialogueManager.hide();
+                this.storyManager.showNextIndicator();
+            })
 
 
 
@@ -393,14 +499,33 @@ export default class SwordManager
                 ease: 'power2.inOut' 
             }, "<")
             // arthur position
-            .to(this.arthur.position, 
-            { 
-                x: this.targets['TargetSword_arthur7'].x, 
-                y: this.targets['TargetSword_arthur7'].y, 
-                z: this.targets['TargetSword_arthur7'].z, 
-                duration: 3.5, 
-                ease: 'power2.inOut' 
+            .to(this.arthur.position,
+            {
+                x: this.targets['TargetSword_arthur7'].x,
+                y: this.targets['TargetSword_arthur7'].y,
+                z: this.targets['TargetSword_arthur7'].z,
+                duration: 3.5,
+                ease: 'power2.inOut'
             }, "<")
+
+            .call(async () =>
+            {
+                this.timeline.pause();
+
+                // morgane 3.7-1
+                await this.dialogueManager.playLine(
+                    "Morgane",
+                    "La Dame du Lac t'attend.",
+                    'audio/dialogue-sword/morgane_voices-3.7-1.ogg');
+                // morgane 3.7-2
+                await this.dialogueManager.playLine(
+                    "Morgane",
+                    "Maintenant que la pierre a parlé, l'eau peut te rendre le reste.",
+                    'audio/dialogue-sword/morgane_voices-3.7-2.ogg');
+
+                this.dialogueManager.hide();
+                this.storyManager.showNextIndicator();
+            })
 
 
 
