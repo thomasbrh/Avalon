@@ -4,7 +4,7 @@
 <head>
     <title>La dernière quête - Avalon</title>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <meta name="description" content="Une expérience interactive et narrative sur le mythe d'Avalon.">
     <meta name="author" content="Thomas Bruch">
 
@@ -83,6 +83,12 @@
     <!-- choix -->
     <div id="choices-container"></div>
 
+
+    <!-- responsive -->
+    <div class="rotate-overlay" aria-live="polite" role="status">
+        <div class="rotate-overlay__icon"></div>
+        <p class="rotate-overlay__label">Veuillez tourner votre appareil</p>
+    </div>
 
     <canvas class="webgl" aria-hidden="true"></canvas>
 

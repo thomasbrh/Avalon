@@ -313,3 +313,63 @@ body
     display: none;
     opacity: 0;
 }
+
+
+/* rotate overlay */ // responsive mobile landscape
+.rotate-overlay
+{
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 2000;
+    background: $color-bg-deep;
+
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+}
+
+.rotate-overlay__icon
+{
+    width: 36px;
+    height: 60px;
+    border: 2px solid $color-accent-gold;
+    border-radius: 6px;
+    position: relative;
+    animation: rotatePhone 2.4s ease-in-out infinite;
+}
+
+.rotate-overlay__icon::before
+{
+    content: '';
+    position: absolute;
+    top: 6px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: $color-accent-gold;
+    opacity: $opacity-high;
+}
+
+.rotate-overlay__label
+{
+    font-family: $font-primary;
+    font-size: 1rem;
+    color: $color-accent-gold;
+    letter-spacing: $letter-spacing-muted;
+    text-align: center;
+    opacity: $opacity-high;
+}
+
+@keyframes rotatePhone
+{
+    0%    { transform: rotate(0deg); }
+    25%   { transform: rotate(0deg); }
+    55%   { transform: rotate(-90deg); }
+    75%   { transform: rotate(-90deg); }
+    100%  { transform: rotate(0deg); }
+}
+
