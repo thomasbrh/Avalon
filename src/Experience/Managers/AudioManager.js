@@ -24,14 +24,16 @@ export default class AudioManager
         this.resources = this.experience.resources
         this.camera = this.experience.camera
 
-        this.audioContext = new AudioContext();
         this.audioListener = new THREE.AudioListener()
 
-        
+
         /**
-         * inisialisations 
+         * inisialisations
          */
         this.isMuted = false
+        this.voicePlayer = new Audio()
+        this.musicVolume = 0.07
+        this.forestVolume = 0.08
 
 
         /**
@@ -39,8 +41,9 @@ export default class AudioManager
          */
         this.audioBtn = document.querySelector('.audio-btn')
 
-        this.audioBtn.addEventListener('click', () =>
+        this.audioBtn.addEventListener('click', (event) =>
         {
+            event.stopPropagation()
             this.toggleMute()
         })
 
@@ -73,7 +76,7 @@ export default class AudioManager
         {
             this.musicTrack.setBuffer(this.buffer)
             this.musicTrack.setLoop(true)
-            this.musicTrack.setVolume(0.07)
+            this.musicTrack.setVolume(this.musicVolume)
             this.musicTrack.play()
         }
     }
@@ -87,7 +90,7 @@ export default class AudioManager
         {
             this.forestTrack.setBuffer(this.buffer)
             this.forestTrack.setLoop(true)
-            this.forestTrack.setVolume(0.08)
+            this.forestTrack.setVolume(this.forestVolume)
             this.forestTrack.play()
         }
     }
@@ -100,7 +103,9 @@ export default class AudioManager
     {
         this.isMuted = !this.isMuted
 
-        this.audioListener.setMasterVolume(this.isMuted ? 0 : 1)
+        this.musicTrack.setVolume(this.isMuted ? 0 : this.musicVolume)
+        this.forestTrack.setVolume(this.isMuted ? 0 : this.forestVolume)
+        this.voicePlayer.muted = this.isMuted
         this.audioBtn.classList.toggle('is-muted', this.isMuted)
         this.audioBtn.textContent = this.isMuted ? 'Muet' : 'Son'
     }

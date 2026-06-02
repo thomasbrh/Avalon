@@ -1,10 +1,11 @@
+import AudioManager from './AudioManager.js'
 
 export default class DialogueManager
 {
 
-    constructor() 
+    constructor()
     {
-        this.voicePlayer = new Audio()
+        this.voicePlayer = new AudioManager().voicePlayer
 
         /**
          * DOM
@@ -15,12 +16,13 @@ export default class DialogueManager
 
         // gestion du clic + touch
         this.skipResolver = null
-        window.addEventListener('click', () => 
+        this.dialogueBox.addEventListener('click', () =>
         {
             if (this.skipResolver) this.skipDialogue()
         })
-        window.addEventListener('touchstart', () => 
+        this.dialogueBox.addEventListener('touchstart', (event) =>
         {
+            event.preventDefault()
             if (this.skipResolver) this.skipDialogue()
         })
     }

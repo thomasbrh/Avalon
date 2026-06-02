@@ -31,6 +31,7 @@ export default class StoryManager
          * Initialisation
          */
         this.locked = false
+        this.indicatorVisible = false
         this.zones = 
         {
             portal: this.portalManager,
@@ -55,26 +56,29 @@ export default class StoryManager
         this.initInteraction()
     }
 
-    initInteraction() 
+    initInteraction()
     {
-        this.indicator.addEventListener('click', () => 
+        const handler = (event) =>
         {
+            if (!this.indicatorVisible) return
+            event.preventDefault()
+            
+            this.indicatorVisible = false
             this.indicator.style.display = 'none'
+            document.body.classList.remove('indicator-active')
+
             if (this.currentScene && this.currentScene.timeline)
                 this.currentScene.timeline.play()
-        })
-        this.indicator.addEventListener('touchstart', () => 
-        {
-            this.indicator.style.display = 'none'
-            if (this.currentScene && this.currentScene.timeline)
-                this.currentScene.timeline.play()
-        })
+        }
+        window.addEventListener('click', handler)
+        window.addEventListener('touchstart', handler)
     }
 
-    showNextIndicator() 
+    showNextIndicator()
     {
-        // overwrite le none
+        this.indicatorVisible = true
         this.indicator.style.display = 'block'
+        document.body.classList.add('indicator-active')
     }
 
 
@@ -91,13 +95,14 @@ export default class StoryManager
             button.classList.add('btn', 'btn--large')
             
             // Événement au clic
-            button.addEventListener('click', () => 
+            button.addEventListener('click', (event) =>
             {
-                if (choice.isCorrect) 
+                event.stopPropagation()
+                if (choice.isCorrect)
                 {
                     this.choicesContainer.style.display = 'none'
                     onResult(true)
-                } else 
+                } else
                 {
                     onResult(false)
                 }
