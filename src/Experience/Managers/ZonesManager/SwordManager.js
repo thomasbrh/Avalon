@@ -23,7 +23,6 @@ export default class SwordManager
         this.time = this.experience.time
         this.storyManager = storyManager 
         this.dialogueManager = storyManager.dialogueManager
-        this.animationsClip = this.experience.world.animationsClip
 
         
         /**
@@ -59,6 +58,12 @@ export default class SwordManager
 
 
         this.timeline
+            .call(() => 
+            { 
+                // show sword
+                this.experience.world.sword.model.visible = true 
+            })
+
             /**
              * Scene 3.1
              */
@@ -102,8 +107,9 @@ export default class SwordManager
             .call(async () =>
             {
                 this.timeline.pause();
-
-                // choix
+                /**
+                 * Choix sword
+                 */
                 const choices = [
                     { text: "Le roc", isCorrect: true },
                     { text: "Un tronc", isCorrect: false },
@@ -277,6 +283,12 @@ export default class SwordManager
             /**
              * Scene 3.4
              */
+            .call(() =>
+            {
+                // hide lake + anim
+                this.experience.world.lake.model.visible = false
+                this.experience.world.animationsClip.model.visible = false
+            })
             // camera se déplace vers scène 4
             .to(this.camera.instance.position, 
             { 
@@ -400,6 +412,14 @@ export default class SwordManager
             /**
              * Scene 3.6
              */
+            // show lake + animations
+            .call(() =>
+            {
+                // show lake + anim
+                this.experience.world.lake.model.visible = true
+                this.experience.world.animationsClip.model.visible = true
+            })
+
             // camera se déplace vers scène 6
             .to(this.camera.instance.position, 
             { 
@@ -570,7 +590,7 @@ export default class SwordManager
             }, "<")
 
 
-        .call(() => 
+        .call(() =>
         {
             this.storyManager.goTo('manor');
         });

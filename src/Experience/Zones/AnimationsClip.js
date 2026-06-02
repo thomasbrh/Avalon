@@ -76,8 +76,31 @@ export default class AnimationsClip
     }
 
 
+    setVisible(bool)
+    {
+        this.model.visible = bool
+    }
+
+
+    dispose()
+    {
+        this.model.visible = false
+        this.mixer.stopAllAction()
+        this.mixer = null
+        this.model.traverse((child) =>
+        {
+            if (child.isMesh)
+            {
+                child.geometry.dispose()
+                child.material.dispose()
+            }
+        })
+        this.scene.remove(this.model)
+    }
+
+
     // bloc pour jouer une animation
-    playClip(index) 
+    playClip(index)
     {
         if (!this.mixer || !this.clips[index]) return
 

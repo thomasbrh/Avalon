@@ -25,7 +25,6 @@ export default class PortalManager
         this.time = this.experience.time
         this.storyManager = storyManager
         this.dialogueManager = storyManager.dialogueManager
-        this.animationsClip = this.experience.world.animationsClip
 
 
         /**
@@ -83,7 +82,10 @@ export default class PortalManager
     portalTimeline()
     {
         this.timeline
-
+            .call( () =>
+                // lance l'audio d'ambiance
+                this.audioManager.startAmbiantForest()
+            )
             /**
              * Scene 1.1
              */
@@ -110,16 +112,6 @@ export default class PortalManager
             .call(async () =>
             {
                 this.timeline.pause();
-                await this.resources.deferredReady;
-                // fix freeze deferred textures — caméra stationnaire, même fix que les arbres
-                Object.values(this.resources.items).forEach(item =>
-                {
-                    if (item?.isTexture)
-                    {
-                        this.experience.renderer.instance.initTexture(item)
-                    }
-                })
-                this.audioManager.startAmbiantForest();
 
                 // arthur 1.1-1
                 await this.dialogueManager.playLine(
@@ -196,8 +188,25 @@ export default class PortalManager
                     "Fais-moi confiance, et Avalon te rendra ce que la guerre t'a arraché.",
                     'audio/dialogue-portal/morgane_voices-1.1-6.ogg');
 
-                this.dialogueManager.hide();
-                this.storyManager.showNextIndicator();
+                this.dialogueManager.hide()
+
+
+                /**
+                 * Deferred
+                 */
+                // attend les assets
+                await this.resources.deferredReady
+
+                // initialise les zones et upload les textures
+                this.experience.world.createDeferredZones()
+                Object.values(this.resources.items).forEach(item =>
+                {
+                    if (item?.isTexture)
+                    {
+                        this.experience.renderer.instance.initTexture(item)
+                    }
+                })
+                this.storyManager.showNextIndicator()
             })
 
 
@@ -205,6 +214,11 @@ export default class PortalManager
             /**
              * Scene 1.2
              */
+            .call(() => 
+            { 
+                // show lake
+                this.experience.world.lake.model.visible = true 
+            })
             // camera se déplace vers scène 2
             .to(this.camera.instance.position,
             {
@@ -298,6 +312,11 @@ export default class PortalManager
             /**
              * Scene 1.3
              */
+            .call(() => 
+            { 
+                // dispose shader portal
+                this.experience.world.portal.disposeShaderMesh() 
+            })
             // camera se déplace vers scène 3
             .to(this.camera.instance.position,
             {
@@ -397,6 +416,11 @@ export default class PortalManager
             /**
              * Scene 1.4
              */
+            .call(() =>
+            {
+                // dispose portal
+                this.experience.world.portal.dispose()
+            })
             // camera se déplace vers scène 4
             .to(this.camera.instance.position,
             {
@@ -497,11 +521,23 @@ export default class PortalManager
                 ease: 'sine.inOut'
             }, "<")
 
-            // Question
+
+
+            /**
+             * Questions
+             */
+            .call(() => 
+            { 
+                // show animations
+                this.experience.world.animationsClip.model.visible = true 
+            })
+
             .call(async () =>
             {
                 this.timeline.pause();
-
+                /**
+                 * Question Portal
+                 */
                 // morgane 1.5-1
                 await this.dialogueManager.playLine(
                     "Morgane",
@@ -532,10 +568,8 @@ export default class PortalManager
                     "Dis-moi lequel.",
                     'audio/dialogue-portal/morgane_voices-1.5-5.ogg'
                 );
-
-
                 /**
-                 * Choix 1
+                 * Choix portal
                  */
                 const choices = [
                     { text: "Arthur", isCorrect: true },

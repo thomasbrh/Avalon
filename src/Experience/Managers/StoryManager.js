@@ -3,7 +3,6 @@ import Experience from '../Experience.js'
 
 // import Manager
 import DialogueManager from './DialogueManager.js'
-import AudioManager from './AudioManager.js'
 
 // import ZonesManager
 import PortalManager from './ZonesManager/PortalManager.js'
@@ -32,7 +31,6 @@ export default class StoryManager
          * Initialisation
          */
         this.locked = false
-        this.step = 0
         this.zones = 
         {
             portal: this.portalManager,

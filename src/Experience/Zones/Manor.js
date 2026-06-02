@@ -90,4 +90,11 @@ export default class Manor
         // add the manor to the scene
         this.scene.add(this.model)
     }
+
+
+    setVisible(bool)
+    {
+        this.model.visible = bool
+    }
+
 }

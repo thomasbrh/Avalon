@@ -173,6 +173,37 @@ export default class Portal
     }
 
 
+    setVisible(bool)
+    {
+        this.model.visible = bool
+    }
+
+
+    disposeShaderMesh()
+    {
+        this.portalShaderMesh.visible = false
+        this.portalShaderMesh.geometry.dispose()
+        this.portalShaderMaterial.dispose()
+    }
+
+
+    dispose()
+    {
+        this.model.visible = false
+        this.portalTextureLightmap.dispose()
+        this.portalTextureNormalmap.dispose()
+        this.model.traverse((child) =>
+        {
+            if (child.isMesh)
+            {
+                child.geometry.dispose()
+                child.material.dispose()
+            }
+        })
+        this.scene.remove(this.model)
+    }
+
+
     update()
     {
         this.portalShaderMaterial.uniforms.uTime.value = this.time.elapsed * 0.001

@@ -24,7 +24,6 @@ export default class ManorManager
         this.time = this.experience.time
         this.storyManager = storyManager 
         this.dialogueManager = storyManager.dialogueManager
-        this.animationsClip = this.experience.world.animationsClip
 
         
         /**
@@ -60,7 +59,6 @@ export default class ManorManager
         
         
         this.timeline
-
             /**
              * Scene 4.1
              */
@@ -205,13 +203,18 @@ export default class ManorManager
             {
                 this.timeline.pause();
 
+                /**
+                 * Question Manor
+                 */
                 // morgane 4.3-1
                 await this.dialogueManager.playLine(
                     "Morgane",
                     "Pour avancer, souviens-toi du nom de ton royaume.",
                     'audio/dialogue-manor/morgane_voices-4.3-1.ogg');
 
-                // choix
+                /**
+                 * Choix manor
+                 */
                 const choices = [
                     { text: "Camelot", isCorrect: true },
                     { text: "Tintagel", isCorrect: false },
@@ -244,9 +247,9 @@ export default class ManorManager
             .to({}, { duration: 5 })
 
             // camera se déplace vers scène 3
-            .to(this.camera.instance.position, 
-            { 
-                x: this.targets['TargetManor_camera3'].x, 
+            .to(this.camera.instance.position,
+            {
+                x: this.targets['TargetManor_camera3'].x,
                 y: this.targets['TargetManor_camera3'].y, 
                 z: this.targets['TargetManor_camera3'].z, 
                 duration: 3, 
@@ -285,6 +288,18 @@ export default class ManorManager
             /**
              * Scene 4.4
              */
+            .call(() =>
+            {
+                // dispose all sauf manor
+                this.experience.world.lake?.dispose?.()
+                this.experience.world.sword?.dispose?.()
+                this.experience.world.animationsClip?.dispose?.()
+                this.experience.world.island?.disposeTreesPack1?.()
+                this.experience.world.island?.disposeTreesPack2?.()
+
+                // show manor
+                this.experience.world.manor.model.visible = true 
+            })
             // camera se déplace vers scène 4
             .to(this.camera.instance.position, 
             { 

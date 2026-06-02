@@ -71,6 +71,29 @@ export default class Lake
         // add the lake to the scene
         this.scene.add(this.model)
         this.model.position.set(0, 0 ,0 )
+        this.model.visible = false
+    }
+
+
+    setVisible(bool)
+    {
+        this.model.visible = bool
+    }
+
+
+    dispose()
+    {
+        this.lakeTextureLightmap.dispose()
+        this.lakeTextureNormalmap.dispose()
+        this.model.traverse((child) =>
+        {
+            if (child.isMesh)
+            {
+                child.geometry.dispose()
+                child.material.dispose()
+            }
+        })
+        this.scene.remove(this.model)
     }
 
 }

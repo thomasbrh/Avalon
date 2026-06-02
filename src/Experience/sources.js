@@ -35,32 +35,6 @@ export default
 
 
     /**
-     * Animations sources
-     */
-    // Animations
-    // glb
-    {
-        name: 'animationsModel',
-        type: 'gltfModel',
-        path: 'models/animations/animations.glb'
-    },
-    // texture
-    // Lightmap
-    /* {
-        name: 'animationsTextureLightmap',
-        type: 'texture',
-        path: 'textures/animations/animations_lightmap.webp'
-    },
-    // Normalmap
-    {
-        name: 'animationsTextureNormalmap',
-        type: 'texture',
-        path: 'textures/animations/animations_normalmap.webp'
-    }, */
-    
-
-
-    /**
      * Island sources
      */
     // Island
@@ -85,6 +59,7 @@ export default
     },
 
 
+
     // Ocean sources
     // glb
     {
@@ -107,6 +82,7 @@ export default
     },
 
 
+    
     // Rocks sources
     // glb
     {
@@ -126,85 +102,6 @@ export default
         name: 'rocksTextureNormalmap',
         type: 'texture',
         path: 'textures/island/rocks/rocks_normalmap.webp'
-    },
-
-
-    // Trees sources
-    // glb
-    {
-        name: 'treesModelPack01',
-        type: 'gltfModel',
-        path: 'models/island/trees/TreesPack01.glb'
-    },
-    {
-        name: 'treesModelPack02',
-        type: 'gltfModel',
-        path: 'models/island/trees/TreesPack02.glb'
-    },
-    {
-        name: 'treesModelPack03',
-        type: 'gltfModel',
-        path: 'models/island/trees/TreesPack03.glb'
-    },
-
-    // texture
-    // Lightmap
-    {   
-        name: 'treesTextureLightmapPack01',
-        type: 'texture',
-        path: 'textures/island/trees/trees_lightmapPack01.webp'
-    },
-    {   
-        name: 'treesTextureLightmapPack02',
-        type: 'texture',
-        path: 'textures/island/trees/trees_lightmapPack02.webp'
-    },
-    {   
-        name: 'treesTextureLightmapPack03',
-        type: 'texture',
-        path: 'textures/island/trees/trees_lightmapPack03.webp'
-    },
-    // Normalmap
-    {
-        name: 'treesTextureNormalmapPack01',
-        type: 'texture',
-        path: 'textures/island/trees/trees_normalmapPack01.webp'
-    },
-    {
-        name: 'treesTextureNormalmapPack02',
-        type: 'texture',
-        path: 'textures/island/trees/trees_normalmapPack02.webp'
-    },
-    {
-        name: 'treesTextureNormalmapPack03',
-        type: 'texture',
-        path: 'textures/island/trees/trees_normalmapPack03.webp'
-    },
-
-
-
-    /**
-     * lake sources
-     */
-    // glb
-    {
-        name: 'lakeModel',
-        type: 'gltfModel',
-        path: 'models/lake/lake.glb'
-    },
-
-    // texture
-    // Lightmap
-    {
-        name: 'lakeTextureLightmap',
-        type: 'texture',
-        path: 'textures/lake/lake_lightmap.webp'
-    },
-    // Normalmap
-    {
-        name: 'lakeTextureNormalmap',
-        type: 'texture',
-        path: 'textures/lake/lake_normalmap.webp'
     },
 
 
@@ -236,7 +133,7 @@ export default
 
 
     /**
-     * audio sources 
+     * audio sources
      */
     // ambiance
     {
@@ -244,8 +141,15 @@ export default
         type: 'audio',
         path: 'audio/ambiant-music/ambiant-music.ogg'
     },
+    {
+        name: 'ambiantForest',
+        type: 'audio',
+        path: 'audio/ambiant-forest/ambiant-forest.ogg'
+    },
 
 ]
+
+
 
 
 
@@ -256,18 +160,103 @@ export const deferredSources =
 [
 
     /**
+     * Animations sources
+     */
+    // Animations
+    // glb
+    {
+        name: 'animationsModel',
+        type: 'gltfModel',
+        path: 'models/animations/animations.glb'
+    },
+
+
+
+    /**
+     * Trees sources
+     */
+    // Trees Pack01
+    // glb
+    {
+        name: 'treesModelPack01',
+        type: 'gltfModel',
+        path: 'models/island/trees/TreesPack01.glb'
+    },
+    // texture
+    // Lightmap
+    {
+        name: 'treesTextureLightmapPack01',
+        type: 'texture',
+        path: 'textures/island/trees/trees_lightmapPack01.webp'
+    },
+    // Normalmap
+    {
+        name: 'treesTextureNormalmapPack01',
+        type: 'texture',
+        path: 'textures/island/trees/trees_normalmapPack01.webp'
+    },
+
+    // Trees Pack02
+    // glb
+    {
+        name: 'treesModelPack02',
+        type: 'gltfModel',
+        path: 'models/island/trees/TreesPack02.glb'
+    },
+    // texture
+    // Lightmap
+    {
+        name: 'treesTextureLightmapPack02',
+        type: 'texture',
+        path: 'textures/island/trees/trees_lightmapPack02.webp'
+    },
+    // Normalmap
+    {
+        name: 'treesTextureNormalmapPack02',
+        type: 'texture',
+        path: 'textures/island/trees/trees_normalmapPack02.webp'
+    },
+
+    // Trees Pack03
+    // glb
+    {
+        name: 'treesModelPack03',
+        type: 'gltfModel',
+        path: 'models/island/trees/TreesPack03.glb'
+    },
+    // texture
+    // Lightmap
+    {
+        name: 'treesTextureLightmapPack03',
+        type: 'texture',
+        path: 'textures/island/trees/trees_lightmapPack03.webp'
+    },
+    // Normalmap
+    {
+        name: 'treesTextureNormalmapPack03',
+        type: 'texture',
+        path: 'textures/island/trees/trees_normalmapPack03.webp'
+    },
+
+
+
+    /**
      * Sword sources
      */
+    // glb
     {
         name: 'swordModel',
         type: 'gltfModel',
         path: 'models/sword/sword.glb'
     },
+    // texture
+    // Lightmap
     {
         name: 'swordTextureLightmap',
         type: 'texture',
         path: 'textures/sword/sword_lightmap.webp'
     },
+    // Normalmap
     {
         name: 'swordTextureNormalmap',
         type: 'texture',
@@ -279,16 +268,20 @@ export const deferredSources =
     /**
      * Manor sources
      */
+    // glb
     {
         name: 'manorModel',
         type: 'gltfModel',
         path: 'models/manor/manor.glb'
     },
+    // texture
+    // Lightmap
     {
         name: 'manorTextureLightmap',
         type: 'texture',
         path: 'textures/manor/manor_lightmap.webp'
     },
+    // Normalmap
     {
         name: 'manorTextureNormalmap',
         type: 'texture',
@@ -298,12 +291,26 @@ export const deferredSources =
 
 
     /**
-     * Audio
+     * Lake sources
      */
+    // glb
     {
-        name: 'ambiantForest',
-        type: 'audio',
-        path: 'audio/ambiant-forest/ambiant-forest.ogg'
+        name: 'lakeModel',
+        type: 'gltfModel',
+        path: 'models/lake/lake.glb'
+    },
+    // texture
+    // Lightmap
+    {
+        name: 'lakeTextureLightmap',
+        type: 'texture',
+        path: 'textures/lake/lake_lightmap.webp'
+    },
+    // Normalmap
+    {
+        name: 'lakeTextureNormalmap',
+        type: 'texture',
+        path: 'textures/lake/lake_normalmap.webp'
     },
 
 ]

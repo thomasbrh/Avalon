@@ -164,12 +164,8 @@ export default class LoadingManager
                 /**
                  * Deferred
                  */
-                // charge sword, manor et ambiant-forest en arrière-plan
+                // charge les sources d'arrière-plan
                 this.resources.deferredReady = this.resources.loadSources(deferredSources)
-                this.resources.deferredReady.then(() =>
-                {
-                    this.experience.world.createDeferredZones()
-                })
 
                 // redirection direct vers portal
                 if(this.experience.storyManager.currentScene)

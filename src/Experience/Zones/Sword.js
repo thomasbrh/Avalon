@@ -63,6 +63,28 @@ export default class Sword
     }
 
 
+    setVisible(bool)
+    {
+        this.model.visible = bool
+    }
+
+
+    dispose()
+    {
+        this.swordTextureLightmap.dispose()
+        this.swordTextureNormalmap.dispose()
+        this.model.traverse((child) =>
+        {
+            if (child.isMesh)
+            {
+                child.geometry.dispose()
+                child.material.dispose()
+            }
+        })
+        this.scene.remove(this.model)
+    }
+
+
     setTexture()
     {
 

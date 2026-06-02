@@ -34,10 +34,8 @@ export default class World
              * Base extends
              */
             this.environment = new Environment()
-            this.animationsClip = new AnimationsClip()
             this.island = new Island()
             this.portal = new Portal()
-            this.lake = new Lake()
 
             this.morganne = new Personnages('#E1C4F4')
             this.arthur = new Personnages('#FAB56F')
@@ -48,12 +46,29 @@ export default class World
 
 
     /**
-     * Deferred 
+     * Deferred
      */
     createDeferredZones()
     {
+        this.animationsClip = new AnimationsClip()
+        this.animationsClip.model.visible = false
+
+        this.lake = new Lake()
+
+        this.island.setDeferredTrees()
+
         this.sword = new Sword()
         this.manor = new Manor()
+
+        this.sword.model.visible = false
+        this.manor.model.visible = false
+
+        // pré-compile les shaders pendant que les zones sont encore cachées
+        this.experience.renderer.instance.compile(
+            this.scene,
+            this.experience.camera.instance
+        )
+
         this.experience.storyManager.swordManager.init()
         this.experience.storyManager.manorManager.init()
     }
@@ -62,15 +77,15 @@ export default class World
     update()
     {
         // maj du shader du portal
-        if(this.portal)
+        if(this.portal && this.portal.model.visible && this.portal.portalShaderMesh?.visible)
         {
             this.portal.update()
         }
 
         // maj clip d'anim
-        if (this.animationsClip && this.animationsClip.mixer) 
+        if (this.animationsClip && this.animationsClip.mixer && this.animationsClip.model.visible)
         {
-            this.animationsClip.mixer.update(this.experience.time.delta * 0.001) 
+            this.animationsClip.mixer.update(this.experience.time.delta * 0.001)
         }
 
         // maj perso
