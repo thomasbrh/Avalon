@@ -281,7 +281,7 @@ export default class PortalManager
                 // morgane 1.2-2
                 await this.dialogueManager.playLine(
                     "Morgane",
-                    "Oui. Quelqu'un qui se souvient de toi avec une clarté que tu as toi-même perdue.",
+                    "Oui. Quelqu'un qui se souvient de toi avec une clarté que toi-même tu as perdue.",
                     'audio/dialogue-portal/morgane_voices-1.2-2.ogg'
                 );
 

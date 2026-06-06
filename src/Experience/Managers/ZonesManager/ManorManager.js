@@ -410,7 +410,7 @@ export default class ManorManager
                 // morgane 4.5-1
                 await this.dialogueManager.playLine(
                     "Morgane",
-                    "Alors tu es prêt pour le dernier lieu.",
+                    "Alors, c'est que tu es prêt pour le dernier lieu.",
                     'audio/dialogue-manor/morgane_voices-4.5-1.ogg');
 
                 this.dialogueManager.hide();
@@ -476,7 +476,7 @@ export default class ManorManager
                 // morgane 4.6-1
                 await this.dialogueManager.playLine(
                     "Morgane",
-                    "Mais rappelle-toi : Avalon ne montre jamais un souvenir sans raison.",
+                    "Mais rappelle-toi qu'Avalon ne montre jamais un souvenir sans raison.",
                     'audio/dialogue-manor/morgane_voices-4.6-1.ogg');
 
                 this.dialogueManager.hide();
