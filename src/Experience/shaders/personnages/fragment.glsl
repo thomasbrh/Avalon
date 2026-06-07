@@ -11,7 +11,7 @@ void main()
     // aura douce autour
     float aura = clamp(0.05 / max(distanceToCenter, 0.001) - 0.1, 0.0, 1.0);
 
-    float strength = disc * 0.55 + aura * 0.2;
+    float strength = disc * 0.65 + aura * 0.3;
 
     gl_FragColor = vec4(uColor, strength);
 }
