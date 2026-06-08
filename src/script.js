@@ -18,12 +18,22 @@ if (screen?.orientation?.lock)
 
 const rotateOverlay = document.querySelector('.rotate-overlay')
 
-function updateOrientationOverlay() 
+function updateOrientationOverlay()
 {
-    const Portrait = window.innerHeight > window.innerWidth
+    const viewport = window.visualViewport
+    const width = viewport ? viewport.width : window.innerWidth
+    const height = viewport ? viewport.height : window.innerHeight
+
+    const Portrait = height > width
     const Touch = navigator.maxTouchPoints > 0
     rotateOverlay.style.display = (Portrait && Touch) ? 'flex' : 'none'
 }
 
-window.addEventListener('resize', updateOrientationOverlay)
+function scheduleOrientationUpdate()
+{
+    setTimeout(updateOrientationOverlay, 150)
+}
+
+window.addEventListener('resize', scheduleOrientationUpdate)
+window.addEventListener('orientationchange', scheduleOrientationUpdate)
 updateOrientationOverlay()
