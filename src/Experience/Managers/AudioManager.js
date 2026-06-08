@@ -32,8 +32,8 @@ export default class AudioManager
          */
         this.isMuted = false
         this.voicePlayer = new Audio()
-        this.musicVolume = 0.035
-        this.forestVolume = 0.025
+        this.musicVolume = 0.02
+        this.forestVolume = 0.012
 
 
         /**

@@ -82,7 +82,7 @@ export default class LakeManager
                 // arthur 2.1-1
                 await this.dialogueManager.playLine(
                     "Arthur",
-                    "Vous connaissez mon nom ?",
+                    "Donc vous connaissez mon nom ?",
                     'audio/dialogue-lake/arthur_voices-2.1-1.ogg');
 
 
@@ -119,7 +119,7 @@ export default class LakeManager
                 // arthur 2.1-3
                 await this.dialogueManager.playLine(
                     "Arthur",
-                    "Une lame ?",
+                    "Oui, une lame ?",
                     'audio/dialogue-lake/arthur_voices-2.1-3.ogg');
 
 

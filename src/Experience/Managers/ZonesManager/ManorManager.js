@@ -344,7 +344,7 @@ export default class ManorManager
                 // arthur 4.4-1
                 await this.dialogueManager.playLine(
                     "Arthur",
-                    "Mes souvenirs sont vagues. Les visages restent flous. Les voix se mélangent.",
+                    "Mes souvenirs sont encore vagues. Les visages restent flous et les voix se mélangent.",
                     'audio/dialogue-manor/arthur_voices-4.4-1.ogg');
                 // morgane 4.4-1
                 await this.dialogueManager.playLine(
@@ -542,7 +542,7 @@ export default class ManorManager
                 // arthur 4.7-3
                 await this.dialogueManager.playLine(
                     "Arthur",
-                    "Mais plus nous approchons… plus mon cœur se serre.",
+                    "Mais plus nous nous approchons… plus mon cœur se serre.",
                     'audio/dialogue-manor/arthur_voices-4.7-3.ogg');
                 // morgane 4.7-1
                 await this.dialogueManager.playLine(
@@ -552,7 +552,7 @@ export default class ManorManager
                 // arthur 4.7-4
                 await this.dialogueManager.playLine(
                     "Arthur",
-                    "Sait quoi ?",
+                    "Savoir quoi ?",
                     'audio/dialogue-manor/arthur_voices-4.7-4.ogg');
                 // morgane 4.7-2
                 await this.dialogueManager.playLine(

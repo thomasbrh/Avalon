@@ -479,7 +479,7 @@ export default class SwordManager
                 // arthur 3.6-1
                 await this.dialogueManager.playLine(
                     "Arthur",
-                    "Roi… J'étais donc roi.",
+                    "J'étais donc roi ?",
                     'audio/dialogue-sword/arthur_voices-3.6-1.ogg');
 
                 this.dialogueManager.hide();

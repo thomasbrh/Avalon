@@ -121,7 +121,7 @@ export default class PortalManager
                 // arthur 1.1-2
                 await this.dialogueManager.playLine(
                     "???",
-                    "Où sont les cris et le fracas de l'acier ?",
+                    "Où sont passé les cris et le fracas de l'acier ?",
                     'audio/dialogue-portal/arthur_voices-1.1-2.ogg');
                 // arthur 1.1-3
                 await this.dialogueManager.playLine(
@@ -361,7 +361,7 @@ export default class PortalManager
                 // arthur 1.3-1
                 await this.dialogueManager.playLine(
                     "???",
-                    "Qui est-elle ?",
+                    "Et bien, qui est-elle ?",
                     'audio/dialogue-portal/arthur_voices-1.3-1.ogg'
                 );
 
@@ -403,7 +403,7 @@ export default class PortalManager
                 // arthur 1.3-3
                 await this.dialogueManager.playLine(
                     "???",
-                    "Je ne me souviens d'aucune lame.",
+                    "Pourtant, je ne me souviens d'aucune lame.",
                     'audio/dialogue-portal/arthur_voices-1.3-3.ogg'
                 );
 
