@@ -78,7 +78,6 @@ export default class LakeManager
                     'audio/dialogue-lake/damedulac_voices-2.1-2.ogg');
 
 
-
                 // arthur 2.1-1
                 await this.dialogueManager.playLine(
                     "Arthur",
@@ -127,7 +126,7 @@ export default class LakeManager
                 // dame du lac 2.1-6
                 await this.dialogueManager.playLine(
                     "Dame du Lac",
-                    "Pas seulement, une promesse.",
+                    "Pas seulement, c'est une promesse.",
                     'audio/dialogue-lake/damedulac_voices-2.1-6.ogg');
                 // dame du lac 2.1-7
                 await this.dialogueManager.playLine(

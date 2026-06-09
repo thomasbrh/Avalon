@@ -106,7 +106,7 @@ export default class ManorManager
                 // dame du lac 4.1-1
                 await this.dialogueManager.playLine(
                     "Dame du Lac",
-                    "Te voilà revenu. Je vois que la pierre t'a reconnu.",
+                    "Ahh.. te voilà revenu. Je vois que la pierre t'a reconnu.",
                     'audio/dialogue-manor/damedulac_voices-4.1-1.ogg');
                 // arthur 4.1-1
                 await this.dialogueManager.playLine(
@@ -174,11 +174,15 @@ export default class ManorManager
                     "Dame du Lac",
                     "C'est celui qui protège, sert et porte le poids des autres.",
                     'audio/dialogue-manor/damedulac_voices-4.2-2.ogg');
+
+
                 // arthur 4.2-1
                 await this.dialogueManager.playLine(
                     "Arthur",
                     "Ce n'était donc pas une récompense ?",
                     'audio/dialogue-manor/arthur_voices-4.2-1.ogg');
+
+
                 // dame du lac 4.2-3
                 await this.dialogueManager.playLine(
                     "Dame du Lac",
