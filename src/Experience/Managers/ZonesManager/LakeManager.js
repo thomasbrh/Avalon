@@ -1,6 +1,7 @@
 // import base
 import Experience from '../../Experience.js'
 import AudioManager from '../AudioManager.js'
+import { deferredGroups } from '../../sources.js'
 
 // import librairies
 import gsap from "gsap"
@@ -160,6 +161,10 @@ export default class LakeManager
 
         .call(async () =>
         {
+            await this.resources.loadGroup('sword', deferredGroups.sword)
+            this.experience.world.createSwordZone()
+            await this.experience.uploadGroupTextures('sword')
+
             this.dialogueManager.hide();
             this.storyManager.goTo('sword');
         });

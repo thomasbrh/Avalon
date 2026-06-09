@@ -1,6 +1,7 @@
 // import base
 import Experience from '../../Experience.js'
 import AudioManager from '../AudioManager.js'
+import { deferredGroups } from '../../sources.js'
 
 // import librairies
 import gsap from "gsap"
@@ -593,8 +594,12 @@ export default class SwordManager
             }, "<")
 
 
-        .call(() =>
+        .call(async () =>
         {
+            await this.resources.loadGroup('manor', deferredGroups.manor)
+            this.experience.world.createManorZone()
+            await this.experience.uploadGroupTextures('manor')
+
             this.storyManager.goTo('manor');
         });
     }

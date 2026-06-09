@@ -22,6 +22,9 @@ export default class Resources extends EventEmitter
          */
         this.sources = sources
         this.items = {}
+        this.loadPromises = {}
+        this.groupPromises = {}
+        this.groupSources = {}
         this.toLoad = this.sources.length
         this.loaded = 0
 
@@ -130,34 +133,78 @@ export default class Resources extends EventEmitter
      */
     loadSources(sources)
     {
-        return new Promise((resolve) =>
-        {
-            let loaded = 0
-            const total = sources.length
+        return Promise.all(sources.map((source) => this.loadSource(source)))
+    }
 
-            const onLoad = (source, file) =>
+
+    loadGroup(name, sources)
+    {
+        this.groupSources[name] = sources
+
+        if(!this.groupPromises[name])
+        {
+            this.groupPromises[name] = this.loadSources(sources)
+        }
+
+        return this.groupPromises[name]
+    }
+
+
+    loadGroupsInOrder(groups)
+    {
+        let queue = Promise.resolve()
+
+        for(const [name, sources] of Object.entries(groups))
+        {
+            queue = queue.then(() => this.loadGroup(name, sources))
+        }
+
+        return queue
+    }
+
+
+    loadSource(source)
+    {
+        if(this.items[source.name])
+            return Promise.resolve(this.items[source.name])
+
+        if(this.loadPromises[source.name])
+            return this.loadPromises[source.name]
+
+        this.loadPromises[source.name] = new Promise((resolve, reject) =>
+        {
+            const onLoad = (file) =>
             {
                 this.items[source.name] = file
-                loaded++
-                if(loaded === total) resolve()
+                resolve(file)
             }
 
-            for(const source of sources)
+            const onError = (error) =>
             {
-                if(source.type === 'gltfModel')
-                {
-                    this.loaders.gltfLoader.load(source.path, (file) => onLoad(source, file))
-                }
-                else if(source.type === 'texture')
-                {
-                    this.loaders.textureLoader.load(source.path, (file) => onLoad(source, file))
-                }
-                else if(source.type === 'audio')
-                {
-                    this.loaders.audioLoader.load(source.path, (file) => onLoad(source, file))
-                }
+                console.error(`crash : ${source.path}`)
+                console.error(error)
+                reject(error)
+            }
+
+            if(source.type === 'gltfModel')
+            {
+                this.loaders.gltfLoader.load(source.path, onLoad, undefined, onError)
+            }
+            else if(source.type === 'texture')
+            {
+                this.loaders.textureLoader.load(source.path, onLoad, undefined, onError)
+            }
+            else if(source.type === 'cubeTexture')
+            {
+                this.loaders.cubeTextureLoader.load(source.path, onLoad, undefined, onError)
+            }
+            else if(source.type === 'audio')
+            {
+                this.loaders.audioLoader.load(source.path, onLoad, undefined, onError)
             }
         })
+
+        return this.loadPromises[source.name]
     }
 
 

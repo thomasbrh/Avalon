@@ -107,72 +107,6 @@ export default
 
 
     /**
-     * portal sources
-     */
-    // glb
-    {
-        name: 'portalModel',
-        type: 'gltfModel',
-        path: 'models/portal/portal.glb'
-    },
-
-    // texture
-    // Lightmap
-    {
-        name: 'portalTextureLightmap',
-        type: 'texture',
-        path: 'textures/portal/portal_lightmap.webp'
-    },
-    // Normalmap
-    {
-        name: 'portalTextureNormalmap',
-        type: 'texture',
-        path: 'textures/portal/portal_normalmap.webp'
-    },
-
-
-
-    /**
-     * audio sources
-     */
-    // ambiance
-    {
-        name: 'ambiantMusic',
-        type: 'audio',
-        path: 'audio/ambiant-music/ambiant-music.ogg'
-    },
-    {
-        name: 'ambiantForest',
-        type: 'audio',
-        path: 'audio/ambiant-forest/ambiant-forest.ogg'
-    },
-
-]
-
-
-
-
-
-/**
- * Deferred
- */
-export const deferredSources =
-[
-
-    /**
-     * Animations sources
-     */
-    // Animations
-    // glb
-    {
-        name: 'animationsModel',
-        type: 'gltfModel',
-        path: 'models/animations/animations.glb'
-    },
-
-
-
-    /**
      * Trees sources
      */
     // Trees Pack01
@@ -241,76 +175,125 @@ export const deferredSources =
 
 
     /**
-     * Sword sources
+     * portal sources
      */
     // glb
     {
-        name: 'swordModel',
+        name: 'portalModel',
         type: 'gltfModel',
-        path: 'models/sword/sword.glb'
+        path: 'models/portal/portal.glb'
     },
+
     // texture
     // Lightmap
     {
-        name: 'swordTextureLightmap',
+        name: 'portalTextureLightmap',
         type: 'texture',
-        path: 'textures/sword/sword_lightmap.webp'
+        path: 'textures/portal/portal_lightmap.webp'
     },
     // Normalmap
     {
-        name: 'swordTextureNormalmap',
+        name: 'portalTextureNormalmap',
         type: 'texture',
-        path: 'textures/sword/sword_normalmap.webp'
+        path: 'textures/portal/portal_normalmap.webp'
     },
 
 
 
     /**
-     * Manor sources
+     * audio sources
      */
-    // glb
+    // ambiance
     {
-        name: 'manorModel',
-        type: 'gltfModel',
-        path: 'models/manor/manor.glb'
+        name: 'ambiantMusic',
+        type: 'audio',
+        path: 'audio/ambiant-music/ambiant-music.ogg'
     },
-    // texture
-    // Lightmap
     {
-        name: 'manorTextureLightmap',
-        type: 'texture',
-        path: 'textures/manor/manor_lightmap.webp'
+        name: 'ambiantForest',
+        type: 'audio',
+        path: 'audio/ambiant-forest/ambiant-forest.ogg'
     },
-    // Normalmap
-    {
-        name: 'manorTextureNormalmap',
-        type: 'texture',
-        path: 'textures/manor/manor_normalmap.webp'
-    },
+
+]
 
 
 
-    /**
-     * Lake sources
-     */
-    // glb
+/**
+ * Deferred
+ */
+const lakeSources =
+[
     {
         name: 'lakeModel',
         type: 'gltfModel',
         path: 'models/lake/lake.glb'
     },
-    // texture
-    // Lightmap
     {
         name: 'lakeTextureLightmap',
         type: 'texture',
         path: 'textures/lake/lake_lightmap.webp'
     },
-    // Normalmap
     {
         name: 'lakeTextureNormalmap',
         type: 'texture',
         path: 'textures/lake/lake_normalmap.webp'
     },
-
 ]
+
+const animationsSources =
+[
+    {
+        name: 'animationsModel',
+        type: 'gltfModel',
+        path: 'models/animations/animations.glb'
+    },
+]
+
+const swordSources =
+[
+    {
+        name: 'swordModel',
+        type: 'gltfModel',
+        path: 'models/sword/sword.glb'
+    },
+    {
+        name: 'swordTextureLightmap',
+        type: 'texture',
+        path: 'textures/sword/sword_lightmap.webp'
+    },
+    {
+        name: 'swordTextureNormalmap',
+        type: 'texture',
+        path: 'textures/sword/sword_normalmap.webp'
+    },
+]
+
+const manorSources =
+[
+    {
+        name: 'manorModel',
+        type: 'gltfModel',
+        path: 'models/manor/manor.glb'
+    },
+    {
+        name: 'manorTextureLightmap',
+        type: 'texture',
+        path: 'textures/manor/manor_lightmap.webp'
+    },
+    {
+        name: 'manorTextureNormalmap',
+        type: 'texture',
+        path: 'textures/manor/manor_normalmap.webp'
+    },
+]
+
+
+
+export const deferredGroups =
+{
+    lake: lakeSources,
+    animations: animationsSources,
+    sword: swordSources,
+    manor: manorSources,
+}

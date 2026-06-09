@@ -1,6 +1,7 @@
 // import base
 import Experience from '../../Experience.js'
 import AudioManager from '../AudioManager.js'
+import { deferredGroups } from '../../sources.js'
 
 // import librairies
 import gsap from "gsap"
@@ -194,18 +195,10 @@ export default class PortalManager
                 /**
                  * Deferred
                  */
-                // attend les assets
-                await this.resources.deferredReady
-
-                // initialise les zones et upload les textures
-                this.experience.world.createDeferredZones()
-                Object.values(this.resources.items).forEach(item =>
-                {
-                    if (item?.isTexture)
-                    {
-                        this.experience.renderer.instance.initTexture(item)
-                    }
-                })
+                // attend seulement le lac, deja lance en arriere-plan au Start
+                await this.resources.loadGroup('lake', deferredGroups.lake)
+                this.experience.world.createLakeZone()
+                await this.experience.uploadGroupTextures('lake')
                 this.storyManager.showNextIndicator()
             })
 
@@ -526,10 +519,17 @@ export default class PortalManager
             /**
              * Questions
              */
-            .call(() => 
+            .call(async () => 
             { 
+                this.timeline.pause()
+
+                await this.resources.loadGroup('animations', deferredGroups.animations)
+                this.experience.world.createAnimationsZone()
+                await this.experience.uploadGroupTextures('animations')
+
                 // show animations
                 this.experience.world.animationsClip.model.visible = true 
+                this.timeline.play()
             })
 
             .call(async () =>
