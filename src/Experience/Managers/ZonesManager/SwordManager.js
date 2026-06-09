@@ -165,6 +165,9 @@ export default class SwordManager
                     "Arthur",
                     "Là bas, dans la grotte… Il y a quelque chose qui m'appelle. Je ne le vois pas mais je le sens.",
                     'audio/dialogue-sword/arthur_voices-3.1-1.ogg');
+
+
+                    
                 // morgane 3.1-1
                 await this.dialogueManager.playLine(
                     "Morgane",

@@ -78,6 +78,7 @@ export default class LakeManager
                     'audio/dialogue-lake/damedulac_voices-2.1-2.ogg');
 
 
+
                 // arthur 2.1-1
                 await this.dialogueManager.playLine(
                     "Arthur",
@@ -142,6 +143,7 @@ export default class LakeManager
                     "Par où dois-je aller ?",
                     'audio/dialogue-lake/arthur_voices-2.1-4.ogg');
 
+                    
 
                 /**
                  * Question sword

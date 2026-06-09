@@ -108,6 +108,9 @@ export default class ManorManager
                     "Dame du Lac",
                     "Ahh.. te voilà revenu. Je vois que la pierre t'a reconnu.",
                     'audio/dialogue-manor/damedulac_voices-4.1-1.ogg');
+
+
+
                 // arthur 4.1-1
                 await this.dialogueManager.playLine(
                     "Arthur",
