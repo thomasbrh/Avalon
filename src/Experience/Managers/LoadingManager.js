@@ -1,7 +1,7 @@
 // import base
 import Experience from '../Experience.js'
 import AudioManager from './AudioManager.js'
-import { deferredSources } from '../sources.js'
+import { deferredGroups } from '../sources.js'
 
 // import shaders
 import overlayVertexShader from '../shaders/overlay/vertex.glsl'
@@ -165,7 +165,7 @@ export default class LoadingManager
                  * Deferred
                  */
                 // charge les sources d'arrière-plan
-                this.resources.deferredReady = this.resources.loadSources(deferredSources)
+                this.startDeferredLoading()
 
                 // redirection direct vers portal
                 if(this.experience.storyManager.currentScene)
@@ -176,6 +176,14 @@ export default class LoadingManager
 
         })
 
+    }
+
+
+    startDeferredLoading()
+    {
+        if(this.resources.deferredLoading) return
+
+        this.resources.deferredLoading = this.resources.loadGroupsInOrder(deferredGroups)
     }
 
 

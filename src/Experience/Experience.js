@@ -97,6 +97,7 @@ export default class Experience
                 if (item?.isTexture) 
                 {
                     this.renderer.instance.initTexture(item)
+                    item.userData.isUploaded = true
                 }
             })
 
@@ -109,6 +110,8 @@ export default class Experience
             this.loadingManager.setStartExperience()
             // affiche le bouton pour commencer
             this.loadingManager.showStartExperience()
+            // commence le chargement differé
+            this.loadingManager.startDeferredLoading()
 
         })
         
@@ -146,6 +149,37 @@ export default class Experience
         this.loadingManager.update()
 
         this.renderer.update()
+    }
+
+
+    waitNextFrame()
+    {
+        return new Promise((resolve) =>
+        {
+            window.requestAnimationFrame(resolve)
+        })
+    }
+
+
+    async uploadTextures(sources)
+    {
+        for(const source of sources)
+        {
+            if(source.type !== 'texture') continue
+
+            const item = this.resources.items[source.name]
+            if(!item?.isTexture || item.userData?.isUploaded) continue
+
+            await this.waitNextFrame()
+            this.renderer.instance.initTexture(item)
+            item.userData.isUploaded = true
+        }
+    }
+
+
+    async uploadGroupTextures(name)
+    {
+        await this.uploadTextures(this.resources.groupSources[name] || [])
     }
 
 

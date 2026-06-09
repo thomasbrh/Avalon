@@ -35,6 +35,7 @@ export default class World
              */
             this.environment = new Environment()
             this.island = new Island()
+            this.island.setDeferredTrees()
             this.portal = new Portal()
 
             this.morganne = new Personnages('#D4A0C0')
@@ -48,28 +49,41 @@ export default class World
     /**
      * Deferred
      */
-    createDeferredZones()
+    createLakeZone()
     {
-        this.animationsClip = new AnimationsClip()
-        this.animationsClip.model.visible = false
+        if(this.lake) return
 
         this.lake = new Lake()
+    }
 
-        this.island.setDeferredTrees()
+
+    createAnimationsZone()
+    {
+        if(this.animationsClip) return
+
+        this.animationsClip = new AnimationsClip()
+        this.animationsClip.model.visible = false
+    }
+
+
+    createSwordZone()
+    {
+        if(this.sword) return
 
         this.sword = new Sword()
-        this.manor = new Manor()
-
         this.sword.model.visible = false
-        this.manor.model.visible = false
-
-        // pré-compile les shaders pendant que les zones sont encore cachées
-        this.experience.renderer.instance.compile(
-            this.scene,
-            this.experience.camera.instance
-        )
 
         this.experience.storyManager.swordManager.init()
+    }
+
+
+    createManorZone()
+    {
+        if(this.manor) return
+
+        this.manor = new Manor()
+        this.manor.model.visible = false
+
         this.experience.storyManager.manorManager.init()
     }
 
