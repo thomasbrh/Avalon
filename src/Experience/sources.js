@@ -48,14 +48,14 @@ export default
     // Lightmap
     {
         name: 'islandTextureLightmap',
-        type: 'texture',
-        path: 'textures/island/island_lightmap.webp'
+        type: 'ktx2',
+        path: 'textures/island/island_lightmap.ktx2'
     },
     // Normalmap
     {
         name: 'islandTextureNormalmap',
-        type: 'texture',
-        path: 'textures/island/island_normalmap.webp'
+        type: 'ktx2',
+        path: 'textures/island/island_normalmap.ktx2'
     },
 
 
@@ -94,14 +94,14 @@ export default
     // Lightmap
     {
         name: 'rocksTextureLightmap',
-        type: 'texture',
-        path: 'textures/island/rocks/rocks_lightmap.webp'
+        type: 'ktx2',
+        path: 'textures/island/rocks/rocks_lightmap.ktx2'
     },
     // Normalmap
     {
         name: 'rocksTextureNormalmap',
-        type: 'texture',
-        path: 'textures/island/rocks/rocks_normalmap.webp'
+        type: 'ktx2',
+        path: 'textures/island/rocks/rocks_normalmap.ktx2'
     },
 
 
@@ -120,14 +120,14 @@ export default
     // Lightmap
     {
         name: 'portalTextureLightmap',
-        type: 'texture',
-        path: 'textures/portal/portal_lightmap.webp'
+        type: 'ktx2',
+        path: 'textures/portal/portal_lightmap.ktx2'
     },
     // Normalmap
     {
         name: 'portalTextureNormalmap',
-        type: 'texture',
-        path: 'textures/portal/portal_normalmap.webp'
+        type: 'ktx2',
+        path: 'textures/portal/portal_normalmap.ktx2'
     },
 
 
@@ -186,14 +186,14 @@ export const deferredSources =
     // Lightmap
     {
         name: 'treesTextureLightmapPack01',
-        type: 'texture',
-        path: 'textures/island/trees/trees_lightmapPack01.webp'
+        type: 'ktx2',
+        path: 'textures/island/trees/trees_lightmapPack01.ktx2'
     },
     // Normalmap
     {
         name: 'treesTextureNormalmapPack01',
-        type: 'texture',
-        path: 'textures/island/trees/trees_normalmapPack01.webp'
+        type: 'ktx2',
+        path: 'textures/island/trees/trees_normalmapPack01.ktx2'
     },
 
     // Trees Pack02
@@ -207,14 +207,14 @@ export const deferredSources =
     // Lightmap
     {
         name: 'treesTextureLightmapPack02',
-        type: 'texture',
-        path: 'textures/island/trees/trees_lightmapPack02.webp'
+        type: 'ktx2',
+        path: 'textures/island/trees/trees_lightmapPack02.ktx2'
     },
     // Normalmap
     {
         name: 'treesTextureNormalmapPack02',
-        type: 'texture',
-        path: 'textures/island/trees/trees_normalmapPack02.webp'
+        type: 'ktx2',
+        path: 'textures/island/trees/trees_normalmapPack02.ktx2'
     },
 
     // Trees Pack03
@@ -228,14 +228,14 @@ export const deferredSources =
     // Lightmap
     {
         name: 'treesTextureLightmapPack03',
-        type: 'texture',
-        path: 'textures/island/trees/trees_lightmapPack03.webp'
+        type: 'ktx2',
+        path: 'textures/island/trees/trees_lightmapPack03.ktx2'
     },
     // Normalmap
     {
         name: 'treesTextureNormalmapPack03',
-        type: 'texture',
-        path: 'textures/island/trees/trees_normalmapPack03.webp'
+        type: 'ktx2',
+        path: 'textures/island/trees/trees_normalmapPack03.ktx2'
     },
 
 
@@ -253,14 +253,14 @@ export const deferredSources =
     // Lightmap
     {
         name: 'swordTextureLightmap',
-        type: 'texture',
-        path: 'textures/sword/sword_lightmap.webp'
+        type: 'ktx2',
+        path: 'textures/sword/sword_lightmap.ktx2'
     },
     // Normalmap
     {
         name: 'swordTextureNormalmap',
-        type: 'texture',
-        path: 'textures/sword/sword_normalmap.webp'
+        type: 'ktx2',
+        path: 'textures/sword/sword_normalmap.ktx2'
     },
 
 
@@ -278,14 +278,14 @@ export const deferredSources =
     // Lightmap
     {
         name: 'manorTextureLightmap',
-        type: 'texture',
-        path: 'textures/manor/manor_lightmap.webp'
+        type: 'ktx2',
+        path: 'textures/manor/manor_lightmap.ktx2'
     },
     // Normalmap
     {
         name: 'manorTextureNormalmap',
-        type: 'texture',
-        path: 'textures/manor/manor_normalmap.webp'
+        type: 'ktx2',
+        path: 'textures/manor/manor_normalmap.ktx2'
     },
 
 
@@ -303,14 +303,14 @@ export const deferredSources =
     // Lightmap
     {
         name: 'lakeTextureLightmap',
-        type: 'texture',
-        path: 'textures/lake/lake_lightmap.webp'
+        type: 'ktx2',
+        path: 'textures/lake/lake_lightmap.ktx2'
     },
     // Normalmap
     {
         name: 'lakeTextureNormalmap',
-        type: 'texture',
-        path: 'textures/lake/lake_normalmap.webp'
+        type: 'ktx2',
+        path: 'textures/lake/lake_normalmap.ktx2'
     },
 
 ]

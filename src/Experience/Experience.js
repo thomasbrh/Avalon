@@ -54,6 +54,7 @@ export default class Experience
         this.resources = new Resources(sources)
         this.camera = new Camera()
         this.renderer = new Renderer()
+        this.resources.setRenderer(this.renderer.instance)
         this.world = new World()
         this.storyManager = new StoryManager()
 

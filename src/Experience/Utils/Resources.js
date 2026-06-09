@@ -5,6 +5,7 @@ import EventEmitter from './EventEmitter.js'
 import * as THREE from 'three'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js'
+import { KTX2Loader } from 'three/examples/jsm/loaders/KTX2Loader.js'
 
 
 export default class Resources extends EventEmitter
@@ -24,6 +25,7 @@ export default class Resources extends EventEmitter
         this.items = {}
         this.toLoad = this.sources.length
         this.loaded = 0
+        this.pendingKtx2 = []
 
 
         /**
@@ -57,6 +59,23 @@ export default class Resources extends EventEmitter
 
         // audio loader
         this.loaders.audioLoader = new THREE.AudioLoader()
+    }
+
+
+    setRenderer(renderer)
+    {
+        this.loaders.ktx2Loader = new KTX2Loader()
+        this.loaders.ktx2Loader.setTranscoderPath('/basis/')
+        this.loaders.ktx2Loader.detectSupport(renderer)
+
+        for(const source of this.pendingKtx2)
+        {
+            this.loaders.ktx2Loader.load(
+                source.path,
+                (file) => { this.sourceLoaded(source, file) }
+            )
+        }
+        this.pendingKtx2 = []
     }
 
 
@@ -98,6 +117,11 @@ export default class Resources extends EventEmitter
                         this.sourceLoaded(source, file)
                     }
                 )
+            }
+            else if(source.type === 'ktx2')
+            {
+                // KTX2Loader nécessite le renderer (detectSupport) → chargé après setRenderer()
+                this.pendingKtx2.push(source)
             }
             else if(source.type === 'cubeTexture')
             {
@@ -151,6 +175,10 @@ export default class Resources extends EventEmitter
                 else if(source.type === 'texture')
                 {
                     this.loaders.textureLoader.load(source.path, (file) => onLoad(source, file))
+                }
+                else if(source.type === 'ktx2')
+                {
+                    this.loaders.ktx2Loader.load(source.path, (file) => onLoad(source, file))
                 }
                 else if(source.type === 'audio')
                 {
