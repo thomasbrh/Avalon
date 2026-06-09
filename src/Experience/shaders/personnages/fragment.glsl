@@ -14,10 +14,12 @@ void main()
     float core = 1.0 - smoothstep(0.0, 0.24, distanceToCenter);
     core = pow(core, 0.36);
 
+    float opaqueCore = 1.0 - smoothstep(0.08, 0.18, distanceToCenter);
+
     float halo = 1.0 - smoothstep(0.18, 0.5, distanceToCenter);
     halo = pow(halo, 1.9);
 
-    float orbStrength = clamp(core * 0.62 + halo * 0.28, 0.0, 0.72);
+    float orbStrength = max(opaqueCore, clamp(core * 0.62 + halo * 0.28, 0.0, 0.72));
 
     // carres de brume
     float squareDistance = max(abs(uv.x), abs(uv.y));

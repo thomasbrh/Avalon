@@ -37,7 +37,7 @@ export default class World
             this.island = new Island()
             this.portal = new Portal()
 
-            this.morganne = new Personnages('#E1C4F4')
+            this.morganne = new Personnages('#D4A0C0')
             this.arthur = new Personnages('#FAB56F')
 
         })
