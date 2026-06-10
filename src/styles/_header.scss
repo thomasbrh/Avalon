@@ -19,14 +19,6 @@
     transition: background 0.4s ease, backdrop-filter 0.4s ease;
 }
 
-.header--scrolled
-{
-    background: rgba(61, 42, 71, 0.75);
-    -webkit-backdrop-filter: blur(12px);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid $color-border-gold;
-}
-
 .header--playing
 {
     opacity: 0;
@@ -71,79 +63,4 @@
 .header .btn 
 {
     justify-self: end;
-}
-
-
-/* hero */
-.hero 
-{
-    position: relative;
-    height: 100dvh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    background: $color-bg-deep;
-}
-
-#hero-canvas 
-{
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 0;
-}
-
-.hero__text 
-{
-    position: relative;
-    z-index: 2;
-    text-align: center;
-    padding: 0 32px;
-}
-
-.hero__h1
-{
-    display: block;
-    overflow: hidden;
-    padding-bottom: 0.2em;
-    margin-bottom: -0.2em;
-
-    &--accent 
-    {
-        color: $color-accent-gold;
-    }
-}
-
-
-.hero__caption
-{
-    font-family: $font-secondary;
-    font-size: 28px;
-    letter-spacing: $letter-spacing-muted;
-    text-transform: uppercase;
-    color: $color-text-muted;
-    line-height: $line-height-base;
-    margin: 0;
-}
-
-
-.hero__scroll
-{
-    position: absolute;
-    bottom: 40px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 3;
-}
-
-.hero__scroll-label 
-{
-    font-family: $font-secondary;
-    font-size: 13px;
-    letter-spacing: $letter-spacing-paragraph;
-    text-transform: uppercase;
-    color: $color-text-muted;
-    opacity: $opacity-medium;
 }

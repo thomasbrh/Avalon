@@ -319,18 +319,6 @@ export default class ManorManager
             /**
              * Scene 4.4
              */
-            .call(() =>
-            {
-                // dispose all sauf manor
-                this.experience.world.lake?.dispose?.()
-                this.experience.world.sword?.dispose?.()
-                this.experience.world.animationsClip?.dispose?.()
-                this.experience.world.island?.disposeTreesPack1?.()
-                this.experience.world.island?.disposeTreesPack2?.()
-
-                // show manor
-                this.experience.world.manor.model.visible = true 
-            })
             // camera se déplace vers scène 4
             .to(this.camera.instance.position, 
             { 
@@ -429,6 +417,20 @@ export default class ManorManager
                 duration: 2.6,
                 ease: 'power2.inOut'
             }, "<")
+
+            
+            .call(() =>
+            {
+                // dispose all sauf manor
+                this.experience.world.lake?.dispose?.()
+                this.experience.world.sword?.dispose?.()
+                this.experience.world.animationsClip?.dispose?.()
+                this.experience.world.island?.disposeTreesPack1?.()
+                this.experience.world.island?.disposeTreesPack2?.()
+
+                // show manor
+                this.experience.world.manor.model.visible = true 
+            })
 
             
             .call(async () =>
