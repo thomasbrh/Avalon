@@ -35,7 +35,7 @@ export default class AnimationsClip
         /**
          * Appel des instances
          */
-        /* this.setTexture() */
+        this.setTexture()
         this.setModel()
 
     }

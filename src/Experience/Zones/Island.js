@@ -24,14 +24,18 @@ export default class Island
          */
         this.islandPack = this.resources.items.islandModel.scene
         this.oceanPack = this.resources.items.oceanModel.scene
-
         this.rocksPack = this.resources.items.rocksModel.scene
+        this.bushesPack = this.resources.items.bushesModel.scene
+        this.treesPack1 = this.resources.items.treesModelPack01.scene
+        this.treesPack2 = this.resources.items.treesModelPack02.scene
+        this.treesPack3 = this.resources.items.treesModelPack03.scene
 
 
         /**
          * Appel des instances
          */
         this.setTexture()
+        this.setTreesTexture()
         this.setModel()
 
     }
@@ -101,6 +105,27 @@ export default class Island
         {
             if (child.isMesh) child.material = this.oceanMaterial
         })
+
+
+
+        /**
+         * Bushes
+         */
+        this.bushesTextureLightmap = this.resources.items.bushesTextureLightmap
+        this.bushesTextureLightmap.flipY = false
+        this.bushesTextureLightmap.colorSpace = THREE.SRGBColorSpace
+
+        this.bushesMaterial = new THREE.MeshStandardMaterial(
+        {
+            map: this.bushesTextureLightmap,
+
+            normalMap: this.resources.items.bushesTextureNormalmap,
+        })
+
+        this.bushesPack.traverse((child) =>
+        {
+            if (child.isMesh) child.material = this.bushesMaterial
+        })
     }
 
 
@@ -110,20 +135,19 @@ export default class Island
         this.scene.add(
             this.islandPack,
             this.rocksPack,
-            this.oceanPack)
+            this.oceanPack,
+            this.bushesPack,
+            this.treesPack1,
+            this.treesPack2,
+            this.treesPack3)
     }
 
 
-    setDeferredTrees()
+    setTreesTexture()
     {
-
         /**
          * Trees
          */
-        this.treesPack1 = this.resources.items.treesModelPack01.scene
-        this.treesPack2 = this.resources.items.treesModelPack02.scene
-        this.treesPack3 = this.resources.items.treesModelPack03.scene
-
         // Pack01
         this.treesTextureLightmapPack01 = this.resources.items.treesTextureLightmapPack01
         this.treesTextureLightmapPack01.flipY = false
@@ -174,8 +198,6 @@ export default class Island
         {
             if (child.isMesh) child.material = this.treesMaterial
         })
-
-        this.scene.add(this.treesPack1, this.treesPack2, this.treesPack3)
     }
 
 

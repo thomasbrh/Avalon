@@ -35,7 +35,6 @@ export default class World
              */
             this.environment = new Environment()
             this.island = new Island()
-            this.island.setDeferredTrees()
             this.portal = new Portal()
 
             this.morganne = new Personnages('#D4A0C0')

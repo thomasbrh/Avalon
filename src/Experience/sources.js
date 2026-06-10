@@ -106,6 +106,29 @@ export default
 
 
 
+    // Bushes sources
+    // glb
+    {
+        name: 'bushesModel',
+        type: 'gltfModel',
+        path: 'models/island/bushes.glb'
+    },
+    // texture
+    // Lightmap
+    {
+        name: 'bushesTextureLightmap',
+        type: 'texture',
+        path: 'textures/island/bushes/buisson_lightmap.webp'
+    },
+    // Normalmap
+    {
+        name: 'bushesTextureNormalmap',
+        type: 'texture',
+        path: 'textures/island/bushes/buisson_normalmap.webp'
+    },
+
+
+
     /**
      * Trees sources
      */
@@ -247,6 +270,16 @@ const animationsSources =
         name: 'animationsModel',
         type: 'gltfModel',
         path: 'models/animations/animations.glb'
+    },
+    {
+        name: 'animationsTextureLightmap',
+        type: 'texture',
+        path: 'textures/animations/animations_lightmap.webp'
+    },
+    {
+        name: 'animationsTextureNormalmap',
+        type: 'texture',
+        path: 'textures/animations/animations_normalmap.webp'
     },
 ]
 
