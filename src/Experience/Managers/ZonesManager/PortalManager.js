@@ -96,7 +96,7 @@ export default class PortalManager
                 x: this.targets['TargetPortal_camera1'].x,
                 y: this.targets['TargetPortal_camera1'].y,
                 z: this.targets['TargetPortal_camera1'].z,
-                duration: 2.5,
+                duration: 2.2,
                 ease: 'power2.inOut'
             })
             // camera regarde vers scène 1
@@ -105,7 +105,7 @@ export default class PortalManager
                 x: this.targets['TargetPortal_target1'].x,
                 y: this.targets['TargetPortal_target1'].y,
                 z: this.targets['TargetPortal_target1'].z,
-                duration: 3.2,
+                duration: 2.8,
                 ease: 'power2.inOut'
             }, "<-=1")
 
@@ -218,7 +218,7 @@ export default class PortalManager
                 x: this.targets['TargetPortal_camera2'].x,
                 y: this.targets['TargetPortal_camera2'].y,
                 z: this.targets['TargetPortal_camera2'].z,
-                duration: 3.2,
+                duration: 2.2,
                 ease: 'power2.inOut'
             })
             // camera regarde vers scène 2
@@ -227,7 +227,7 @@ export default class PortalManager
                 x: this.targets['TargetPortal_target2'].x,
                 y: this.targets['TargetPortal_target2'].y,
                 z: this.targets['TargetPortal_target2'].z,
-                duration: 3.6,
+                duration: 2.5,
                 ease: 'power2.inOut'
             }, "<")
             // morganne psoition
@@ -236,7 +236,7 @@ export default class PortalManager
                 x: this.targets['TargetPortal_morganne2'].x,
                 y: this.targets['TargetPortal_morganne2'].y,
                 z: this.targets['TargetPortal_morganne2'].z,
-                duration: 3.2,
+                duration: 2.8,
                 ease: 'sine.inOut'
             }, "<")
             // arthur position
@@ -245,7 +245,7 @@ export default class PortalManager
                 x: this.targets['TargetPortal_arthur2'].x,
                 y: this.targets['TargetPortal_arthur2'].y,
                 z: this.targets['TargetPortal_arthur2'].z,
-                duration: 3.6,
+                duration: 3,
                 ease: 'sine.inOut'
             }, "<")
 
@@ -310,42 +310,68 @@ export default class PortalManager
                 // dispose shader portal
                 this.experience.world.portal.disposeShaderMesh() 
             })
+
+
             // camera se déplace vers scène 3
             .to(this.camera.instance.position,
             {
                 x: this.targets['TargetPortal_camera3'].x,
                 y: this.targets['TargetPortal_camera3'].y,
                 z: this.targets['TargetPortal_camera3'].z,
-                duration: 3.2,
+                duration: 3,
                 ease: 'power2.inOut'
             })
-                        // camera regarde vers scène 3
+            // camera regarde vers scène 3
             .to(this.camera.cameraTarget,
             {
                 x: this.targets['TargetPortal_target3'].x,
                 y: this.targets['TargetPortal_target3'].y,
                 z: this.targets['TargetPortal_target3'].z,
-                duration: 3.5,
+                duration: 3.2,
                 ease: 'power2.inOut'
             }, "<")
-            // morganne psoition
+
+
+            // intermédiaire persos scène 2 to 3
+            // morganne position
             .to(this.morganne.position,
             {
-                x: this.targets['TargetPortal_morganne3'].x,
-                y: this.targets['TargetPortal_morganne3'].y,
-                z: this.targets['TargetPortal_morganne3'].z,
-                duration: 4,
+                x: this.targets['TargetPortal_morganne21'].x,
+                y: this.targets['TargetPortal_morganne21'].y,
+                z: this.targets['TargetPortal_morganne21'].z,
+                duration: 2.8,
                 ease: 'sine.inOut'
             }, "<")
             // arthur position
             .to(this.arthur.position,
             {
+                x: this.targets['TargetPortal_arthur21'].x,
+                y: this.targets['TargetPortal_arthur21'].y,
+                z: this.targets['TargetPortal_arthur21'].z,
+                duration: 2.8,
+                ease: 'sine.inOut'
+            }, "<")
+
+
+            // morganne position finale
+            .to(this.morganne.position,
+            {
+                x: this.targets['TargetPortal_morganne3'].x,
+                y: this.targets['TargetPortal_morganne3'].y,
+                z: this.targets['TargetPortal_morganne3'].z,
+                duration: 3,
+                ease: 'sine.inOut'
+            }, ">")
+            // arthur position finale
+            .to(this.arthur.position,
+            {
                 x: this.targets['TargetPortal_arthur3'].x,
                 y: this.targets['TargetPortal_arthur3'].y,
                 z: this.targets['TargetPortal_arthur3'].z,
-                duration: 4.2,
+                duration: 3.2,
                 ease: 'sine.inOut'
-            },"<")
+            }, "<")
+
 
             .call(async () =>
             {
@@ -420,7 +446,7 @@ export default class PortalManager
                 x: this.targets['TargetPortal_camera4'].x,
                 y: this.targets['TargetPortal_camera4'].y,
                 z: this.targets['TargetPortal_camera4'].z,
-                duration: 3,
+                duration: 2.8,
                 ease: 'power2.inOut'
             })
             // camera regarde vers scène 4
@@ -429,27 +455,51 @@ export default class PortalManager
                 x: this.targets['TargetPortal_target4'].x,
                 y: this.targets['TargetPortal_target4'].y,
                 z: this.targets['TargetPortal_target4'].z,
-                duration: 3,
+                duration: 2.8,
                 ease: 'power2.inOut'
             }, "<")
+
+
+            // intermédiaire persos scène 3 to 4
             // morganne psoition
             .to(this.morganne.position,
             {
-                x: this.targets['TargetPortal_morganne4'].x,
-                y: this.targets['TargetPortal_morganne4'].y,
-                z: this.targets['TargetPortal_morganne4'].z,
-                duration: 4,
+                x: this.targets['TargetPortal_morganne31'].x,
+                y: this.targets['TargetPortal_morganne31'].y,
+                z: this.targets['TargetPortal_morganne31'].z,
+                duration: 2.8,
                 ease: 'sine.inOut'
             }, "<")
             // arthur position
             .to(this.arthur.position,
             {
+                x: this.targets['TargetPortal_arthur31'].x,
+                y: this.targets['TargetPortal_arthur31'].y,
+                z: this.targets['TargetPortal_arthur31'].z,
+                duration: 2.8,
+                ease: 'sine.inOut'
+            }, "<")
+
+
+            // morganne position finale
+            .to(this.morganne.position,
+            {
+                x: this.targets['TargetPortal_morganne4'].x,
+                y: this.targets['TargetPortal_morganne4'].y,
+                z: this.targets['TargetPortal_morganne4'].z,
+                duration: 1.2 ,
+                ease: 'sine.inOut'
+            }, ">")
+            // arthur position finale
+            .to(this.arthur.position,
+            {
                 x: this.targets['TargetPortal_arthur4'].x,
                 y: this.targets['TargetPortal_arthur4'].y,
                 z: this.targets['TargetPortal_arthur4'].z,
-                duration: 4.5,
+                duration: 1.5,
                 ease: 'sine.inOut'
             }, "<")
+
 
             .call(async () =>
             {
@@ -483,7 +533,7 @@ export default class PortalManager
                 x: this.targets['TargetPortal_target5'].x,
                 y: this.targets['TargetPortal_target5'].y,
                 z: this.targets['TargetPortal_target5'].z,
-                duration: 2.6,
+                duration: 1.5,
                 ease: 'power2.inOut'
             }, "<")
             // camera se déplace vers scène 5
@@ -492,7 +542,7 @@ export default class PortalManager
                 x: this.targets['TargetPortal_camera5'].x,
                 y: this.targets['TargetPortal_camera5'].y,
                 z: this.targets['TargetPortal_camera5'].z,
-                duration: 2.5,
+                duration: 2,
                 ease: 'power2.inOut'
             })
             // morganne psoition
@@ -501,7 +551,7 @@ export default class PortalManager
                 x: this.targets['TargetPortal_morganne5'].x,
                 y: this.targets['TargetPortal_morganne5'].y,
                 z: this.targets['TargetPortal_morganne5'].z,
-                duration: 3.2,
+                duration: 2.3,
                 ease: 'sine.inOut'
             }, "<")
             // arthur position
@@ -510,7 +560,7 @@ export default class PortalManager
                 x: this.targets['TargetPortal_arthur5'].x,
                 y: this.targets['TargetPortal_arthur5'].y,
                 z: this.targets['TargetPortal_arthur5'].z,
-                duration: 3.5,
+                duration: 2.6,
                 ease: 'sine.inOut'
             }, "<")
 
@@ -531,6 +581,7 @@ export default class PortalManager
                 this.experience.world.animationsClip.model.visible = true 
                 this.timeline.play()
             })
+
 
             .call(async () =>
             {
@@ -618,9 +669,10 @@ export default class PortalManager
 
             /**
              * Scène 1.6
+             * Scène 1.7
              */
-            // point de vue
-            // camera se déplace vers scène 6
+            // camera point de vue 6 
+            // camera position finale 7
             .to(this.camera.instance.position,
             {
                 x: this.targets['TargetPortal_camera6'].x,
@@ -638,7 +690,7 @@ export default class PortalManager
                 duration: 2.5,
                 ease: 'power2.inOut'
             }, "<")
-            // morganne psoition
+            // morganne psoition 6
             .to(this.morganne.position,
             {
                 x: this.targets['TargetPortal_morganne6'].x,
@@ -647,7 +699,7 @@ export default class PortalManager
                 duration: 3,
                 ease: 'sine.inOut'
             }, "<")
-            // arthur position
+            // arthur position 6
             .to(this.arthur.position,
             {
                 x: this.targets['TargetPortal_arthur6'].x,
@@ -657,12 +709,8 @@ export default class PortalManager
                 ease: 'sine.inOut'
             }, "<")
 
-
-
-            /**
-             * Scène 1.7
-             */
-            // camera se déplace vers scène 7
+            
+            // camera position finale 7
             .to(this.camera.instance.position,
             {
                 x: this.targets['TargetPortal_camera7'].x,
@@ -670,7 +718,7 @@ export default class PortalManager
                 z: this.targets['TargetPortal_camera7'].z,
                 duration: 3,
                 ease: 'power2.inOut'
-            })
+            }, ">")
             // camera regarde vers scène 7
             .to(this.camera.cameraTarget,
             {
@@ -680,7 +728,7 @@ export default class PortalManager
                 duration: 3,
                 ease: 'power2.inOut'
             }, "<")
-            // morganne psoition
+            // morganne position finale 7
             .to(this.morganne.position,
             {
                 x: this.targets['TargetPortal_morganne7'].x,
@@ -689,7 +737,7 @@ export default class PortalManager
                 duration: 3,
                 ease: 'sine.inOut'
             }, "<")
-            // arthur position
+            // arthur position finale 7
             .to(this.arthur.position,
             {
                 x: this.targets['TargetPortal_arthur7'].x,
@@ -698,6 +746,7 @@ export default class PortalManager
                 duration: 3.5,
                 ease: 'sine.inOut'
             }, "<")
+
 
             .call(async () =>
             {
