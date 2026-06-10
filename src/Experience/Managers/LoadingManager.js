@@ -42,6 +42,10 @@ export default class LoadingManager
         // état entrée
         this.isEntering = false
         this.enterProgress = 0
+        // état fin
+        this.isEnding = false
+        this.endProgress = 1
+        this.endExperienceActive = false
         // couleurs shaders
         this.portalColorStart = new THREE.Color('#3D2A47')
         this.portalColorEnd = new THREE.Color('#3D2A47')    
@@ -64,6 +68,7 @@ export default class LoadingManager
         this.loadingBarContainer = document.querySelector('.loading-bar__container')
         this.loadingBar = document.querySelector('.loading-bar')
         this.startExperience = document.querySelector('.start-experience')
+        this.endExperience = document.querySelector('.end-experience')
 
 
         /**
@@ -176,6 +181,21 @@ export default class LoadingManager
 
         })
 
+        this.endExperience.addEventListener('mouseenter', () =>
+        {
+            this.isHovered = true
+        })
+
+        this.endExperience.addEventListener('mouseleave', () =>
+        {
+            this.isHovered = false
+        })
+
+        this.endExperience.addEventListener('click', () =>
+        {
+            window.location.reload()
+        })
+
     }
 
 
@@ -187,8 +207,13 @@ export default class LoadingManager
     }
 
 
-    setStartExperience()
+    setStartExperience(initialProgress = 0)
     {
+        if(this.startMesh && this.startMaterial)
+        {
+            this.startMaterial.uniforms.uEnterProgress.value = initialProgress
+            return
+        }
 
         this.startGeometry = new THREE.PlaneGeometry(2, 2, 1, 1)
         this.startMaterial = new THREE.ShaderMaterial(
@@ -200,7 +225,7 @@ export default class LoadingManager
             uniforms: {
                 uTime: { value: 0 },
                 uHover: { value: 0 },
-                uEnterProgress: { value: 0 },
+                uEnterProgress: { value: initialProgress },
                 uAspect: { value: window.innerWidth / window.innerHeight },
                 uColorStart: { value: this.portalColorStart.clone() },
                 uColorEnd: { value: this.portalColorEnd.clone() },
@@ -269,6 +294,36 @@ export default class LoadingManager
     }
 
 
+    showEndExperience()
+    {
+        if(this.isEnding) return
+
+        this.isEnding = true
+        this.endExperienceActive = true
+        this.endProgress = 1
+        this.hoverValue = 0
+        this.isHovered = false
+
+        this.setStartExperience(this.endProgress)
+
+        this.startExperience.classList.add('hidden')
+        this.endExperience.classList.add('hidden')
+        this.endExperience.disabled = true
+
+        document.querySelector('.header')?.classList.remove('hidden', 'header--playing')
+        document.querySelector('.audio-btn')?.classList.remove('hidden')
+        document.querySelector('.dialogue-box')?.classList.remove('is-visible')
+        document.querySelector('#choices-container').style.display = 'none'
+    }
+
+
+    showEndExperienceButton()
+    {
+        this.endExperience.disabled = false
+        this.endExperience.classList.remove('hidden')
+    }
+
+
    update()
     {
         if(!this.startMaterial || !this.startMesh) 
@@ -292,6 +347,20 @@ export default class LoadingManager
                 this.isEntering = false
                 this.experienceStarted = true
                 this.hideStartExperience()
+            }
+        }
+
+        if(this.isEnding)
+        {
+            this.endProgress -= 0.018
+            this.startMaterial.uniforms.uEnterProgress.value = this.endProgress
+
+            if(this.endProgress <= 0)
+            {
+                this.endProgress = 0
+                this.startMaterial.uniforms.uEnterProgress.value = this.endProgress
+                this.isEnding = false
+                this.showEndExperienceButton()
             }
         }
     }

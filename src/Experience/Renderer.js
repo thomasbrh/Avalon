@@ -96,7 +96,7 @@ export default class Renderer
     update()
     {
         // s'applique au start
-        if(this.experience.loadingManager.experienceStarted)
+        if(this.experience.loadingManager.experienceStarted && !this.experience.loadingManager.endExperienceActive)
         {
             this.composer.render()
         }

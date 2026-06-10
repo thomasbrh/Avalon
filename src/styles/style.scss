@@ -68,8 +68,9 @@ body
 }
 
 
-/* start-experience */
-.start-experience
+/* start et end experience */
+.start-experience,
+.end-experience
 {
     position: fixed;
     z-index: 10;
@@ -83,7 +84,8 @@ body
     @include responsive(desktop) { font-size: 38px; }
 }
 
-.start-experience:hover
+.start-experience:hover,
+.end-experience:hover
 {
     transform: translate(-50%, -50%) scale(1.05);
 }

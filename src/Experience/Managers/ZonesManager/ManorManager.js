@@ -674,15 +674,12 @@ export default class ManorManager
 
             .call(() =>
             {
-                this.storyManager.showNextIndicator();
+                this.timeline.pause();
+                this.storyManager.showNextIndicator(() =>
+                {
+                    this.experience.loadingManager.showEndExperience()
+                });
             })
-            .addPause()
-
-
-        .call(() => 
-        {
-            this.storyManager.goTo('manor');
-        });
     }
     
 }

@@ -32,6 +32,7 @@ export default class StoryManager
          */
         this.locked = false
         this.indicatorVisible = false
+        this.nextIndicatorAction = null
         this.zones = 
         {
             portal: this.portalManager,
@@ -67,6 +68,15 @@ export default class StoryManager
             this.indicator.style.display = 'none'
             document.body.classList.remove('indicator-active')
 
+            const action = this.nextIndicatorAction
+            this.nextIndicatorAction = null
+
+            if(action)
+            {
+                action()
+                return
+            }
+
             if (this.currentScene && this.currentScene.timeline)
                 this.currentScene.timeline.play()
         }
@@ -74,8 +84,9 @@ export default class StoryManager
         window.addEventListener('touchstart', handler)
     }
 
-    showNextIndicator()
+    showNextIndicator(onNext = null)
     {
+        this.nextIndicatorAction = onNext
         this.indicatorVisible = true
         this.indicator.style.display = 'block'
         document.body.classList.add('indicator-active')
