@@ -414,6 +414,9 @@ export default class ManorManager
                     "Arthur",
                     "Je me souviens d'une table, d'un serment et d'hommes que j'appelais mes frères…",
                     'audio/dialogue-manor/arthur_voices-4.5-1.ogg');
+
+
+
                 // morgane 4.5-1
                 await this.dialogueManager.playLine(
                     "Morgane",
@@ -480,6 +483,9 @@ export default class ManorManager
                     "Arthur",
                     "Je vais enfin les revoir.",
                     'audio/dialogue-manor/arthur_voices-4.6-2.ogg');
+
+
+
                 // morgane 4.6-1
                 await this.dialogueManager.playLine(
                     "Morgane",
@@ -551,16 +557,25 @@ export default class ManorManager
                     "Arthur",
                     "Mais plus nous nous approchons… plus mon cœur se serre.",
                     'audio/dialogue-manor/arthur_voices-4.7-3.ogg');
+
+
+
                 // morgane 4.7-1
                 await this.dialogueManager.playLine(
                     "Morgane",
                     "Parce qu'une part de toi sait déjà.",
                     'audio/dialogue-manor/morgane_voices-4.7-1.ogg');
+
+
+
                 // arthur 4.7-4
                 await this.dialogueManager.playLine(
                     "Arthur",
                     "Savoir quoi ?",
                     'audio/dialogue-manor/arthur_voices-4.7-4.ogg');
+
+
+
                 // morgane 4.7-2
                 await this.dialogueManager.playLine(
                     "Morgane",
@@ -571,6 +586,9 @@ export default class ManorManager
                     "Morgane",
                     "Et que le pardon est parfois une épreuve plus lourde que la guerre.",
                     'audio/dialogue-manor/morgane_voices-4.7-3.ogg');
+
+
+
                 // arthur 4.7-5
                 await this.dialogueManager.playLine(
                     "Arthur",
@@ -581,6 +599,9 @@ export default class ManorManager
                     "Arthur",
                     "Même si elle doit me briser une seconde fois.",
                     'audio/dialogue-manor/arthur_voices-4.7-6.ogg');
+
+
+                    
                 // morgane 4.7-4
                 await this.dialogueManager.playLine(
                     "Morgane",

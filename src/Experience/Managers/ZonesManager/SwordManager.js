@@ -396,11 +396,17 @@ export default class SwordManager
                     "Arthur",
                     "Et lorsqu'elle est sortie du roc… tout a changé.",
                     'audio/dialogue-sword/arthur_voices-3.5-2.ogg');
+
+
+
                 // morgane 3.5-1
                 await this.dialogueManager.playLine(
                     "Morgane",
                     "Ce jour-là, quelque chose s'est éveillé en toi.",
                     'audio/dialogue-sword/morgane_voices-3.5-1.ogg');
+
+
+                    
                 // arthur 3.5-3
                 await this.dialogueManager.playLine(
                     "Arthur",
@@ -480,6 +486,9 @@ export default class SwordManager
                     "Morgane",
                     "Cette lame ne pouvait être tirée que par celui qui portait le sang royal. Ce jour-là, Arthur, le royaume a reconnu son roi.",
                     'audio/dialogue-sword/morgane_voices-3.6-1.ogg');
+
+
+                    
                 // arthur 3.6-1
                 await this.dialogueManager.playLine(
                     "Arthur",
