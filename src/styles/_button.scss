@@ -19,6 +19,7 @@
     position: relative;
     overflow: hidden;
     cursor: pointer;
+    user-select: none;
     transition: color 0.3s ease, transform 0.3s ease, opacity 0.4s ease, border 0.3s ease;
     
     -webkit-backdrop-filter: blur(6px);

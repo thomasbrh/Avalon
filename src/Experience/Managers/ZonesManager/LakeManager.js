@@ -158,6 +158,7 @@ export default class LakeManager
                 this.storyManager.showNextIndicator();
             })
 
+            
         .call(async () =>
         {
             this.experience.world.createSwordZone();

@@ -74,7 +74,7 @@ export default class SwordManager
                 x: this.targets['TargetSword_camera1'].x, 
                 y: this.targets['TargetSword_camera1'].y, 
                 z: this.targets['TargetSword_camera1'].z, 
-                duration: 3, 
+                duration: 2.2, 
                 ease: 'power2.inOut' 
             })
             // camera regarde vers scène 1
@@ -83,7 +83,7 @@ export default class SwordManager
                 x: this.targets['TargetSword_target1'].x, 
                 y: this.targets['TargetSword_target1'].y, 
                 z: this.targets['TargetSword_target1'].z, 
-                duration: 3,
+                duration: 2,
                 ease: 'power2.inOut' 
             }, "<")
             // morganne psoition
@@ -92,7 +92,7 @@ export default class SwordManager
                 x: this.targets['TargetSword_morganne1'].x, 
                 y: this.targets['TargetSword_morganne1'].y, 
                 z: this.targets['TargetSword_morganne1'].z, 
-                duration: 3, 
+                duration: 2.5, 
                 ease: 'power2.inOut' 
             }, "<")
             // arthur position
@@ -101,9 +101,10 @@ export default class SwordManager
                 x: this.targets['TargetSword_arthur1'].x,
                 y: this.targets['TargetSword_arthur1'].y,
                 z: this.targets['TargetSword_arthur1'].z,
-                duration: 3.5,
+                duration: 2.8,
                 ease: 'power2.inOut'
             }, "<")
+
 
             .call(async () =>
             {
@@ -143,6 +144,7 @@ export default class SwordManager
             .call(() => { this.experience.world.animationsClip.playClip(0); }, null, "+=0.1")
             .to({}, { duration: 5 })
 
+
             .call(async () =>
             {
                 this.timeline.pause();
@@ -156,6 +158,7 @@ export default class SwordManager
                 this.dialogueManager.hide();
                 this.storyManager.showNextIndicator();
             })
+
 
             .call(async () =>
             {
@@ -190,7 +193,7 @@ export default class SwordManager
                 x: this.targets['TargetSword_camera2'].x, 
                 y: this.targets['TargetSword_camera2'].y, 
                 z: this.targets['TargetSword_camera2'].z, 
-                duration: 3, 
+                duration: 2.1, 
                 ease: 'power2.inOut' 
             })
             // camera regarde vers scène 2
@@ -199,7 +202,7 @@ export default class SwordManager
                 x: this.targets['TargetSword_target2'].x, 
                 y: this.targets['TargetSword_target2'].y, 
                 z: this.targets['TargetSword_target2'].z, 
-                duration: 3,
+                duration: 1.9,
                 ease: 'power2.inOut' 
             }, "<")
             // morganne psoition
@@ -208,7 +211,7 @@ export default class SwordManager
                 x: this.targets['TargetSword_morganne2'].x, 
                 y: this.targets['TargetSword_morganne2'].y, 
                 z: this.targets['TargetSword_morganne2'].z, 
-                duration: 3, 
+                duration: 2.3, 
                 ease: 'power2.inOut' 
             }, "<")
             // arthur position
@@ -217,7 +220,7 @@ export default class SwordManager
                 x: this.targets['TargetSword_arthur2'].x, 
                 y: this.targets['TargetSword_arthur2'].y, 
                 z: this.targets['TargetSword_arthur2'].z, 
-                duration: 3.5, 
+                duration: 2.6, 
                 ease: 'power2.inOut' 
             }, "<")
 
@@ -232,7 +235,7 @@ export default class SwordManager
                 x: this.targets['TargetSword_camera3'].x, 
                 y: this.targets['TargetSword_camera3'].y, 
                 z: this.targets['TargetSword_camera3'].z, 
-                duration: 3, 
+                duration: 2.8, 
                 ease: 'power2.inOut' 
             })
             // camera regarde vers scène 3
@@ -241,7 +244,7 @@ export default class SwordManager
                 x: this.targets['TargetSword_target3'].x, 
                 y: this.targets['TargetSword_target3'].y, 
                 z: this.targets['TargetSword_target3'].z, 
-                duration: 3,
+                duration: 2.5,
                 ease: 'power2.inOut' 
             }, "<")
             // morganne psoition
@@ -250,7 +253,7 @@ export default class SwordManager
                 x: this.targets['TargetSword_morganne3'].x, 
                 y: this.targets['TargetSword_morganne3'].y, 
                 z: this.targets['TargetSword_morganne3'].z, 
-                duration: 3, 
+                duration: 2.8, 
                 ease: 'power2.inOut' 
             }, "<")
             // arthur position
@@ -259,9 +262,10 @@ export default class SwordManager
                 x: this.targets['TargetSword_arthur3'].x,
                 y: this.targets['TargetSword_arthur3'].y,
                 z: this.targets['TargetSword_arthur3'].z,
-                duration: 3.5,
+                duration: 2.8,
                 ease: 'power2.inOut'
             }, "<")
+
 
             .call(async () =>
             {
@@ -293,13 +297,15 @@ export default class SwordManager
                 this.experience.world.lake.model.visible = false
                 this.experience.world.animationsClip.model.visible = false
             })
+
+
             // camera se déplace vers scène 4
             .to(this.camera.instance.position, 
             { 
                 x: this.targets['TargetSword_camera4'].x, 
                 y: this.targets['TargetSword_camera4'].y, 
                 z: this.targets['TargetSword_camera4'].z, 
-                duration: 3, 
+                duration: 2.3, 
                 ease: 'power2.inOut' 
             })
             // camera regarde vers scène 4
@@ -308,7 +314,7 @@ export default class SwordManager
                 x: this.targets['TargetSword_target4'].x, 
                 y: this.targets['TargetSword_target4'].y, 
                 z: this.targets['TargetSword_target4'].z, 
-                duration: 3,
+                duration: 2.4,
                 ease: 'power2.inOut' 
             }, "<")
             // morganne psoition
@@ -317,7 +323,7 @@ export default class SwordManager
                 x: this.targets['TargetSword_morganne4'].x, 
                 y: this.targets['TargetSword_morganne4'].y, 
                 z: this.targets['TargetSword_morganne4'].z, 
-                duration: 3, 
+                duration: 2.7, 
                 ease: 'power2.inOut' 
             }, "<")
             // arthur position
@@ -326,9 +332,10 @@ export default class SwordManager
                 x: this.targets['TargetSword_arthur4'].x,
                 y: this.targets['TargetSword_arthur4'].y,
                 z: this.targets['TargetSword_arthur4'].z,
-                duration: 3.5,
+                duration: 2.9,
                 ease: 'power2.inOut'
             }, "<")
+
 
             .call(async () =>
             {
@@ -360,7 +367,7 @@ export default class SwordManager
                 x: this.targets['TargetSword_camera5'].x, 
                 y: this.targets['TargetSword_camera5'].y, 
                 z: this.targets['TargetSword_camera5'].z, 
-                duration: 3, 
+                duration: 2.2, 
                 ease: 'power2.inOut' 
             })
             // camera regarde vers scène 5
@@ -369,7 +376,7 @@ export default class SwordManager
                 x: this.targets['TargetSword_target5'].x, 
                 y: this.targets['TargetSword_target5'].y, 
                 z: this.targets['TargetSword_target5'].z, 
-                duration: 3,
+                duration: 2,
                 ease: 'power2.inOut' 
             }, "<")
             // arthur position
@@ -378,9 +385,10 @@ export default class SwordManager
                 x: this.targets['TargetSword_arthur5'].x,
                 y: this.targets['TargetSword_arthur5'].y,
                 z: this.targets['TargetSword_arthur5'].z,
-                duration: 3.5,
+                duration: 2.6,
                 ease: 'power2.inOut'
             }, "<")
+
 
             .call(async () =>
             {
@@ -422,7 +430,6 @@ export default class SwordManager
             /**
              * Scene 3.6
              */
-            // show lake + animations
             .call(() =>
             {
                 // show lake + anim
@@ -430,52 +437,35 @@ export default class SwordManager
                 this.experience.world.animationsClip.model.visible = true
             })
 
+
             // camera se déplace vers scène 6
-            .to(this.camera.instance.position, 
-            { 
-                x: this.targets['TargetSword_camera6'].x, 
-                y: this.targets['TargetSword_camera6'].y, 
-                z: this.targets['TargetSword_camera6'].z, 
-                duration: 3, 
-                ease: 'power2.inOut' 
+            .to(this.camera.instance.position,
+            {
+                x: this.targets['TargetSword_camera6'].x,
+                y: this.targets['TargetSword_camera6'].y,
+                z: this.targets['TargetSword_camera6'].z,
+                duration: 3,
+                ease: 'power2.inOut'
             })
             // camera regarde vers scène 6
-            .to(this.camera.cameraTarget, 
-            { 
-                x: this.targets['TargetSword_target6'].x, 
-                y: this.targets['TargetSword_target6'].y, 
-                z: this.targets['TargetSword_target6'].z, 
-                duration: 3,
-                ease: 'power2.inOut' 
-            },)
-            // camera se déplace vers scène 6.1
-            .to(this.camera.instance.position, 
-            { 
-                x: this.targets['TargetSword_camera61'].x, 
-                y: this.targets['TargetSword_camera61'].y, 
-                z: this.targets['TargetSword_camera61'].z, 
-                duration: 3, 
-                ease: 'power2.inOut' 
-            })
-            // camera regarde vers scène 6.1
-            .to(this.camera.cameraTarget, 
-            { 
-                x: this.targets['TargetSword_target6'].x, 
-                y: this.targets['TargetSword_target6'].y, 
-                z: this.targets['TargetSword_target6'].z, 
-                duration: 3,
-                ease: 'power2.inOut' 
-            },)
-            
+            .to(this.camera.cameraTarget,
+            {
+                x: this.targets['TargetSword_target6'].x,
+                y: this.targets['TargetSword_target6'].y,
+                z: this.targets['TargetSword_target6'].z,
+                duration: 2.2,
+                ease: 'power2.inOut'
+            }, "<")
             // arthur position
             .to(this.arthur.position,
             {
                 x: this.targets['TargetSword_arthur6'].x,
                 y: this.targets['TargetSword_arthur6'].y,
                 z: this.targets['TargetSword_arthur6'].z,
-                duration: 3.5,
+                duration: 2.6,
                 ease: 'power2.inOut'
             }, "<")
+
 
             .call(async () =>
             {
@@ -488,7 +478,7 @@ export default class SwordManager
                     'audio/dialogue-sword/morgane_voices-3.6-1.ogg');
 
 
-                    
+
                 // arthur 3.6-1
                 await this.dialogueManager.playLine(
                     "Arthur",
@@ -504,42 +494,82 @@ export default class SwordManager
             /**
              * Scene 3.7
              */
-            // camera se déplace vers scène 7
-            .to(this.camera.instance.position, 
-            { 
-                x: this.targets['TargetSword_camera7'].x, 
-                y: this.targets['TargetSword_camera7'].y, 
-                z: this.targets['TargetSword_camera7'].z, 
-                duration: 3, 
-                ease: 'power2.inOut' 
+            // intermédiaire all scène 6 to 7
+            //intermédiaire caméra 6.1
+            .to(this.camera.instance.position,
+            {
+                x: this.targets['TargetSword_camera61'].x,
+                y: this.targets['TargetSword_camera61'].y,
+                z: this.targets['TargetSword_camera61'].z,
+                duration: 2.4,
+                ease: 'power2.inOut'
             })
-            // camera regarde vers scène 7
-            .to(this.camera.cameraTarget, 
-            { 
-                x: this.targets['TargetSword_target7'].x, 
-                y: this.targets['TargetSword_target7'].y, 
-                z: this.targets['TargetSword_target7'].z, 
-                duration: 3,
-                ease: 'power2.inOut' 
+            // intermédiaire target 6.1
+            .to(this.camera.cameraTarget,
+            {
+                x: this.targets['TargetSword_target61'].x,
+                y: this.targets['TargetSword_target61'].y,
+                z: this.targets['TargetSword_target61'].z,
+                duration: 2.1,
+                ease: 'power2.inOut'
             }, "<")
-            // morganne psoition
-            .to(this.morganne.position, 
-            { 
-                x: this.targets['TargetSword_morganne7'].x, 
-                y: this.targets['TargetSword_morganne7'].y, 
-                z: this.targets['TargetSword_morganne7'].z, 
-                duration: 3, 
-                ease: 'power2.inOut' 
+            // intermédiaire morganne position 6.1
+            .to(this.morganne.position,
+            {
+                x: this.targets['TargetSword_morganne61'].x,
+                y: this.targets['TargetSword_morganne61'].y,
+                z: this.targets['TargetSword_morganne61'].z,
+                duration: 2.4,
+                ease: 'power2.inOut'
             }, "<")
-            // arthur position
+            // intermédiaire arthur position 6.1
+            .to(this.arthur.position,
+            {
+                x: this.targets['TargetSword_arthur61'].x,
+                y: this.targets['TargetSword_arthur61'].y,
+                z: this.targets['TargetSword_arthur61'].z,
+                duration: 2.6,
+                ease: 'power2.inOut'
+            }, "<")
+
+
+            // position caméra finale 7
+            .to(this.camera.instance.position,
+            {
+                x: this.targets['TargetSword_camera7'].x,
+                y: this.targets['TargetSword_camera7'].y,
+                z: this.targets['TargetSword_camera7'].z,
+                duration: 2.6,
+                ease: 'power2.inOut'
+            }, ">")
+            // position target finale 7
+            .to(this.camera.cameraTarget,
+            {
+                x: this.targets['TargetSword_target7'].x,
+                y: this.targets['TargetSword_target7'].y,
+                z: this.targets['TargetSword_target7'].z,
+                duration: 2.2,
+                ease: 'power2.inOut'
+            }, "<")
+            // position morganne finale 7
+            .to(this.morganne.position,
+            {
+                x: this.targets['TargetSword_morganne7'].x,
+                y: this.targets['TargetSword_morganne7'].y,
+                z: this.targets['TargetSword_morganne7'].z,
+                duration: 2.1,
+                ease: 'power2.inOut'
+            }, "<")
+            // position arthur finale 7
             .to(this.arthur.position,
             {
                 x: this.targets['TargetSword_arthur7'].x,
                 y: this.targets['TargetSword_arthur7'].y,
                 z: this.targets['TargetSword_arthur7'].z,
-                duration: 3.5,
+                duration: 2.2,
                 ease: 'power2.inOut'
             }, "<")
+
 
             .call(async () =>
             {
@@ -571,7 +601,7 @@ export default class SwordManager
                 x: this.targets['TargetSword_camera8'].x, 
                 y: this.targets['TargetSword_camera8'].y, 
                 z: this.targets['TargetSword_camera8'].z, 
-                duration: 3, 
+                duration: 2.5, 
                 ease: 'power2.inOut' 
             })
             // camera regarde vers scène 8
@@ -580,7 +610,7 @@ export default class SwordManager
                 x: this.targets['TargetSword_target8'].x, 
                 y: this.targets['TargetSword_target8'].y, 
                 z: this.targets['TargetSword_target8'].z, 
-                duration: 3,
+                duration: 2.2,
                 ease: 'power2.inOut' 
             }, "<")
             // morganne psoition
@@ -589,7 +619,7 @@ export default class SwordManager
                 x: this.targets['TargetSword_morganne8'].x, 
                 y: this.targets['TargetSword_morganne8'].y, 
                 z: this.targets['TargetSword_morganne8'].z, 
-                duration: 3, 
+                duration: 2.7, 
                 ease: 'power2.inOut' 
             }, "<")
             // arthur position
@@ -598,7 +628,7 @@ export default class SwordManager
                 x: this.targets['TargetSword_arthur8'].x, 
                 y: this.targets['TargetSword_arthur8'].y, 
                 z: this.targets['TargetSword_arthur8'].z, 
-                duration: 3.5, 
+                duration: 2.9, 
                 ease: 'power2.inOut' 
             }, "<")
 

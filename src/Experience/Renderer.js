@@ -71,7 +71,7 @@ export default class Renderer
             new THREE.Vector2(this.sizes.width, this.sizes.height),
             0.4, // strength
             0.3, // radius
-            0.85 // threshold
+            0.98 // threshold a fond pour target les orbes only
         )
         this.composer.addPass(this.bloomPass)
 
