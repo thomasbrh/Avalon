@@ -663,7 +663,7 @@ export default class PortalManager
 
             // lance l'animation du pont
             .call(() => { this.experience.world.animationsClip.playClip(2); }, null, "+=0.1")
-            .to({}, { duration: 5 })
+            .to({}, { duration: 4.7 })
 
 
 
@@ -709,7 +709,7 @@ export default class PortalManager
                 ease: 'sine.inOut'
             }, "<")
 
-            
+
             // camera position finale 7
             .to(this.camera.instance.position,
             {

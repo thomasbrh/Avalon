@@ -142,7 +142,7 @@ export default class SwordManager
 
             // lance l'animation du pont
             .call(() => { this.experience.world.animationsClip.playClip(0); }, null, "+=0.1")
-            .to({}, { duration: 5 })
+            .to({}, { duration: 4.7 })
 
 
             .call(async () =>
@@ -495,7 +495,7 @@ export default class SwordManager
              * Scene 3.7
              */
             // intermédiaire all scène 6 to 7
-            //intermédiaire caméra 6.1
+            //intermédiaire caméra 61
             .to(this.camera.instance.position,
             {
                 x: this.targets['TargetSword_camera61'].x,
@@ -504,7 +504,7 @@ export default class SwordManager
                 duration: 2.4,
                 ease: 'power2.inOut'
             })
-            // intermédiaire target 6.1
+            // intermédiaire target 61
             .to(this.camera.cameraTarget,
             {
                 x: this.targets['TargetSword_target61'].x,
@@ -513,7 +513,7 @@ export default class SwordManager
                 duration: 2.1,
                 ease: 'power2.inOut'
             }, "<")
-            // intermédiaire morganne position 6.1
+            // intermédiaire morganne position 61
             .to(this.morganne.position,
             {
                 x: this.targets['TargetSword_morganne61'].x,
@@ -522,7 +522,7 @@ export default class SwordManager
                 duration: 2.4,
                 ease: 'power2.inOut'
             }, "<")
-            // intermédiaire arthur position 6.1
+            // intermédiaire arthur position 61
             .to(this.arthur.position,
             {
                 x: this.targets['TargetSword_arthur61'].x,
