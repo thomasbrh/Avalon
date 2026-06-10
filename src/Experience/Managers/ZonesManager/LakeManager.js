@@ -160,6 +160,7 @@ export default class LakeManager
 
         .call(async () =>
         {
+            this.experience.world.createSwordZone();
             this.dialogueManager.hide();
             this.storyManager.goTo('sword');
         });
