@@ -109,6 +109,7 @@ export default class PortalManager
                 ease: 'power2.inOut'
             }, "<-=1")
 
+            .addLabel('checkpoint-portal')
 
             .call(async () =>
             {

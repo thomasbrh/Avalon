@@ -99,6 +99,7 @@ export default class ManorManager
                 ease: 'power2.inOut'
             }, "<")
 
+            .addLabel('checkpoint-manor')
 
             .call(async () =>
             {
@@ -421,17 +422,14 @@ export default class ManorManager
             
             .call(() =>
             {
-                // dispose all sauf manor
-                this.experience.world.lake?.dispose?.()
-                this.experience.world.sword?.dispose?.()
-                this.experience.world.animationsClip?.dispose?.()
-                this.experience.world.island?.disposeTreesPack1?.()
-                this.experience.world.island?.disposeTreesPack2?.()
+                // hide all sauf manor
+                if(this.experience.world.lake) this.experience.world.lake.model.visible = false
+                if(this.experience.world.sword) this.experience.world.sword.model.visible = false
+                if(this.experience.world.animationsClip) this.experience.world.animationsClip.model.visible = false
 
                 // show manor
                 this.experience.world.manor.model.visible = true 
             })
-
             
             .call(async () =>
             {

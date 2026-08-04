@@ -57,13 +57,28 @@
 
 
     <nav class="header">
-        <a href="https://www.thomasbruch.be/portfolio/" class="header__credit" target="_blank__portfolio">Thomas Bruch - TFE 2025-2026</a>
-        <a href="https://avalon-landing-zeta.vercel.app/" target="_blank__landing" class="header__logo">AVALON</a>
+        <button class="chapter-menu__toggle" type="button">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
+        <a href="https://avalon-landing-zeta.vercel.app/" target="_blank" class="header__logo">AVALON</a>
+
+        <div class="chapter-menu" id="chapter-menu">
+            <div class="chapter-menu__panel">
+                <a href="https://avalon-landing-zeta.vercel.app/" target="_blank" class="chapter-menu__landing">Retour landing</a>
+                <button class="chapter-menu__item" type="button" data-chapter="portal">Chapitre 1 - Le portail</button>
+                <button class="chapter-menu__item" type="button" data-chapter="lake">Chapitre 2 - Le lac</button>
+                <button class="chapter-menu__item" type="button" data-chapter="sword">Chapitre 3 - L'&eacute;p&eacute;e</button>
+                <button class="chapter-menu__item" type="button" data-chapter="manor">Chapitre 4 - Le manoir</button>
+                <a href="https://www.thomasbruch.be/portfolio/" class="chapter-menu__credit" target="_blank">Thomas Bruch - TFE 2025-2026</a>
+            </div>
+        </div>
     </nav>
 
     <button class="btn btn--small audio-btn">Son</button>
 
-    
     <div class="indicators" id="indicators">
         <div class="indicator" id="next-indicator" style="display: none; top: 50%; left: 50%;">
             <div class="group">

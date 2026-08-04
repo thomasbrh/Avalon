@@ -1,5 +1,6 @@
 // import base
 import Experience from '../Experience.js'
+import { deferredGroups } from '../sources.js'
 
 // import Manager
 import DialogueManager from './DialogueManager.js'
@@ -40,6 +41,13 @@ export default class StoryManager
             sword: this.swordManager,
             manor: this.manorManager,
         }
+        this.checkpoints =
+        {
+            portal: 'checkpoint-portal',
+            lake: 'checkpoint-lake',
+            sword: 'checkpoint-sword',
+            manor: 'checkpoint-manor',
+        }
         this.currentScene = this.zones.portal
 
 
@@ -49,12 +57,19 @@ export default class StoryManager
          */
         this.indicator = document.querySelector('#next-indicator')
         this.choicesContainer = document.querySelector('#choices-container')
+        this.header = document.querySelector('.header')
+        this.chapterMenuToggle = document.querySelector('.chapter-menu__toggle')
+        this.chapterMenu = document.querySelector('#chapter-menu')
+        this.chapterButtons = document.querySelectorAll('[data-chapter]')
 
 
         /**
          * Appel des instances
          */
         this.initInteraction()
+        this.setNavigation()
+        this.setActiveChapter('portal')
+        this.setCheckpointsEnabled(false)
     }
 
     initInteraction()
@@ -83,6 +98,38 @@ export default class StoryManager
         window.addEventListener('click', handler)
         window.addEventListener('touchstart', handler)
     }
+
+
+    setNavigation()
+    {
+        this.chapterMenuToggle.addEventListener('click', (event) =>
+        {
+            event.stopPropagation()
+            this.header.classList.toggle('menu-open')
+        })
+
+        // ferme le menu si on clique sur le fond
+        this.chapterMenu.addEventListener('click', (event) =>
+        {
+            if(event.target === this.chapterMenu)
+            {
+                this.header.classList.remove('menu-open')
+            }
+        })
+
+        // navigation vers les checkpoints
+        this.chapterButtons.forEach((button) =>
+        {
+            button.addEventListener('click', async (event) =>
+            {
+                event.stopPropagation()
+                this.header.classList.remove('menu-open')
+
+                await this.goToCheckpoint(button.dataset.chapter)
+            })
+        })
+    }
+
 
     showNextIndicator(onNext = null)
     {
@@ -132,9 +179,137 @@ export default class StoryManager
             this.currentScene.exit()
         }
         this.currentScene = this.zones[name]
+        this.setActiveChapter(name)
         this.currentScene?.enter()
     }
 
+    async goToCheckpoint(name)
+    {
+        // reset UI avant le tp
+        this.indicatorVisible = false
+        this.nextIndicatorAction = null
+        this.indicator.style.display = 'none'
+        document.body.classList.remove('indicator-active')
+        this.choicesContainer.style.display = 'none'
+        this.choicesContainer.innerHTML = ''
+        this.dialogueManager.cancelDialogue()
+
+        // charge les zones
+        if(name === 'lake' || name === 'sword' || name === 'manor')
+        {
+            await this.experience.resources.loadGroup('lake', deferredGroups.lake)
+            this.experience.world.createLakeZone()
+        }
+
+        if(name === 'sword' || name === 'manor')
+        {
+            await this.experience.resources.loadGroup('animations', deferredGroups.animations)
+            this.experience.world.createAnimationsZone()
+
+            await this.experience.resources.loadGroup('sword', deferredGroups.sword)
+            this.experience.world.createSwordZone()
+        }
+
+        if(name === 'manor')
+        {
+            await this.experience.resources.loadGroup('manor', deferredGroups.manor)
+            this.experience.world.createManorZone()
+        }
+
+        // reset les timelines
+        Object.values(this.zones).forEach((zone) =>
+        {
+            zone.timeline.pause(0)
+        })
+
+        // affiche les bonnes zones
+        if(this.experience.world.lake)
+            this.experience.world.lake.model.visible = name === 'lake' || name === 'sword' || name === 'manor'
+
+        if(this.experience.world.animationsClip)
+            this.experience.world.animationsClip.model.visible = name === 'sword' || name === 'manor'
+
+        if(this.experience.world.sword)
+            this.experience.world.sword.model.visible = name === 'sword' || name === 'manor'
+
+        if(this.experience.world.manor)
+            this.experience.world.manor.model.visible = false
+
+        this.currentScene = this.zones[name]
+        this.setActiveChapter(name)
+
+        // pause au label du checkpoint
+        this.currentScene.timeline.pause(this.checkpoints[name])
+
+        // targets du checkpoint
+        let targets = this.portalManager.targets
+        let prefix = 'TargetPortal'
+        let number = '1'
+
+        if(name === 'lake')
+        {
+            number = '7'
+        }
+
+        if(name === 'sword')
+        {
+            targets = this.swordManager.targets
+            prefix = 'TargetSword'
+        }
+
+        if(name === 'manor')
+        {
+            targets = this.manorManager.targets
+            prefix = 'TargetManor'
+        }
+
+        // position caméra et personnages
+        this.experience.camera.instance.position.set(
+            targets[`${prefix}_camera${number}`].x,
+            targets[`${prefix}_camera${number}`].y,
+            targets[`${prefix}_camera${number}`].z
+        )
+        this.experience.camera.cameraTarget.set(
+            targets[`${prefix}_target${number}`].x,
+            targets[`${prefix}_target${number}`].y,
+            targets[`${prefix}_target${number}`].z
+        )
+        this.experience.world.morganne.mesh.position.set(
+            targets[`${prefix}_morganne${number}`].x,
+            targets[`${prefix}_morganne${number}`].y,
+            targets[`${prefix}_morganne${number}`].z
+        )
+        this.experience.world.arthur.mesh.position.set(
+            targets[`${prefix}_arthur${number}`].x,
+            targets[`${prefix}_arthur${number}`].y,
+            targets[`${prefix}_arthur${number}`].z
+        )
+
+        this.showNextIndicator()
+    }
+
+
+    setActiveChapter(name)
+    {
+        this.chapterButtons.forEach((button) =>
+        {
+            button.classList.toggle('is-active', button.dataset.chapter === name)
+        })
+
+    }
+
+
+    setCheckpointsEnabled(isEnabled)
+    {
+        this.chapterButtons.forEach((button) =>
+        {
+            button.disabled = !isEnabled
+            button.classList.toggle('is-locked', !isEnabled)
+        })
+
+    }
+
+    
     lock()
     { 
         this.locked = true 

@@ -20,7 +20,6 @@ body
     overflow: hidden;
 }
 
-
 /* canvas */
 .webgl
 {
@@ -96,9 +95,9 @@ body
     position: fixed;
     top: 18px;
     right: 16px;
-    z-index: 200;
+    z-index: 400;
 
-    @include responsive(desktop) { right: 96px; }
+    @include responsive(desktop) { right: 32px; }
 }
 
 .audio-btn.is-muted
