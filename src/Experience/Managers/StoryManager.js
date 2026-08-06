@@ -274,6 +274,10 @@ export default class StoryManager
             targets[`${prefix}_target${number}`].y,
             targets[`${prefix}_target${number}`].z
         )
+
+        // caméra mouvement
+        this.experience.camera.saveMovementCenter()
+
         this.experience.world.morganne.mesh.position.set(
             targets[`${prefix}_morganne${number}`].x,
             targets[`${prefix}_morganne${number}`].y,

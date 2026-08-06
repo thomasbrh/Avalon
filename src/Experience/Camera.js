@@ -18,6 +18,7 @@ export default class Camera
          */
         this.experience = new Experience()
         this.sizes = this.experience.sizes
+        this.time = this.experience.time
         this.scene = this.experience.scene
         this.canvas = this.experience.canvas
         this.debug = this.experience.debug
@@ -27,15 +28,48 @@ export default class Camera
         /**
          * inisialisations
          */
+        // amplitudes
         this.mouseLookAmplitudeX = 0.20
         this.mouseLookAmplitudeY = 0.10
+
         this.cursor = { x: 0, y: 0 }
         this.smoothedCursor = { x: 0, y: 0 }
+
+        this.keyboard = {}
+        this.movementSpeed = 5
+
+        // radius déplacement
+        this.movementRadius = 3.2
+        this.movementCenter = new THREE.Vector3()
+        this.wasCameraMoving = false
 
         window.addEventListener('mousemove', (event) => 
         {
             this.cursor.x = - ((event.clientX / this.sizes.width) - 0.5)
             this.cursor.y = - ((event.clientY / this.sizes.height) - 0.5)
+        })
+
+
+        // setup touches caméra
+        window.addEventListener('keydown', (event) =>
+        {
+            const key = event.key.toLowerCase()
+
+            if(key === 'z' || key === 'q' || key === 's' || key === 'd' || key === ' ' || key === 'control')
+            {
+                event.preventDefault()
+                this.keyboard[key] = true
+            }
+        })
+
+        window.addEventListener('keyup', (event) =>
+        {
+            this.keyboard[event.key.toLowerCase()] = false
+        })
+
+        window.addEventListener('blur', () =>
+        {
+            this.keyboard = {}
         })
 
 
@@ -79,6 +113,7 @@ export default class Camera
         if(this.targets['FirstCamPosition']) 
         {
             this.instance.position.copy(this.targets['FirstCamPosition'])
+            this.saveMovementCenter()
         }
     }
 
@@ -99,6 +134,21 @@ export default class Camera
             this.debugFolder
                 .add(this.controls, 'enabled')
                 .name('Orbit controls')
+
+            // vitesse  caméra
+            this.debugFolder
+                .add(this, 'movementSpeed')
+                .name('keyboard speed')
+                .min(0)
+                .max(10)
+                .step(0.1)
+
+            this.debugFolder
+                .add(this, 'movementRadius')
+                .name('keyboard radius')
+                .min(0)
+                .max(5)
+                .step(0.1)
         }
 
     }
@@ -179,6 +229,59 @@ export default class Camera
 
     }
 
+
+    saveMovementCenter()
+    {
+        this.movementCenter.copy(this.instance.position)
+    }
+
+    // bind keyboard
+    updateKeyboardMovement()
+    {
+        const direction = new THREE.Vector3()
+        const forward = new THREE.Vector3()
+        const right = new THREE.Vector3()
+
+        this.instance.getWorldDirection(forward)
+        forward.y = 0
+        forward.normalize()
+
+        right.crossVectors(forward, this.instance.up).normalize()
+
+        if(this.keyboard.z)
+            direction.add(forward)
+
+        if(this.keyboard.s)
+            direction.sub(forward)
+
+        if(this.keyboard.d)
+            direction.add(right)
+
+        if(this.keyboard.q)
+            direction.sub(right)
+
+        if(this.keyboard[' '])
+            direction.y += 1
+
+        if(this.keyboard.control)
+            direction.y -= 1
+
+        if(direction.length() === 0)
+            return
+
+        direction.normalize()
+        direction.multiplyScalar(this.movementSpeed * this.time.delta * 0.001)
+        this.instance.position.add(direction)
+
+        const distanceFromCenter = this.instance.position.clone().sub(this.movementCenter)
+
+        if(distanceFromCenter.length() > this.movementRadius)
+        {
+            distanceFromCenter.setLength(this.movementRadius)
+            this.instance.position.copy(this.movementCenter).add(distanceFromCenter)
+        }
+    }
+
     
     resize()
     {
@@ -199,14 +302,28 @@ export default class Camera
 
             const cameraMoving = gsap.isTweening(this.instance.position) || gsap.isTweening(this.cameraTarget)
 
+            // update caméra
             if(!cameraMoving)
             {
+                if(this.wasCameraMoving)
+                {
+                    this.saveMovementCenter()
+                    this.wasCameraMoving = false
+                }
+
+                this.updateKeyboardMovement()
+                this.instance.lookAt(this.cameraTarget)
+
                 // lissage de la souris pour un mouvement fluide
                 this.smoothedCursor.x += (this.cursor.x - this.smoothedCursor.x) * 0.05
                 this.smoothedCursor.y += (this.cursor.y - this.smoothedCursor.y) * 0.05
 
                 this.instance.rotateY(this.smoothedCursor.x * this.mouseLookAmplitudeX)
                 this.instance.rotateX(this.smoothedCursor.y * this.mouseLookAmplitudeY)
+            }
+            else
+            {
+                this.wasCameraMoving = true
             }
         }
     }
