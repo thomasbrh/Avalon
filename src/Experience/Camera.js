@@ -72,6 +72,8 @@ export default class Camera
             this.keyboard = {}
         })
 
+        this.setMobileControls()
+
 
         /**
          * Debug
@@ -234,6 +236,54 @@ export default class Camera
     {
         this.movementCenter.copy(this.instance.position)
     }
+
+
+    setMobileControls()
+    {
+        this.mobileControls = document.querySelectorAll('[data-camera-key]')
+
+        this.mobileControls.forEach((button) =>
+        {
+            const key = button.dataset.cameraKey === 'space' ? ' ' : button.dataset.cameraKey
+
+            button.addEventListener('pointerdown', (event) =>
+            {
+                event.preventDefault()
+                event.stopPropagation()
+
+                this.keyboard[key] = true
+                button.classList.add('is-active')
+            })
+
+            button.addEventListener('pointerup', (event) =>
+            {
+                event.preventDefault()
+                event.stopPropagation()
+
+                this.keyboard[key] = false
+                button.classList.remove('is-active')
+            })
+
+            button.addEventListener('pointerleave', () =>
+            {
+                this.keyboard[key] = false
+                button.classList.remove('is-active')
+            })
+
+            button.addEventListener('pointercancel', () =>
+            {
+                this.keyboard[key] = false
+                button.classList.remove('is-active')
+            })
+
+            button.addEventListener('click', (event) =>
+            {
+                event.preventDefault()
+                event.stopPropagation()
+            })
+        })
+    }
+
 
     // bind keyboard
     updateKeyboardMovement()

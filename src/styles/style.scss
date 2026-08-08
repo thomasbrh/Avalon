@@ -229,6 +229,81 @@ body
 }
 
 
+/* controles mobile */
+.mobile-controls
+{
+    display: none;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: calc(1rem + env(safe-area-inset-bottom));
+    z-index: 15;
+    pointer-events: none;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding: 0 calc(1rem + env(safe-area-inset-right)) 0 calc(1rem + env(safe-area-inset-left));
+}
+
+.move-controls
+{
+    display: grid;
+    grid-template-columns: repeat(3, 46px);
+    grid-template-rows: repeat(3, 46px);
+    gap: 6px;
+}
+
+.height-controls
+{
+    display: grid;
+    grid-template-columns: 46px;
+    gap: 10px;
+}
+
+.mobile-btn
+{
+    width: 46px;
+    height: 46px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-family: $font-primary;
+    font-size: 20px;
+    line-height: 1;
+    color: $color-text-title;
+    background: rgba($color-bg-deep, 0.72);
+    border: 1px solid rgba($color-accent-gold, $opacity-medium);
+    border-radius: 2px;
+
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+
+    pointer-events: auto;
+    touch-action: none;
+    user-select: none;
+}
+
+.mobile-btn:active,
+.mobile-btn.is-active
+{
+    color: $color-bg-deep;
+    background: $color-accent-gold;
+}
+
+.mobile-btn--up { grid-column: 2; grid-row: 1; }
+.mobile-btn--left { grid-column: 1; grid-row: 2; }
+.mobile-btn--right { grid-column: 3; grid-row: 2; }
+.mobile-btn--down { grid-column: 2; grid-row: 3; }
+
+@media (hover: none) and (pointer: coarse) and (orientation: landscape)
+{
+    body.experience-playing .mobile-controls
+    {
+        display: flex;
+    }
+}
+
+
 /* Keyframes */
 @keyframes fadeInOut
 {

@@ -279,6 +279,9 @@ export default class LoadingManager
     {
         this.startExperience.classList.add('hidden')
         this.startExperience.disabled = true
+
+        document.body.classList.add('experience-playing')
+
         document.querySelector('.header').classList.add('header--playing')
 
         this.experience.storyManager.setCheckpointsEnabled(true)
@@ -311,6 +314,8 @@ export default class LoadingManager
         this.endExperience.disabled = true
 
         document.querySelector('.header')?.classList.remove('hidden', 'header--playing')
+        document.body.classList.remove('experience-playing')
+        
         document.querySelector('.audio-btn')?.classList.remove('hidden')
         document.querySelector('.dialogue-box')?.classList.remove('is-visible')
         document.querySelector('#choices-container').style.display = 'none'
