@@ -31,6 +31,27 @@ export default class SwordManager
          */
         this.timeline = gsap.timeline({ paused: true });
 
+        // sword mini-jeu
+        this.swordClicCount = 0
+        this.swordClicNeeded = 12
+        // état du mini jeu
+        this.swordInteractionActive = false
+        // reprendre timeline
+        this.swordInteractionResolve = null
+
+        // interaction clavier pour le mini-jeu de l'épée
+        window.addEventListener('keydown', (event) =>
+        {
+            if(!this.swordInteractionActive) return
+            if(event.repeat) return
+
+            if(event.code === 'KeyE')
+            {
+                event.preventDefault()
+                this.pullSwordStep()
+            }
+        })
+
 
     }
 
@@ -45,6 +66,94 @@ export default class SwordManager
     {
         this.timeline.play();
         console.log('sword')
+    }
+
+
+    startSwordInteraction()
+    {
+        // Promise pour mettre la timeline en pause
+        return new Promise((resolve) =>
+        {
+            // reset du mini-jeu
+            this.swordClicCount = 0
+            this.swordInteractionActive = true
+            this.swordInteractionResolve = resolve
+
+            // petit texte d'aide affiché à l'écran
+            this.storyManager.showInteraction(
+                "E - tirer l'epee",
+                () =>
+                {
+                    this.pullSwordStep()
+                }
+            )
+        })
+    }
+
+
+    pullSwordStep()
+    {
+        // si le mini-jeu n'est pas lancé on fait rien
+        if(!this.swordInteractionActive) return
+
+        this.swordClicCount++
+
+        const sword = this.experience.world.sword
+        // progression par apport au nombre de clic
+        const progress = this.swordClicCount / this.swordClicNeeded
+
+        if(sword?.swordObject)
+        {
+            // à chaque clic, l'épée monte un petit peu
+            gsap.to(sword.swordObject.position,
+            {
+                y: sword.swordStartY + progress * 0.45,
+                duration: 0.2,
+                ease: 'power2.out'
+            })
+        }
+
+        const remainingClic = this.swordClicNeeded - this.swordClicCount
+
+        if(remainingClic > 0)
+        {
+            // tant qu'il reste des clics, on laisse le mini-jeu actif
+            this.storyManager.showInteraction(
+                "L'epee cede peu a peu",
+                () =>
+                {
+                    this.pullSwordStep()
+                }
+            )
+
+            return
+        }
+
+        this.swordInteractionActive = false
+        this.storyManager.hideInteraction()
+
+        // on récupère la fonction qui relance la suite de la timeline
+        const resolve = this.swordInteractionResolve
+        this.swordInteractionResolve = null
+
+        if(sword?.swordObject)
+        {
+            // dernier mouvement de l'épée qui sort
+            gsap.to(sword.swordObject.position,
+            {
+                y: sword.swordStartY + 0.65,
+                duration: 0.6,
+                ease: 'back.out(1.6)',
+                onComplete: () =>
+                {
+                    if(resolve) resolve()
+                }
+            })
+        }
+        else
+        {
+            if(resolve) resolve()
+        }
     }
 
 
@@ -141,9 +250,16 @@ export default class SwordManager
                 });
             })
 
-            // lance l'animation du pont
-            .call(() => { this.experience.world.animationsClip.playClip(0); }, null, "+=0.1")
-            .to({}, { duration: 4.7 })
+            // interaction du pont
+            .call(() =>
+            {
+                this.timeline.pause()
+
+                this.storyManager.startBridgeInteraction(0).then(() =>
+                {
+                    this.timeline.play()
+                })
+            }, null, "+=0.1")
 
 
             .call(async () =>
@@ -400,6 +516,11 @@ export default class SwordManager
                     "Arthur",
                     "J'ai tiré cette épée. Personne n'y croyait. Pas même moi.",
                     'audio/dialogue-sword/arthur_voices-3.5-1.ogg');
+
+                // interraction épée
+                await this.startSwordInteraction()
+
+
                 // arthur 3.5-2
                 await this.dialogueManager.playLine(
                     "Arthur",
