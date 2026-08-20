@@ -42,7 +42,7 @@ export default class Environment
     setSunLight()
     {
         // crée la light
-        this.sunLight = new THREE.AmbientLight('#ffffff', 2)     
+        this.sunLight = new THREE.AmbientLight('#ffffff', 0.82)     
         // ajout de la light à la scène
         this.scene.add(this.sunLight)
 
@@ -67,7 +67,7 @@ export default class Environment
     {
 
         this.environmentMap = {}
-        this.environmentMap.intensity = 0.12 
+        this.environmentMap.intensity = 0.18 
         this.environmentMap.texture = this.resources.items.environmentMapTexture
         this.environmentMap.texture.colorSpace = THREE.SRGBColorSpace
         
