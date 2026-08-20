@@ -101,6 +101,11 @@ export default class World
             this.animationsClip.mixer.update(this.experience.time.delta * 0.001)
         }
 
+        if(this.island)
+        {
+            this.island.update()
+        }
+
         // maj perso
         if(this.morganne)
         {
