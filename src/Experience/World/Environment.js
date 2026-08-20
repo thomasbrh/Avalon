@@ -3,6 +3,7 @@ import Experience from '../Experience.js'
 
 // import librairies
 import * as THREE from 'three'
+import gsap from 'gsap'
 
 
 export default class Environment
@@ -70,10 +71,13 @@ export default class Environment
         this.environmentMap.texture = this.resources.items.environmentMapTexture
         this.environmentMap.texture.colorSpace = THREE.SRGBColorSpace
         
+        this.scene.background = this.environmentMap.texture
         this.scene.environment = this.environmentMap.texture
 
         this.scene.environmentRotation.y = 0
-        this.scene.backgroundRotation.y = 4
+        this.scene.backgroundRotation.y = 0
+
+        this.environmentMap.rotation = { y: 0 }
 
         this.environmentMap.updateMaterials = () =>
         {
@@ -85,6 +89,7 @@ export default class Environment
                 {
                     child.material.envMap = this.environmentMap.texture
                     child.material.envMapIntensity = this.environmentMap.intensity
+                    child.material.envMapRotation.y = this.environmentMap.rotation.y
                     child.material.needsUpdate = true
                 }
 
@@ -92,6 +97,7 @@ export default class Environment
 
         }
         this.environmentMap.updateMaterials()
+        this.playHDRIRotation()
 
 
         /**
@@ -108,6 +114,37 @@ export default class Environment
                 .onChange(this.environmentMap.updateMaterials)
         }
 
+    }
+
+
+    updateHDRIRotation()
+    {
+        this.scene.backgroundRotation.y = this.environmentMap.rotation.y
+        this.scene.environmentRotation.y = this.environmentMap.rotation.y
+
+        this.scene.traverse((child) =>
+        {
+            if(child instanceof THREE.Mesh && child.material instanceof THREE.MeshStandardMaterial)
+            {
+                child.material.envMapRotation.y = this.environmentMap.rotation.y
+            }
+        })
+    }
+
+
+    playHDRIRotation()
+    {
+        gsap.to(this.environmentMap.rotation,
+        {
+            y: Math.PI * 2,
+            duration: 720,
+            ease: 'none',
+            repeat: -1,
+            onUpdate: () =>
+            {
+                this.updateHDRIRotation()
+            }
+        })
     }
     
 }

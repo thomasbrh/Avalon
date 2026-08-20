@@ -3,7 +3,6 @@ import Experience from '../Experience.js'
 
 // import librairies
 import * as THREE from 'three'
-import GUI from 'lil-gui'
 
 // shaders
 import oceanVertexShader from '../shaders/ocean/vertex.glsl'
@@ -219,7 +218,9 @@ export default class Island
 
     setDebug()
     {
-        this.debugFolder = this.debug.active ? this.debug.gui.addFolder('ocean') : new GUI({ width: 340 })
+        if(!this.debug.active) return
+
+        this.debugFolder = this.debug.gui.addFolder('ocean')
 
         this.debugFolder
             .addColor(this.oceanDebugObject, 'depthColor')
