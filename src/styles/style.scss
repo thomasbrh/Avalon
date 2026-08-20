@@ -247,36 +247,31 @@ body
 .move-controls
 {
     display: grid;
-    grid-template-columns: repeat(3, 46px);
-    grid-template-rows: repeat(3, 46px);
+    grid-template-columns: repeat(3, 48px);
+    grid-template-rows: repeat(3, 48px);
     gap: 6px;
 }
 
 .height-controls
 {
     display: grid;
-    grid-template-columns: 46px;
+    grid-template-columns: 48px;
     gap: 10px;
 }
 
 .mobile-btn
 {
-    width: 46px;
-    height: 46px;
+    position: relative;
+    width: 48px;
+    height: 48px;
     display: flex;
     align-items: center;
     justify-content: center;
 
-    font-family: $font-primary;
-    font-size: 20px;
-    line-height: 1;
-    color: $color-text-title;
-    background: rgba($color-bg-deep, 0.72);
-    border: 1px solid rgba($color-accent-gold, $opacity-medium);
-    border-radius: 2px;
-
-    -webkit-backdrop-filter: blur(8px);
-    backdrop-filter: blur(8px);
+    background: $color-bg-deep;
+    border: 1px solid $color-border-gold;
+    border-radius: 4px;
+    cursor: pointer;
 
     pointer-events: auto;
     touch-action: none;
@@ -286,14 +281,54 @@ body
 .mobile-btn:active,
 .mobile-btn.is-active
 {
-    color: $color-bg-deep;
+    background: rgba($color-accent-gold, 0.12);
+    border-color: rgba($color-accent-gold, $opacity-medium);
+    transform: scale(0.96);
+}
+
+.mobile-btn::before,
+.mobile-btn::after
+{
+    content: '';
+    position: absolute;
+    display: block;
     background: $color-accent-gold;
+}
+
+.mobile-btn--up::before,
+.mobile-btn--left::before,
+.mobile-btn--right::before,
+.mobile-btn--down::before
+{
+    width: 12px;
+    height: 12px;
+    background: transparent;
+    border-right: 1px solid $color-accent-gold;
+    border-bottom: 1px solid $color-accent-gold;
 }
 
 .mobile-btn--up { grid-column: 2; grid-row: 1; }
 .mobile-btn--left { grid-column: 1; grid-row: 2; }
 .mobile-btn--right { grid-column: 3; grid-row: 2; }
 .mobile-btn--down { grid-column: 2; grid-row: 3; }
+
+.mobile-btn--up::before { transform: translateY(4px) rotate(-135deg); }
+.mobile-btn--left::before { transform: translateX(4px) rotate(135deg); }
+.mobile-btn--right::before { transform: translateX(-4px) rotate(-45deg); }
+.mobile-btn--down::before { transform: translateY(-4px) rotate(45deg); }
+
+.mobile-btn--rise::before,
+.mobile-btn--rise::after,
+.mobile-btn--fall::before
+{
+    width: 18px;
+    height: 1px;
+}
+
+.mobile-btn--rise::after
+{
+    transform: rotate(90deg);
+}
 
 @media (hover: none) and (pointer: coarse) and (orientation: landscape)
 {
