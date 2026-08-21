@@ -77,6 +77,9 @@ export default class StoryManager
         const handler = (event) =>
         {
             if (!this.indicatorVisible) return
+            // Les controles camera ne doivent pas declencher le passage d'histoire.
+            if(event.target.closest('.mobile-controls')) return
+
             event.preventDefault()
             
             this.indicatorVisible = false

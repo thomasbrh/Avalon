@@ -24,9 +24,33 @@ export default class DialogueManager
         {
             if(!this.endDialogue) return
             if(event.target.closest('.header')) return
+            if(event.target.closest('.mobile-controls')) return
 
             const direction = event.clientX < window.innerWidth / 2 ? -1 : 1
             this.moveLine(direction)
+        })
+
+        document.addEventListener('mousemove', (event) =>
+        {
+            if(!this.endDialogue) return
+
+            // Le curseur indique si le clic revient en arriere ou passe a la suite.
+            if(event.target.closest('.header') || event.target.closest('.mobile-controls'))
+            {
+                document.body.classList.remove('dialogue-previous', 'dialogue-next')
+                return
+            }
+
+            if(event.clientX < window.innerWidth / 2)
+            {
+                document.body.classList.add('dialogue-previous')
+                document.body.classList.remove('dialogue-next')
+            }
+            else
+            {
+                document.body.classList.add('dialogue-next')
+                document.body.classList.remove('dialogue-previous')
+            }
         })
     }
 
@@ -119,6 +143,7 @@ export default class DialogueManager
     {
         this.dialogueBox.classList.remove('is-visible')
         document.body.classList.remove('dialogue-active')
+        document.body.classList.remove('dialogue-previous', 'dialogue-next')
         this.dialogueSpeaker.textContent = ''
         this.dialogueText.textContent = ''
     }
