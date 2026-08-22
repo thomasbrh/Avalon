@@ -5,6 +5,10 @@ export default class DialogueManager
 
     constructor()
     {
+
+        /**
+         * Base
+         */
         this.voicePlayer = new AudioManager().voicePlayer
 
         /**
@@ -19,7 +23,20 @@ export default class DialogueManager
         this.historyIndex = -1
         this.endDialogue = null
 
-        // clic gauche = -1, clic droit = +1
+
+        /**
+         * Appel des instances
+         */
+        this.setDialogueNavigation()
+    }
+
+
+    /**
+     * Dialogue navigation
+     */
+    setDialogueNavigation()
+    {
+        // moitié gauche = précédent, moitié droite = suivant
         document.addEventListener('click', (event) =>
         {
             if(!this.endDialogue) return
@@ -32,26 +49,29 @@ export default class DialogueManager
 
         document.addEventListener('mousemove', (event) =>
         {
-            if(!this.endDialogue) return
-
-            // Le curseur indique si le clic revient en arriere ou passe a la suite.
-            if(event.target.closest('.header') || event.target.closest('.mobile-controls'))
-            {
-                document.body.classList.remove('dialogue-previous', 'dialogue-next')
-                return
-            }
-
-            if(event.clientX < window.innerWidth / 2)
-            {
-                document.body.classList.add('dialogue-previous')
-                document.body.classList.remove('dialogue-next')
-            }
-            else
-            {
-                document.body.classList.add('dialogue-next')
-                document.body.classList.remove('dialogue-previous')
-            }
+            this.updateCursor(event)
         })
+    }
+
+
+    /**
+     * Cursor dialogue
+     */
+    updateCursor(event)
+    {
+        if(!this.endDialogue) return
+
+        // garde le cursor normal sur les éléments cliquables
+        if(event.target.closest('.header') || event.target.closest('.mobile-controls'))
+        {
+            document.body.classList.remove('dialogue-previous', 'dialogue-next')
+            return
+        }
+
+        const previous = event.clientX < window.innerWidth / 2
+
+        document.body.classList.toggle('dialogue-previous', previous)
+        document.body.classList.toggle('dialogue-next', !previous)
     }
 
 

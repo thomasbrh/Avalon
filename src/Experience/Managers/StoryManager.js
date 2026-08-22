@@ -72,12 +72,17 @@ export default class StoryManager
         this.setCheckpointsEnabled(false)
     }
 
+
+    /**
+     * Interactions
+     */
     initInteraction()
     {
         const handler = (event) =>
         {
             if (!this.indicatorVisible) return
-            // Les controles camera ne doivent pas declencher le passage d'histoire.
+
+            // les controles camera ne doivent pas avancer l'histoire
             if(event.target.closest('.mobile-controls')) return
 
             event.preventDefault()

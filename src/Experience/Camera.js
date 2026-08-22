@@ -39,7 +39,7 @@ export default class Camera
         this.movementSpeed = 5
 
         // radius déplacement
-        this.movementRadius = 3.2
+        this.movementRadius = 2.5
         this.movementCenter = new THREE.Vector3()
         this.wasCameraMoving = false
 
@@ -238,13 +238,16 @@ export default class Camera
     }
 
 
+    /**
+     * Mobile controls
+     */
     setMobileControls()
     {
         this.mobileControls = document.querySelectorAll('[data-camera-key]')
 
         this.mobileControls.forEach((button) =>
         {
-            // les boutons mobile utilisent les memes touches virtuelles que le clavier.
+            // change le mot space par la vraie valeur de la touche espace
             const key = button.dataset.cameraKey === 'space' ? ' ' : button.dataset.cameraKey
 
             button.addEventListener('pointerdown', (event) =>
@@ -277,31 +280,7 @@ export default class Camera
                 button.classList.remove('is-active')
             })
 
-            button.addEventListener('touchstart', (event) =>
-            {
-                event.preventDefault()
-                event.stopPropagation()
-
-                // eviter les missclick qui font avancer les dialogues
-                this.keyboard[key] = true
-                button.classList.add('is-active')
-            })
-
-            button.addEventListener('touchend', (event) =>
-            {
-                event.preventDefault()
-                event.stopPropagation()
-
-                this.keyboard[key] = false
-                button.classList.remove('is-active')
-            })
-
-            button.addEventListener('touchcancel', () =>
-            {
-                this.keyboard[key] = false
-                button.classList.remove('is-active')
-            })
-
+            // empêche le click du bouton de passer aux dialogues
             button.addEventListener('click', (event) =>
             {
                 event.preventDefault()
@@ -314,6 +293,7 @@ export default class Camera
     // bind keyboard
     updateKeyboardMovement()
     {
+        // crée les directions
         const direction = new THREE.Vector3()
         const forward = new THREE.Vector3()
         const right = new THREE.Vector3()

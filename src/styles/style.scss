@@ -138,7 +138,7 @@ body
     display: block;
 }
 
-/* cursor dialogues */
+/* cursor précédent/suivant */
 body.dialogue-previous,
 body.dialogue-previous *
 {
@@ -150,13 +150,6 @@ body.dialogue-next *
 {
     cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cpath d='M12 8 L21 16 L12 24' fill='none' stroke='%23FAB56F' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") 16 16, e-resize;
 }
-
-body.dialogue-active .mobile-controls,
-body.dialogue-active .mobile-controls *
-{
-    cursor: pointer;
-}
-
 
 /* nom speaker */
 .dialogue-speaker
