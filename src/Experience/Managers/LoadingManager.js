@@ -279,8 +279,8 @@ export default class LoadingManager
     {
         this.startExperience.classList.add('hidden')
         this.startExperience.disabled = true
-        document.querySelector('.header').classList.add('header--playing')
 
+        // débloque la navigation
         this.experience.storyManager.setCheckpointsEnabled(true)
         this.experience.storyManager.goTo('portal');
 
@@ -310,7 +310,6 @@ export default class LoadingManager
         this.endExperience.classList.add('hidden')
         this.endExperience.disabled = true
 
-        document.querySelector('.header')?.classList.remove('hidden', 'header--playing')
         document.querySelector('.audio-btn')?.classList.remove('hidden')
         document.querySelector('.dialogue-box')?.classList.remove('is-visible')
         document.querySelector('#choices-container').style.display = 'none'

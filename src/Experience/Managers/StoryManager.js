@@ -66,17 +66,24 @@ export default class StoryManager
         /**
          * Appel des instances
          */
-        this.initInteraction()
-        this.setNavigation()
+        this.setStoryNavigation()
+        this.setChapterNavigation()
         this.setActiveChapter('portal')
         this.setCheckpointsEnabled(false)
     }
 
-    initInteraction()
+
+    /**
+     * Clic pour continuer
+     */
+    setStoryNavigation()
     {
-        const handler = (event) =>
+        const onNextClick = (event) =>
         {
-            if (!this.indicatorVisible) return
+            // le menu ne doit jamais faire avancer la timeline
+            if(event.target.closest('.header')) return
+            if(!this.indicatorVisible) return
+
             event.preventDefault()
             
             this.indicatorVisible = false
@@ -92,15 +99,17 @@ export default class StoryManager
                 return
             }
 
-            if (this.currentScene && this.currentScene.timeline)
+            if(this.currentScene && this.currentScene.timeline)
                 this.currentScene.timeline.play()
         }
-        window.addEventListener('click', handler)
-        window.addEventListener('touchstart', handler)
+        window.addEventListener('click', onNextClick)
     }
 
 
-    setNavigation()
+    /**
+     * Le menu
+     */
+    setChapterNavigation()
     {
         this.chapterMenuToggle.addEventListener('click', (event) =>
         {
@@ -183,6 +192,37 @@ export default class StoryManager
         this.currentScene?.enter()
     }
 
+
+    /**
+     * Replace les ponts dans l'état du chapitre choisi
+     */
+    setBridgeCheckpointState(name)
+    {
+        const animationsClip = this.experience.world.animationsClip
+
+        // remet tous les ponts en bas
+        animationsClip.setClipProgress(0, 0)
+        animationsClip.setClipProgress(1, 0)
+        animationsClip.setClipProgress(2, 0)
+
+        // levé au chap du lake
+        if(name === 'lake' || name === 'sword' || name === 'manor')
+        {
+            animationsClip.setClipProgress(2, 1)
+        }
+
+        // levé au chap du manoir
+        if(name === 'manor')
+        {
+            animationsClip.setClipProgress(0, 1)
+        }
+    }
+
+
+    /**
+     * Charge les zones nécessaires
+     */
+    // replace l'expérience au chapitre choisi
     async goToCheckpoint(name)
     {
         // reset UI avant le tp
@@ -201,11 +241,14 @@ export default class StoryManager
             this.experience.world.createLakeZone()
         }
 
-        if(name === 'sword' || name === 'manor')
+        if(name === 'lake' || name === 'sword' || name === 'manor')
         {
             await this.experience.resources.loadGroup('animations', deferredGroups.animations)
             this.experience.world.createAnimationsZone()
+        }
 
+        if(name === 'sword' || name === 'manor')
+        {
             await this.experience.resources.loadGroup('sword', deferredGroups.sword)
             this.experience.world.createSwordZone()
         }
@@ -227,7 +270,10 @@ export default class StoryManager
             this.experience.world.lake.model.visible = name === 'lake' || name === 'sword' || name === 'manor'
 
         if(this.experience.world.animationsClip)
-            this.experience.world.animationsClip.model.visible = name === 'sword' || name === 'manor'
+        {
+            this.experience.world.animationsClip.model.visible = name === 'lake' || name === 'sword' || name === 'manor'
+            this.setBridgeCheckpointState(name)
+        }
 
         if(this.experience.world.sword)
             this.experience.world.sword.model.visible = name === 'sword' || name === 'manor'
@@ -289,6 +335,9 @@ export default class StoryManager
     }
 
 
+    /**
+     * Marque le chapitre actuel dans le menu
+     */
     setActiveChapter(name)
     {
         this.chapterButtons.forEach((button) =>
@@ -299,6 +348,9 @@ export default class StoryManager
     }
 
 
+    /**
+     * Active le menu seulement après le chargement
+     */
     setCheckpointsEnabled(isEnabled)
     {
         this.chapterButtons.forEach((button) =>

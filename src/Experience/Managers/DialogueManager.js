@@ -5,6 +5,9 @@ export default class DialogueManager
 
     constructor()
     {
+        /**
+         * Base
+         */
         this.voicePlayer = new AudioManager().voicePlayer
 
         /**
@@ -14,19 +17,38 @@ export default class DialogueManager
         this.dialogueSpeaker = document.querySelector('.dialogue-speaker')
         this.dialogueText = document.querySelector('.dialogue-text')
 
-        // historique des dialogues
+        /**
+         * Initialisation
+         */
         this.history = []
         this.historyIndex = -1
-        this.endDialogue = null
+        // fonction qui permet de terminer le dialogue en cours
+        this.dialogueResolve = null
 
-        // clic gauche = -1, clic droit = +1
+
+        /**
+         * Appel des instances
+         */
+        this.setDialogueNavigation()
+    }
+
+
+    /**
+     * Navigation de dialogue
+     */
+    setDialogueNavigation()
+    {
         document.addEventListener('click', (event) =>
         {
-            if(!this.endDialogue) return
-            if(event.target.closest('.header')) return
+            if(!this.dialogueResolve) return
+            if(event.target.closest('.header, button, a')) return
 
+            // ce clic sert seulement à la navigation du dialogue
+            event.stopPropagation()
+
+            // -1 revient dans l'historique, 1 continue
             const direction = event.clientX < window.innerWidth / 2 ? -1 : 1
-            this.moveLine(direction)
+            this.changeDialogueLine(direction)
         })
     }
 
@@ -35,8 +57,7 @@ export default class DialogueManager
     {
         return new Promise((resolve) =>
         {
-            // fonction pour dire que le dialogue est fini
-            this.endDialogue = resolve
+            this.dialogueResolve = resolve
 
             // add la ligne dans l'historique
             const line = { speaker, content, audioSrc }
@@ -45,54 +66,57 @@ export default class DialogueManager
 
             this.dialogueBox.classList.add('is-visible')
             document.body.classList.add('dialogue-active')
-            this.showLine(line)
+            this.showDialogueLine(line)
 
             this.voicePlayer.onended = () =>
             {
                 // si on écoute une ancienne ligne alors on ne passe pas à la suite
                 if(this.historyIndex === this.history.length - 1)
-                    this.skipDialogue()
+                    this.finishDialogue()
             }
         })
     }
 
 
-    moveLine(direction)
+    /**
+     * Change le dialogue
+     */
+    changeDialogueLine(direction)
     {
-        if(!this.endDialogue) return
-
         const nextIndex = this.historyIndex + direction
 
         if(nextIndex < 0) return
 
         if(nextIndex >= this.history.length)
         {
-            this.skipDialogue()
+            this.finishDialogue()
             return
         }
 
         this.historyIndex = nextIndex
-        this.showLine(this.history[this.historyIndex])
+        this.showDialogueLine(this.history[this.historyIndex])
     }
 
 
-    skipDialogue()
+    /**
+     * Reprend la timeline
+     */
+    finishDialogue()
     {
-        if(!this.endDialogue) return
-
         this.voicePlayer.pause()
 
-        const resolve = this.endDialogue
-        this.endDialogue = null
+        const resolve = this.dialogueResolve
+        this.dialogueResolve = null
 
-        if(resolve) resolve()
+        resolve()
     }
 
 
-    showLine(line)
+    /**
+     * Affiche et lance la ligne
+     */
+    showDialogueLine(line)
     {
-        if(!line) return
-
         this.dialogueSpeaker.textContent = line.speaker
         this.dialogueText.textContent = line.content
         this.dialogueBox.setAttribute('data-speaker', line.speaker.toLowerCase())
@@ -108,7 +132,7 @@ export default class DialogueManager
     {
         this.voicePlayer.pause()
         this.voicePlayer.onended = null
-        this.endDialogue = null
+        this.dialogueResolve = null
         this.history = []
         this.historyIndex = -1
         this.hide()
