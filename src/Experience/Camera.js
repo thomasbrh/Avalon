@@ -39,7 +39,7 @@ export default class Camera
         this.movementSpeed = 5
 
         // radius déplacement
-        this.movementRadius = 3.2
+        this.movementRadius = 2.5
         this.movementCenter = new THREE.Vector3()
         this.wasCameraMoving = false
 
@@ -238,12 +238,16 @@ export default class Camera
     }
 
 
+    /**
+     * Mobile controls
+     */
     setMobileControls()
     {
         this.mobileControls = document.querySelectorAll('[data-camera-key]')
 
         this.mobileControls.forEach((button) =>
         {
+            // change le mot space par la vraie valeur de la touche espace
             const key = button.dataset.cameraKey === 'space' ? ' ' : button.dataset.cameraKey
 
             button.addEventListener('pointerdown', (event) =>
@@ -276,6 +280,7 @@ export default class Camera
                 button.classList.remove('is-active')
             })
 
+            // empêche le click du bouton de passer aux dialogues
             button.addEventListener('click', (event) =>
             {
                 event.preventDefault()
@@ -288,6 +293,7 @@ export default class Camera
     // bind keyboard
     updateKeyboardMovement()
     {
+        // crée les directions
         const direction = new THREE.Vector3()
         const forward = new THREE.Vector3()
         const right = new THREE.Vector3()

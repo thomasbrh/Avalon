@@ -41,7 +41,7 @@ export default class DialogueManager
         document.addEventListener('click', (event) =>
         {
             if(!this.dialogueResolve) return
-            if(event.target.closest('.header, button, a')) return
+            if(event.target.closest('.header, .mobile-controls, button, a')) return
 
             // ce clic sert seulement à la navigation du dialogue
             event.stopPropagation()
@@ -50,6 +50,32 @@ export default class DialogueManager
             const direction = event.clientX < window.innerWidth / 2 ? -1 : 1
             this.changeDialogueLine(direction)
         })
+
+        document.addEventListener('mousemove', (event) =>
+        {
+            this.updateCursor(event)
+        })
+    }
+
+
+    /**
+     * Cursor dialogue
+     */
+    updateCursor(event)
+    {
+        if(!this.dialogueResolve) return
+
+        // garde le cursor normal sur les éléments cliquables
+        if(event.target.closest('.header, .mobile-controls, button, a'))
+        {
+            document.body.classList.remove('dialogue-previous', 'dialogue-next')
+            return
+        }
+
+        const previous = event.clientX < window.innerWidth / 2
+
+        document.body.classList.toggle('dialogue-previous', previous)
+        document.body.classList.toggle('dialogue-next', !previous)
     }
 
 
@@ -143,6 +169,7 @@ export default class DialogueManager
     {
         this.dialogueBox.classList.remove('is-visible')
         document.body.classList.remove('dialogue-active')
+        document.body.classList.remove('dialogue-previous', 'dialogue-next')
         this.dialogueSpeaker.textContent = ''
         this.dialogueText.textContent = ''
     }

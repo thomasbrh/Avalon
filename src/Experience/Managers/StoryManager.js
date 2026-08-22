@@ -80,8 +80,8 @@ export default class StoryManager
     {
         const onNextClick = (event) =>
         {
-            // le menu ne doit jamais faire avancer la timeline
-            if(event.target.closest('.header')) return
+            // le menu et les controles caméra ne doivent pas avancer l'histoire
+            if(event.target.closest('.header, .mobile-controls')) return
             if(!this.indicatorVisible) return
 
             event.preventDefault()
