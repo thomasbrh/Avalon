@@ -145,6 +145,8 @@ export default class DialogueManager
     {
         this.dialogueSpeaker.textContent = line.speaker
         this.dialogueText.textContent = line.content
+
+        // data speaker récupéré pour l'animation speaking
         this.dialogueBox.setAttribute('data-speaker', line.speaker.toLowerCase())
 
         this.voicePlayer.pause()
@@ -168,6 +170,9 @@ export default class DialogueManager
     hide()
     {
         this.dialogueBox.classList.remove('is-visible')
+
+        // reset le speaker quand le dialogue est hide
+        this.dialogueBox.removeAttribute('data-speaker')
         document.body.classList.remove('dialogue-active')
         document.body.classList.remove('dialogue-previous', 'dialogue-next')
         this.dialogueSpeaker.textContent = ''

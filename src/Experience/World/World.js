@@ -37,8 +37,27 @@ export default class World
             this.island = new Island()
             this.portal = new Portal()
 
-            this.morganne = new Personnages('#D4A0C0')
-            this.arthur = new Personnages('#FAB56F')
+
+
+            /**
+             * Personnages
+             */
+            this.morganne = new Personnages(
+            {
+                name: 'Morgane',
+                colorA: '#5F204F',
+                colorB: '#F0BAD9',
+                speakerNames: ['morgane'],
+                phase: 0
+            })
+            this.arthur = new Personnages(
+            {
+                name: 'Arthur',
+                colorA: '#733414',
+                colorB: '#FFC27F',
+                speakerNames: ['arthur', '???'],
+                phase: 2.4
+            })
 
         })
         
@@ -106,7 +125,7 @@ export default class World
             this.island.update()
         }
 
-        // maj perso
+        // maj animation persos + dialogues
         if(this.morganne)
         {
             this.morganne.update()

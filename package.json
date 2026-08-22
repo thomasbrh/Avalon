@@ -17,6 +17,7 @@
     "lil-gui": "^0.20.0",
     "spectorjs": "^0.9.30",
     "three": "^0.174.0",
+    "three-custom-shader-material": "6.3.7",
     "vite-plugin-glsl": "^1.5.6"
   }
 }
