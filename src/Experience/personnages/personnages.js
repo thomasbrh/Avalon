@@ -51,8 +51,8 @@ export default class Personnages
             // noise principal
             positionFrequency: 0.5,
             timeFrequency: 0.4,
-            idleStrength: 0.3,
-            speakingStrength: 0.62,
+            idleStrength: 0.5,
+            speakingStrength: 1.2,
 
             // noise qui warp le noise principal
             warpPositionFrequency: 0.38,
@@ -60,8 +60,8 @@ export default class Personnages
             warpStrength: 1.7,
 
             // animation idle et speaking
-            idleSpeed: 1,
-            speakingSpeed: 2.6,
+            idleSpeed: 1.2,
+            speakingSpeed: 3.5,
             transitionSpeed: 6,
 
             // apparence
