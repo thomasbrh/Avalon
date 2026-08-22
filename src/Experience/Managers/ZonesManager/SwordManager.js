@@ -64,7 +64,7 @@ export default class SwordManager
             sword.setSwordPulled(false)
 
             this.storyManager.showInteraction(
-                "E - tirer l'épée",
+                "Tirer l'épée",
                 () => this.pullSwordStep()
             )
         })

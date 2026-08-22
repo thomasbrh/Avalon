@@ -341,26 +341,46 @@ body.dialogue-next *
     bottom: 18%;
     transform: translateX(-50%);
     z-index: 140;
-    max-width: 80%;
-    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    width: max-content;
+    max-width: calc(100% - 2rem);
+    padding: 0.5rem 0.65rem;
     box-sizing: border-box;
     border: 1px solid $color-border-gold;
-    border-radius: 4px;
-    font-family: $font-primary;
+    border-radius: 6px;
+    font-family: $font-secondary;
     font-size: 14px;
-    letter-spacing: $letter-spacing-muted;
-    text-align: center;
-    text-transform: uppercase;
-    color: $color-accent-rose;
-    text-shadow: 0px 1px 4px rgba(0, 0, 0, 0.75);
-    background: rgba($color-bg-deep, $opacity-high);
-    -webkit-backdrop-filter: blur(6px);
-    backdrop-filter: blur(6px);
+    color: rgba($color-text-title, $opacity-high);
+    background: rgba($color-bg-deep, 0.58);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
     pointer-events: none;
     user-select: none;
 
     @include responsive(tablet) { font-size: 16px; }
     @include responsive(desktop) { font-size: 18px; }
+}
+
+.interaction-text.has-action::before
+{
+    content: 'E';
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 22px;
+    height: 22px;
+    box-sizing: border-box;
+
+    font-family: $font-primary;
+    font-size: 0.62rem;
+    color: $color-accent-gold;
+    background: rgba($color-bg-surface, 0.72);
+    border: 1px solid rgba($color-accent-gold, $opacity-medium);
+    border-radius: 3px;
+    letter-spacing: $letter-spacing-muted;
 }
 
 .interaction-button
@@ -370,18 +390,18 @@ body.dialogue-next *
     right: 24px;
     bottom: 96px;
     z-index: 145;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.65rem;
 
-    width: 64px;
-    height: 64px;
-
-    font-family: $font-primary;
-    font-size: 28px;
-    color: $color-text-title;
-    background: rgba($color-bg-deep, $opacity-high);
+    font-family: $font-secondary;
+    font-size: 0.72rem;
+    color: rgba($color-text-title, $opacity-high);
+    background: rgba($color-bg-deep, 0.58);
     border: 1px solid $color-border-gold;
-    border-radius: 50%;
-    -webkit-backdrop-filter: blur(6px);
-    backdrop-filter: blur(6px);
+    border-radius: 6px;
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
     cursor: pointer;
     user-select: none;
 }

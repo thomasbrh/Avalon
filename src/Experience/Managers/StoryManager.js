@@ -236,6 +236,7 @@ export default class StoryManager
     {
         this.interactionText.textContent = text
         this.interactionText.classList.remove('hidden')
+        this.interactionText.classList.toggle('has-action', Boolean(action))
         this.interactionAction = action
 
         // bouton E pour mobile
@@ -249,6 +250,7 @@ export default class StoryManager
     hideInteraction()
     {
         this.interactionText.classList.add('hidden')
+        this.interactionText.classList.remove('has-action')
         this.interactionText.textContent = ''
         this.interactionButton.classList.add('hidden')
         this.interactionAction = null
@@ -270,7 +272,7 @@ export default class StoryManager
             animationsClip.setClipProgress(index, 0)
 
             this.showInteraction(
-                "E - dévoiler le pont",
+                "Dévoiler le pont",
                 () => this.advanceBridgeStep()
             )
         })
@@ -302,7 +304,7 @@ export default class StoryManager
                 if(remainingSteps > 0)
                 {
                     this.showInteraction(
-                        "E - continuer le pont",
+                        "Continuer le pont",
                         () => this.advanceBridgeStep()
                     )
 
