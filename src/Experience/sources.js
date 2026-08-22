@@ -67,22 +67,9 @@ export default
         type: 'gltfModel',
         path: 'models/island/ocean.glb'
     },
-    // texture
-    // Lightmap
-    {
-        name: 'oceanTextureLightmap',
-        type: 'texture',
-        path: 'textures/island/ocean/ocean_lightmap.webp'
-    },
-    // Normalmap
-    {
-        name: 'oceanTextureNormalmap',
-        type: 'texture',
-        path: 'textures/island/ocean/ocean_normalmap.webp'
-    },
 
 
-    
+
     // Rocks sources
     // glb
     {

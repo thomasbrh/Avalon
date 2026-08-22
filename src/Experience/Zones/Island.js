@@ -3,7 +3,6 @@ import Experience from '../Experience.js'
 
 // import librairies
 import * as THREE from 'three'
-import GUI from 'lil-gui'
 
 // shaders
 import oceanVertexShader from '../shaders/ocean/vertex.glsl'
@@ -24,9 +23,6 @@ export default class Island
         this.resources = this.experience.resources
         this.time = this.experience.time
         this.debug = this.experience.debug
-        this.oceanFrequencyScale = 1
-        this.oceanMesh = null
-        this.oceanBaseY = 0
 
 
         /**
@@ -45,13 +41,25 @@ export default class Island
          * Appel des instances
          */
         this.setTexture()
+        this.setOcean()
         this.setTreesTexture()
         this.setModel()
-        this.setDebug()
+
+
+        /**
+         * Debug
+         */
+        if(this.debug.active)
+        {
+            this.setDebug()
+        }
 
     }
 
 
+    /**
+     * Textures
+     */
     setTexture()
     {
 
@@ -95,56 +103,6 @@ export default class Island
         {
             if (child.isMesh) child.material = this.rocksMaterial
         })
-
-
-
-        /**
-         * Ocean
-         */
-        this.oceanMaterial = new THREE.ShaderMaterial(
-        {
-            vertexShader: oceanVertexShader,
-            fragmentShader: oceanFragmentShader,
-            uniforms:
-            {
-                uTime: { value: 0 },
-
-                uBigWavesElevation: { value: 0.45 },
-                uBigWavesFrequency: { value: new THREE.Vector2(2, 6.5) },
-                uBigWavesSpeed: { value: 0.35 },
-
-                uSmallWavesElevation: { value: 0.8 },
-                uSmallWavesFrequency: { value: 21 },
-                uSmallWavesSpeed: { value: 0.15 },
-                uSmallIterations: { value: 3 },
-
-                uDepthColor: { value: new THREE.Color('#185677') },
-                uSurfaceColor: { value: new THREE.Color('#5799c1') },
-                uColorOffset: { value: 0.36 },
-                uColorMultiplier: { value: 0.6 }
-            }
-        })
-        this.oceanDebugObject =
-        {
-            depthColor: '#186691',
-            surfaceColor: '#9bd8ff',
-            bigWavesFrequencyX: 2,
-            bigWavesFrequencyY: 6.5,
-            smallWavesFrequency: 21,
-            oceanYOffset: 0.8,
-        }
-
-        this.oceanPack.traverse((child) =>
-        {
-            if (child.isMesh)
-            {
-                this.setOceanGeometry(child)
-                child.material = this.oceanMaterial
-            }
-        })
-
-
-
         /**
          * Bushes
          */
@@ -166,76 +124,93 @@ export default class Island
     }
 
 
-    setOceanGeometry(child)
+    /**
+     * Ocean
+     * crée le material shader et l'applique
+     */
+    setOcean()
     {
-        this.oceanMesh = child
-        this.oceanBaseY = child.position.y
-
-        child.geometry.computeBoundingBox()
-
-        const size = new THREE.Vector3()
-        child.geometry.boundingBox.getSize(size)
-
-        const oceanSize = Math.max(size.x, size.z)
-        const oceanGeometry = new THREE.PlaneGeometry(oceanSize, oceanSize, 512, 512)
-        oceanGeometry.rotateX(- Math.PI * 0.5)
-
-        this.oceanFrequencyScale = 2 / oceanSize
-        this.updateOceanFrequencyUniforms()
-        this.updateOceanPosition()
-
-        child.geometry.dispose()
-        child.geometry = oceanGeometry
-    }
-
-
-    update()
-    {
-        if(this.oceanMaterial)
+        // paramètres
+        this.oceanParameters =
         {
-            this.oceanMaterial.uniforms.uTime.value = this.time.elapsed * 0.001
+            depthColor: '#185677',
+            surfaceColor: '#5799c1',
+            oceanYOffset: 0.8
         }
+
+        // materiel
+        this.oceanMaterial = new THREE.ShaderMaterial(
+        {
+            vertexShader: oceanVertexShader,
+            fragmentShader: oceanFragmentShader,
+            uniforms:
+            {
+                uTime: { value: 0 },
+
+                // big waves
+                uBigWavesElevation: { value: 0.45 },
+                uBigWavesFrequency: { value: new THREE.Vector2(2, 6.5) },
+                uBigWavesSpeed: { value: 0.35 },
+
+                // small waves
+                uSmallWavesElevation: { value: 0.8 },
+                uSmallWavesFrequency: { value: 21 },
+                uSmallWavesSpeed: { value: 0.15 },
+                uSmallIterations: { value: 3 },
+
+                // colors
+                uDepthColor: { value: new THREE.Color(this.oceanParameters.depthColor) },
+                uSurfaceColor: { value: new THREE.Color(this.oceanParameters.surfaceColor) },
+                uColorOffset: { value: 0.36 },
+                uColorMultiplier: { value: 0.6 }
+            }
+        })
+
+        // récupère le mesh glb de l'ocean
+        this.oceanPack.traverse((child) =>
+        {
+            if(child.isMesh)
+            {
+                this.oceanMesh = child
+                this.oceanBaseY = child.position.y
+                child.material = this.oceanMaterial
+                this.updateOceanPosition()
+            }
+        })
     }
 
 
-    updateOceanFrequencyUniforms()
-    {
-        this.oceanMaterial.uniforms.uBigWavesFrequency.value.set(
-            this.oceanDebugObject.bigWavesFrequencyX * this.oceanFrequencyScale,
-            this.oceanDebugObject.bigWavesFrequencyY * this.oceanFrequencyScale
-        )
-        this.oceanMaterial.uniforms.uSmallWavesFrequency.value = this.oceanDebugObject.smallWavesFrequency * this.oceanFrequencyScale
-    }
-
-
+    /**
+     * Ocean position
+     * ajoute un offset Y à la position récupérée dans Blender
+     */
     updateOceanPosition()
     {
-        if(this.oceanMesh)
-        {
-            this.oceanMesh.position.y = this.oceanBaseY + this.oceanDebugObject.oceanYOffset
-        }
+        this.oceanMesh.position.y = this.oceanBaseY + this.oceanParameters.oceanYOffset
     }
 
 
+    /**
+     * Debug
+     */
     setDebug()
     {
-        this.debugFolder = this.debug.active ? this.debug.gui.addFolder('ocean') : new GUI({ width: 340 })
+        this.debugFolder = this.debug.gui.addFolder('ocean')
 
         this.debugFolder
-            .addColor(this.oceanDebugObject, 'depthColor')
-            .name('depthColor')
+            .addColor(this.oceanParameters, 'depthColor')
             .onChange(() =>
             {
-                this.oceanMaterial.uniforms.uDepthColor.value.set(this.oceanDebugObject.depthColor)
+                this.oceanMaterial.uniforms.uDepthColor.value.set(this.oceanParameters.depthColor)
             })
 
         this.debugFolder
-            .addColor(this.oceanDebugObject, 'surfaceColor')
-            .name('surfaceColor')
+            .addColor(this.oceanParameters, 'surfaceColor')
             .onChange(() =>
             {
-                this.oceanMaterial.uniforms.uSurfaceColor.value.set(this.oceanDebugObject.surfaceColor)
+                this.oceanMaterial.uniforms.uSurfaceColor.value.set(this.oceanParameters.surfaceColor)
             })
+
 
         this.debugFolder
             .add(this.oceanMaterial.uniforms.uBigWavesElevation, 'value')
@@ -245,26 +220,18 @@ export default class Island
             .name('uBigWavesElevation')
 
         this.debugFolder
-            .add(this.oceanDebugObject, 'bigWavesFrequencyX')
+            .add(this.oceanMaterial.uniforms.uBigWavesFrequency.value, 'x')
             .min(0)
             .max(10)
             .step(0.001)
             .name('uBigWavesFrequencyX')
-            .onChange(() =>
-            {
-                this.updateOceanFrequencyUniforms()
-            })
 
         this.debugFolder
-            .add(this.oceanDebugObject, 'bigWavesFrequencyY')
+            .add(this.oceanMaterial.uniforms.uBigWavesFrequency.value, 'y')
             .min(0)
             .max(10)
             .step(0.001)
             .name('uBigWavesFrequencyY')
-            .onChange(() =>
-            {
-                this.updateOceanFrequencyUniforms()
-            })
 
         this.debugFolder
             .add(this.oceanMaterial.uniforms.uBigWavesSpeed, 'value')
@@ -272,6 +239,7 @@ export default class Island
             .max(4)
             .step(0.001)
             .name('uBigWavesSpeed')
+
 
         this.debugFolder
             .add(this.oceanMaterial.uniforms.uSmallWavesElevation, 'value')
@@ -281,15 +249,11 @@ export default class Island
             .name('uSmallWavesElevation')
 
         this.debugFolder
-            .add(this.oceanDebugObject, 'smallWavesFrequency')
+            .add(this.oceanMaterial.uniforms.uSmallWavesFrequency, 'value')
             .min(0)
             .max(30)
             .step(0.001)
             .name('uSmallWavesFrequency')
-            .onChange(() =>
-            {
-                this.updateOceanFrequencyUniforms()
-            })
 
         this.debugFolder
             .add(this.oceanMaterial.uniforms.uSmallWavesSpeed, 'value')
@@ -305,6 +269,7 @@ export default class Island
             .step(1)
             .name('uSmallIterations')
 
+
         this.debugFolder
             .add(this.oceanMaterial.uniforms.uColorOffset, 'value')
             .min(0)
@@ -319,12 +284,12 @@ export default class Island
             .step(0.001)
             .name('uColorMultiplier')
 
+
         this.debugFolder
-            .add(this.oceanDebugObject, 'oceanYOffset')
+            .add(this.oceanParameters, 'oceanYOffset')
             .min(-0.5)
             .max(0.8)
             .step(0.001)
-            .name('oceanYOffset')
             .onChange(() =>
             {
                 this.updateOceanPosition()
@@ -433,6 +398,15 @@ export default class Island
             }
         })
         this.scene.remove(this.treesPack2)
+    }
+
+
+    /**
+     * Update
+     */
+    update()
+    {
+        this.oceanMaterial.uniforms.uTime.value = this.time.elapsed * 0.001
     }
 
 }

@@ -101,6 +101,7 @@ export default class World
             this.animationsClip.mixer.update(this.experience.time.delta * 0.001)
         }
 
+        // maj du shader ocean
         if(this.island)
         {
             this.island.update()
