@@ -3,6 +3,7 @@ import Experience from '../Experience.js'
 
 // import librairies
 import * as THREE from 'three'
+import gsap from "gsap"
 
 
 export default class AnimationsClip
@@ -25,12 +26,13 @@ export default class AnimationsClip
         this.animationsModel = this.resources.items.animationsModel
         this.model = this.animationsModel.scene
 
-        // prépare les clips
+        /**
+         * Initialisation des animations
+         */
         this.mixer = new THREE.AnimationMixer(this.animationsModel.scene)
         this.clips = this.animationsModel.animations
         this.clipActions = []
-        
-        console.log(this.clips) 
+        this.clipTween = null
 
 
         /**
@@ -85,6 +87,7 @@ export default class AnimationsClip
 
     dispose()
     {
+        this.stopClipTween()
         this.model.visible = false
         this.mixer.stopAllAction()
         this.mixer = null
@@ -97,19 +100,6 @@ export default class AnimationsClip
             }
         })
         this.scene.remove(this.model)
-    }
-
-
-    // bloc pour jouer une animation
-    playClip(index)
-    {
-        if (!this.mixer || !this.clips[index]) return
-
-        const action = this.mixer.clipAction(this.clips[index])
-        action.reset()
-        action.setLoop(THREE.LoopOnce, 1)
-        action.clampWhenFinished = true
-        action.play()
     }
 
 
@@ -130,12 +120,62 @@ export default class AnimationsClip
             this.clipActions[index] = action
         }
 
+        // l'action reste en pause car GSAP change son temps manuellement
         action.enabled = true
         action.paused = true
         action.time = clip.duration * progress
 
-        // force la mise à jour visuelle du pont
+        // force la mise à jour visuelle du modèle
         this.mixer.update(0)
+
+        return action
+    }
+
+
+    /**
+     * Anime seulement une partie du pont entre deux progressions
+     */
+    playClipPart(index, startProgress, endProgress, onComplete)
+    {
+        this.stopClipTween()
+        const clip = this.clips[index]
+        const action = this.setClipProgress(index, startProgress)
+        const startTime = clip.duration * startProgress
+        const endTime = clip.duration * endProgress
+        const partDuration = endTime - startTime
+
+        const animation = { time: startTime }
+
+        this.clipTween = gsap.to(animation,
+        {
+            time: endTime,
+            duration: partDuration,
+            ease: 'power1.inOut',
+            onUpdate: () =>
+            {
+                action.time = animation.time
+                this.mixer.update(0)
+            },
+            onComplete: () =>
+            {
+                this.clipTween = null
+                this.setClipProgress(index, endProgress)
+                onComplete()
+            }
+        })
+    }
+
+
+    /**
+     * Stop le clip en cours
+     */
+    stopClipTween()
+    {
+        if(this.clipTween)
+        {
+            this.clipTween.kill()
+            this.clipTween = null
+        }
     }
 
 }

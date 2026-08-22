@@ -26,6 +26,10 @@ export default class Sword
         this.swordTextureLightmap = this.resources.items.swordTextureLightmap
         this.swordTextureNormalmap = this.resources.items.swordTextureNormalmap
         this.model = this.swordModel.scene
+
+        // mesh de l'épée et sa hauteur de départ
+        this.swordMesh = null
+        this.swordStartY = 0
         
 
         /**
@@ -34,6 +38,7 @@ export default class Sword
         this.setTexture()
         this.setModel()
         this.setTargets()
+        this.setSwordMesh()
 
     }
 
@@ -46,13 +51,40 @@ export default class Sword
         {
             if(child.name.includes('TargetSword_'))
             {
-                // On sauvegarde sa position en utilisant son nom
+                // on sauvegarde sa position en utilisant son nom
                 this.targets[child.name] = new THREE.Vector3()
                 child.getWorldPosition(this.targets[child.name])
             }
         })
         
-        console.log("targets :", this.targets)
+    }
+
+
+    /**
+     * Récupère le mesh qui doit bouger
+     */
+    setSwordMesh()
+    {
+        this.model.traverse((child) =>
+        {
+            if(child.name === 'Sword_object')
+            {
+                this.swordMesh = child
+            }
+        })
+
+        this.swordStartY = this.swordMesh.position.y
+    }
+
+
+    /**
+     * Replace l'épée avant ou après son interaction
+     */
+    setSwordPulled(isPulled)
+    {
+        const height = isPulled ? 0.65 : 0
+
+        this.swordMesh.position.y = this.swordStartY + height
     }
 
 

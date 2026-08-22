@@ -1,6 +1,5 @@
 // import base
 import Experience from '../../Experience.js'
-import AudioManager from '../AudioManager.js'
 import { deferredGroups } from '../../sources.js'
 
 // import librairies
@@ -16,12 +15,8 @@ export default class SwordManager
          * Base
          */
         this.experience = new Experience()
-        this.audioManager = new AudioManager()
-        this.debug = this.experience.debug
-        this.scene = this.experience.scene
         this.resources = this.experience.resources
         this.camera = this.experience.camera
-        this.time = this.experience.time
         this.storyManager = storyManager 
         this.dialogueManager = storyManager.dialogueManager
 
@@ -30,6 +25,14 @@ export default class SwordManager
          * inisialisations 
          */
         this.timeline = gsap.timeline({ paused: true });
+
+        /**
+         * Interaction de l'épée
+        */
+        this.swordStepCount = 0
+        this.swordStepTotal = 12
+        // fonction qui relance la timeline après le jeu
+        this.swordInteractionResolve = null
 
 
     }
@@ -44,7 +47,91 @@ export default class SwordManager
     enter()
     {
         this.timeline.play();
-        console.log('sword')
+    }
+
+
+    /**
+     * Prépare le jeu
+     */
+    startSwordInteraction()
+    {
+        return new Promise((resolve) =>
+        {
+            const sword = this.experience.world.sword
+
+            this.swordStepCount = 0
+            this.swordInteractionResolve = resolve
+            sword.setSwordPulled(false)
+
+            this.storyManager.showInteraction(
+                "E - tirer l'épée",
+                () => this.pullSwordStep()
+            )
+        })
+    }
+
+
+    /**
+     * Reset l'épée si checkpoint
+     */
+    cancelSwordInteraction()
+    {
+        this.swordInteractionResolve = null
+
+        const sword = this.experience.world.sword
+
+        if(sword)
+        {
+            gsap.killTweensOf(sword.swordMesh.position)
+        }
+    }
+
+
+    /**
+     * Anim épée
+     */
+    pullSwordStep()
+    {
+        this.swordStepCount++
+        const sword = this.experience.world.sword
+        const progress = this.swordStepCount / this.swordStepTotal
+
+        gsap.to(sword.swordMesh.position,
+        {
+            y: sword.swordStartY + progress * 0.45,
+            duration: 0.2,
+            ease: 'power2.out'
+        })
+
+        const remainingSteps = this.swordStepTotal - this.swordStepCount
+
+        if(remainingSteps > 0)
+        {
+            this.storyManager.showInteraction(
+                "L'épée cède peu à peu",
+                () => this.pullSwordStep()
+            )
+
+            return
+        }
+
+        this.storyManager.hideInteraction()
+
+        // dernier mouvement de l'épée
+        gsap.to(sword.swordMesh.position,
+        {
+            y: sword.swordStartY + 0.65,
+            duration: 0.6,
+            ease: 'back.out(1.6)',
+            onComplete: () =>
+            {
+                // null si un changement de checkpoint a annulé l'interaction
+                const resolve = this.swordInteractionResolve
+                this.swordInteractionResolve = null
+
+                if(resolve) resolve()
+            }
+        })
     }
 
 
@@ -142,9 +229,17 @@ export default class SwordManager
                 });
             })
 
-            // lance l'animation du pont
-            .call(() => { this.experience.world.animationsClip.playClip(0); }, null, "+=0.1")
-            .to({}, { duration: 4.7 })
+
+
+            /**
+             * Interaction du pont de l'épée
+             */
+            .call(async () =>
+            {
+                this.timeline.pause()
+                await this.storyManager.startBridgeInteraction(0)
+                this.timeline.play()
+            }, null, "+=0.1")
 
 
             .call(async () =>
@@ -401,6 +496,9 @@ export default class SwordManager
                     "Arthur",
                     "J'ai tiré cette épée. Personne n'y croyait. Pas même moi.",
                     'audio/dialogue-sword/arthur_voices-3.5-1.ogg');
+
+                // interaction pour sortir l'épée du rocher
+                await this.startSwordInteraction()
                 // arthur 3.5-2
                 await this.dialogueManager.playLine(
                     "Arthur",

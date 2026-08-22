@@ -333,6 +333,75 @@ body.dialogue-next *
 }
 
 
+/* interaction */
+.interaction-text
+{
+    position: fixed;
+    left: 50%;
+    bottom: 18%;
+    transform: translateX(-50%);
+    z-index: 140;
+    max-width: 80%;
+    padding: 12px 16px;
+    box-sizing: border-box;
+    border: 1px solid $color-border-gold;
+    border-radius: 4px;
+    font-family: $font-primary;
+    font-size: 14px;
+    letter-spacing: $letter-spacing-muted;
+    text-align: center;
+    text-transform: uppercase;
+    color: $color-accent-rose;
+    text-shadow: 0px 1px 4px rgba(0, 0, 0, 0.75);
+    background: rgba($color-bg-deep, $opacity-high);
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
+    pointer-events: none;
+    user-select: none;
+
+    @include responsive(tablet) { font-size: 16px; }
+    @include responsive(desktop) { font-size: 18px; }
+}
+
+.interaction-button
+{
+    display: none;
+    position: fixed;
+    right: 24px;
+    bottom: 96px;
+    z-index: 145;
+
+    width: 64px;
+    height: 64px;
+
+    font-family: $font-primary;
+    font-size: 28px;
+    color: $color-text-title;
+    background: rgba($color-bg-deep, $opacity-high);
+    border: 1px solid $color-border-gold;
+    border-radius: 50%;
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
+    cursor: pointer;
+    user-select: none;
+}
+
+.interaction-button:active
+{
+    transform: scale(0.92);
+}
+
+@media (hover: none), (pointer: coarse)
+{
+    .interaction-button:not(.hidden)
+    {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+
 /* controles desktop */
 .keyboard-controls
 {

@@ -663,9 +663,17 @@ export default class PortalManager
                 });
             })
 
-            // lance l'animation du pont
-            .call(() => { this.experience.world.animationsClip.playClip(2); }, null, "+=0.1")
-            .to({}, { duration: 4.7 })
+
+
+            /**
+             * Interaction du pont du portail
+             */
+            .call(async () =>
+            {
+                this.timeline.pause()
+                await this.storyManager.startBridgeInteraction(2)
+                this.timeline.play()
+            }, null, "+=0.1")
 
 
 

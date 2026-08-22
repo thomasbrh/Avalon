@@ -252,10 +252,18 @@ export default class ManorManager
                     }
                 });
             })
-            
-            // lance l'animation du pont
-            .call(() => { this.experience.world.animationsClip.playClip(1); }, null, "+=0.1")
-            .to({}, { duration: 4.7 })
+
+
+
+            /**
+             * Interaction du pont du manoir
+             */
+            .call(async () =>
+            {
+                this.timeline.pause()
+                await this.storyManager.startBridgeInteraction(1)
+                this.timeline.play()
+            }, null, "+=0.1")
 
 
             // intermédiaire camera scène 2 to 3
@@ -676,6 +684,7 @@ export default class ManorManager
             .call(() =>
             {
                 this.timeline.pause();
+                // fin automatique avec l'indicateur normal, comme dans le reste de l'histoire
                 this.storyManager.showNextIndicator(() =>
                 {
                     this.experience.loadingManager.showEndExperience()
