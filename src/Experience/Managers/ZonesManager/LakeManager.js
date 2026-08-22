@@ -59,8 +59,10 @@ export default class LakeManager
         this.arthur = this.experience.world.arthur.mesh;
 
         this.timeline
+            // checkpoint
             .addLabel('checkpoint-lake')
             .to({}, { duration: 0.01 })
+
             /**
              * Scene 2.1
              */

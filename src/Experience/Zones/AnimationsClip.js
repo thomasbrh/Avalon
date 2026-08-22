@@ -28,6 +28,7 @@ export default class AnimationsClip
         // prépare les clips
         this.mixer = new THREE.AnimationMixer(this.animationsModel.scene)
         this.clips = this.animationsModel.animations
+        this.clipActions = []
         
         console.log(this.clips) 
 
@@ -109,6 +110,32 @@ export default class AnimationsClip
         action.setLoop(THREE.LoopOnce, 1)
         action.clampWhenFinished = true
         action.play()
+    }
+
+
+    /**
+     * Place un pont à un moment précis de son animation
+     */
+    setClipProgress(index, progress)
+    {
+        const clip = this.clips[index]
+        let action = this.clipActions[index]
+
+        if(!action)
+        {
+            action = this.mixer.clipAction(clip)
+            action.setLoop(THREE.LoopOnce, 1)
+            action.clampWhenFinished = true
+            action.play()
+            this.clipActions[index] = action
+        }
+
+        action.enabled = true
+        action.paused = true
+        action.time = clip.duration * progress
+
+        // force la mise à jour visuelle du pont
+        this.mixer.update(0)
     }
 
 }

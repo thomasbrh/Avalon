@@ -105,6 +105,7 @@ export default class SwordManager
                 ease: 'power2.inOut'
             }, "<")
 
+            // checkpoint
             .addLabel('checkpoint-sword')
 
             .call(async () =>

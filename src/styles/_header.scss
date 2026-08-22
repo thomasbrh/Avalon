@@ -1,4 +1,4 @@
-@use './variables' as *;
+﻿@use './variables' as *;
 
 /* header */
 .header
@@ -15,6 +15,7 @@
     pointer-events: none;
 }
 
+/* bouton du menu + logo */
 .chapter-menu__toggle,
 .header__logo
 {
@@ -38,6 +39,7 @@
     cursor: pointer;
 }
 
+/* transformation du burger en croix */
 .chapter-menu__toggle span
 {
     width: 18px;
@@ -70,6 +72,7 @@
     text-decoration: none;
 }
 
+/* fond et panneau du menu */
 .chapter-menu
 {
     position: fixed;
@@ -98,6 +101,7 @@
     background: rgba($color-bg-deep, 0.9);
 }
 
+/* liens et chapitres */
 .chapter-menu__item,
 .chapter-menu__landing,
 .chapter-menu__credit
@@ -149,6 +153,7 @@
     color: $color-text-muted;
 }
 
+/* responsive */
 @media (min-width: 768px)
 {
     .header
