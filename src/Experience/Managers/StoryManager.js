@@ -36,19 +36,17 @@ export default class StoryManager
         this.nextIndicatorAction = null
 
 
-        // Pont anim
-        this.bridgeClicCount = 0
+        /**
+         * Interactions
+         */
+        // fonction appelée par la touche E et le bouton mobile
+        this.interactionAction = null
 
-        this.bridgeClicNeeded = 4
-        // état de l'interaction du pont
-        this.bridgeInteractionActive = false
-
-        // protection tween
-        this.bridgeStepPlaying = false
-        // reprendre la timeline
-        this.bridgeInteractionResolve = null
-
-        // index du du pont à jouer
+        // progression du pont en 4 étapes
+        this.bridgeStepCount = 0
+        this.bridgeStepTotal = 4
+        // fonction qui relance la timeline après le pont
+        this.bridgeResolve = null
         this.bridgeClipIndex = null
 
 
@@ -86,17 +84,22 @@ export default class StoryManager
         /**
          * Appel des instances
          */
-        this.initInteraction()
-        this.setNavigation()
+        this.setStoryNavigation()
+        this.setChapterNavigation()
+        this.setInteractionControls()
         this.setActiveChapter('portal')
         this.setCheckpointsEnabled(false)
     }
 
-    initInteraction()
+
+    /**
+     * Clic pour passer à la suite de l'histoire
+     */
+    setStoryNavigation()
     {
-        const handler = (event) =>
+        const onNextClick = (event) =>
         {
-            if (!this.indicatorVisible) return
+            if(!this.indicatorVisible) return
             event.preventDefault()
             
             this.indicatorVisible = false
@@ -112,28 +115,17 @@ export default class StoryManager
                 return
             }
 
-            if (this.currentScene && this.currentScene.timeline)
+            if(this.currentScene && this.currentScene.timeline)
                 this.currentScene.timeline.play()
         }
-        window.addEventListener('click', handler)
-        window.addEventListener('touchstart', handler)
-
-        // interaction clavier pour les ponts
-        window.addEventListener('keydown', (event) =>
-        {
-            if(!this.bridgeInteractionActive) return
-            if(event.repeat) return
-
-            if(event.code === 'KeyE')
-            {
-                event.preventDefault()
-                this.advanceBridgeStep()
-            }
-        })
+        window.addEventListener('click', onNextClick)
     }
 
 
-    setNavigation()
+    /**
+     * Navigation entre les checkpoints
+     */
+    setChapterNavigation()
     {
         this.chapterMenuToggle.addEventListener('click', (event) =>
         {
@@ -205,172 +197,150 @@ export default class StoryManager
     }
 
 
-    showInteraction(text, onClick = null)
+    /**
+     * set bind E + btn
+     */
+    setInteractionControls()
     {
-        // affiche un texte pour les interactions
-        this.interactionText.textContent = text
-        this.interactionText.classList.remove('hidden')
-        this.interactionText.classList.toggle('can-click', !!onClick)
+        window.addEventListener('keydown', (event) =>
+        {
+            if(event.code !== 'KeyE' || event.repeat || !this.interactionAction) return
 
-        // bouton E pour mobile / tactile
-        this.interactionButton.classList.toggle('hidden', !onClick)
+            event.preventDefault()
+            this.runInteraction()
+        })
 
-        this.interactionButton.onclick = (event) =>
+        this.interactionButton.addEventListener('click', (event) =>
         {
             event.stopPropagation()
-
-            if(onClick)
-            {
-                onClick()
-            }
-        }
+            this.runInteraction()
+        })
     }
 
 
+    runInteraction()
+    {
+        if(!this.interactionAction) return
+
+        this.interactionAction()
+    }
+
+
+    /**
+     * Affiche le texte
+     */
+    showInteraction(text, action = null)
+    {
+        this.interactionText.textContent = text
+        this.interactionText.classList.remove('hidden')
+        this.interactionAction = action
+
+        // bouton E pour mobile
+        this.interactionButton.classList.toggle('hidden', !action)
+    }
+
+
+    /**
+     * Cache le texte
+     */
     hideInteraction()
     {
-        // cache et vide le texte d'aide
         this.interactionText.classList.add('hidden')
-        this.interactionText.classList.remove('can-click')
         this.interactionText.textContent = ''
-        this.interactionText.onclick = null
         this.interactionButton.classList.add('hidden')
-        this.interactionButton.onclick = null
+        this.interactionAction = null
     }
 
 
+    /**
+     * Prépare le pont
+     */
     startBridgeInteraction(index)
     {
-        // Promise pour mettre la timeline en pause pendant le mini-jeu du pont
         return new Promise((resolve) =>
         {
             const animationsClip = this.experience.world.animationsClip
 
-            if(!animationsClip)
-            {
-                // si les animations ne sont pas chargées
-                resolve()
-                return
-            }
-
-            // reset du mini-jeu
-            this.bridgeClicCount = 0
+            this.bridgeStepCount = 0
             this.bridgeClipIndex = index
-            this.bridgeInteractionActive = true
-            this.bridgeStepPlaying = false
-            this.bridgeInteractionResolve = resolve
-
-            const clipReady = animationsClip.setClipProgress(index, 0)
-
-            if(!clipReady)
-            {
-                // si le clip n'existe pas
-                this.bridgeInteractionActive = false
-                this.bridgeStepPlaying = false
-                this.bridgeInteractionResolve = null
-                this.bridgeClipIndex = null
-                resolve()
-                return
-            }
+            this.bridgeResolve = resolve
+            animationsClip.setClipProgress(index, 0)
 
             this.showInteraction(
-                "E - devoiler le pont",
-                () =>
-                {
-                    this.advanceBridgeStep()
-                }
+                "E - dévoiler le pont",
+                () => this.advanceBridgeStep()
             )
         })
     }
 
 
+    /**
+     * Split animation du pont
+     */
     advanceBridgeStep()
     {
-        // le pont doit être en interaction
-        if(!this.bridgeInteractionActive) return
-        // empêche de spam
-        if(this.bridgeStepPlaying) return
+        const startProgress = this.bridgeStepCount / this.bridgeStepTotal
+        this.bridgeStepCount++
 
-        // on joue seulement un morceau du clip à chaque clic
-        const startProgress = this.bridgeClicCount / this.bridgeClicNeeded
-        this.bridgeClicCount++
-
-        const endProgress = this.bridgeClicCount / this.bridgeClicNeeded
+        const endProgress = this.bridgeStepCount / this.bridgeStepTotal
         const animationsClip = this.experience.world.animationsClip
 
-        this.bridgeStepPlaying = true
-        this.showInteraction("Le pont se devoile...")
+        // retire l'action
+        this.showInteraction("Le pont se dévoile...")
 
-        const stepStarted = animationsClip?.playClipPart(
+        animationsClip.playClipPart(
             this.bridgeClipIndex,
             startProgress,
             endProgress,
             () =>
             {
-                // le morceau d'animation est fini, on peut accepter un nouvel clic
-                this.bridgeStepPlaying = false
+                const remainingSteps = this.bridgeStepTotal - this.bridgeStepCount
 
-                const remainingClic = this.bridgeClicNeeded - this.bridgeClicCount
-
-                if(remainingClic > 0)
+                if(remainingSteps > 0)
                 {
-                    // il reste des étapes avant de finir le pont
                     this.showInteraction(
                         "E - continuer le pont",
-                        () =>
-                        {
-                            this.advanceBridgeStep()
-                        }
+                        () => this.advanceBridgeStep()
                     )
 
                     return
                 }
 
-                this.bridgeInteractionActive = false
                 this.hideInteraction()
 
-                // relance la timeline qui attendait la fin
-                const resolve = this.bridgeInteractionResolve
-                this.bridgeInteractionResolve = null
+                // relance la timeline
+                const resolve = this.bridgeResolve
+                this.bridgeResolve = null
                 this.bridgeClipIndex = null
 
-                if(resolve) resolve()
+                resolve()
             }
         )
-
-        if(!stepStarted)
-        {
-            // si le clip n'a pas pu se lancer
-            this.bridgeInteractionActive = false
-            this.bridgeStepPlaying = false
-            this.hideInteraction()
-
-            const resolve = this.bridgeInteractionResolve
-            this.bridgeInteractionResolve = null
-            this.bridgeClipIndex = null
-
-            if(resolve) resolve()
-        }
     }
 
 
+    /**
+     * Replace les ponts dans le bon état après un saut de chapitre
+     */
     setBridgeCheckpointState(name)
     {
         const animationsClip = this.experience.world.animationsClip
-        if(!animationsClip) return
 
-        // reset des ponts pour éviter de garder un ancien état après navigation rapide
-        animationsClip.setClipProgress(0, 0) // pont de l'épée
-        animationsClip.setClipProgress(1, 0) // pont du manoir
-        animationsClip.setClipProgress(2, 0) // pont du portail
+        // reset des ponts après navigation rapide
+        // pont de l'épée
+        animationsClip.setClipProgress(0, 0)
+        // pont du manoir
+        animationsClip.setClipProgress(1, 0)
+        // pont du portail
+        animationsClip.setClipProgress(2, 0)
 
-        // si on arrive au lac, le pont du portail est déjà passé
+        // si lac, le pont du portail est déjà up
         if(name === 'lake' || name === 'sword' || name === 'manor')
         {
             animationsClip.setClipProgress(2, 1)
         }
 
-        // si on arrive au manoir, le pont de l'épée est déjà passé aussi
+        // si manoir, le pont de l'épée est déjà up
         if(name === 'manor')
         {
             animationsClip.setClipProgress(0, 1)
@@ -401,13 +371,10 @@ export default class StoryManager
 
         // interactions
         this.hideInteraction()
-        this.bridgeInteractionActive = false
-        this.bridgeStepPlaying = false
-        this.bridgeInteractionResolve = null
+        this.bridgeResolve = null
         this.bridgeClipIndex = null
-        this.experience.world.animationsClip?.stopCurrentClip()
-        this.swordManager.swordInteractionActive = false
-        this.swordManager.swordInteractionResolve = null
+        this.experience.world.animationsClip?.stopClipTween()
+        this.swordManager.cancelSwordInteraction()
 
         this.dialogueManager.cancelDialogue()
 
@@ -453,7 +420,10 @@ export default class StoryManager
         }
 
         if(this.experience.world.sword)
+        {
             this.experience.world.sword.model.visible = name === 'sword' || name === 'manor'
+            this.experience.world.sword.setSwordPulled(name === 'manor')
+        }
 
         if(this.experience.world.manor)
             this.experience.world.manor.model.visible = false

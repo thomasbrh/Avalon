@@ -252,15 +252,16 @@ export default class ManorManager
                 });
             })
             
-            // interaction du pont
-            .call(() =>
+
+            
+            /**
+             * Interaction du pont du manoir
+             */
+            .call(async () =>
             {
                 this.timeline.pause()
-
-                this.storyManager.startBridgeInteraction(1).then(() =>
-                {
-                    this.timeline.play()
-                })
+                await this.storyManager.startBridgeInteraction(1)
+                this.timeline.play()
             }, null, "+=0.1")
 
 

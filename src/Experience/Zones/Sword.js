@@ -27,9 +27,8 @@ export default class Sword
         this.swordTextureNormalmap = this.resources.items.swordTextureNormalmap
         this.model = this.swordModel.scene
 
-        // mesh de l'épée seule pour pouvoir la bouger sans bouger tout le décor
-        this.swordObject = null
-        // position de base, utilisée pour calculer jusqu'où l'épée monte
+        // mesh de l'épée et sa hauteur de départ
+        this.swordMesh = null
         this.swordStartY = 0
         
 
@@ -39,7 +38,7 @@ export default class Sword
         this.setTexture()
         this.setModel()
         this.setTargets()
-        this.setSwordObject()
+        this.setSwordMesh()
 
     }
 
@@ -58,29 +57,34 @@ export default class Sword
             }
         })
         
-        console.log("targets :", this.targets)
     }
 
 
-    setSwordObject()
+    /**
+     * Récupère le mesh qui doit bouger
+     */
+    setSwordMesh()
     {
-        // on cherche le mesh
         this.model.traverse((child) =>
         {
-            if(child.name.includes('Sword_object'))
+            if(child.name === 'Sword_object')
             {
-                this.swordObject = child
+                this.swordMesh = child
             }
         })
 
-        /* if(!this.swordObject)
-        {
-            // si jamais le nom du mesh change
-            this.swordObject = this.model
-        } */
+        this.swordStartY = this.swordMesh.position.y
+    }
 
-        // la hauteur de départ
-        this.swordStartY = this.swordObject.position.y
+
+    /**
+     * Replace l'épée avant ou après son interaction
+     */
+    setSwordPulled(isPulled)
+    {
+        const height = isPulled ? 0.65 : 0
+
+        this.swordMesh.position.y = this.swordStartY + height
     }
 
 

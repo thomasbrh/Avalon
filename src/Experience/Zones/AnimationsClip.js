@@ -26,16 +26,13 @@ export default class AnimationsClip
         this.animationsModel = this.resources.items.animationsModel
         this.model = this.animationsModel.scene
 
-        // prépare les clips
+        /**
+         * Initialisation des animations
+         */
         this.mixer = new THREE.AnimationMixer(this.animationsModel.scene)
         this.clips = this.animationsModel.animations
-
-        this.clipActions = {}
-        this.currentClipAction = null
-        this.currentClipIndex = null
+        this.clipActions = []
         this.clipTween = null
-        
-        console.log(this.clips) 
 
 
         /**
@@ -90,6 +87,7 @@ export default class AnimationsClip
 
     dispose()
     {
+        this.stopClipTween()
         this.model.visible = false
         this.mixer.stopAllAction()
         this.mixer = null
@@ -105,73 +103,47 @@ export default class AnimationsClip
     }
 
 
-    // bloc pour jouer une animation
-    playClip(index)
-    {
-        if (!this.mixer || !this.clips[index]) return
-
-        this.stopCurrentClip()
-
-        const action = this.mixer.clipAction(this.clips[index])
-        action.reset()
-        action.setLoop(THREE.LoopOnce, 1)
-        action.clampWhenFinished = true
-        action.play()
-
-        this.currentClipAction = action
-        this.currentClipIndex = index
-    }
-
-
-    // clip d'animations pour les ponts
+    /**
+     * Place un pont à un moment précis de son animation
+     */
     setClipProgress(index, progress)
     {
-        if (!this.mixer || !this.clips[index]) return false
-
         const clip = this.clips[index]
+        let action = this.clipActions[index]
 
-        if(!this.clipActions[index])
+        if(!action)
         {
-            this.clipActions[index] = this.mixer.clipAction(clip)
-            this.clipActions[index].reset()
-            this.clipActions[index].setLoop(THREE.LoopOnce, 1)
-            this.clipActions[index].clampWhenFinished = true
-            this.clipActions[index].play()
+            action = this.mixer.clipAction(clip)
+            action.setLoop(THREE.LoopOnce, 1)
+            action.clampWhenFinished = true
+            action.play()
+            this.clipActions[index] = action
         }
 
-        const action = this.clipActions[index]
-        const safeProgress = Math.min(Math.max(progress, 0), 1)
-
+        // l'action reste en pause car GSAP change son temps manuellement
         action.enabled = true
         action.paused = true
-        action.time = clip.duration * safeProgress
+        action.time = clip.duration * progress
 
-        this.currentClipAction = action
-        this.currentClipIndex = index
-
+        // force la mise à jour visuelle du modèle
         this.mixer.update(0)
 
-        return true
+        return action
     }
 
 
+    /**
+     * Anime seulement une partie du pont entre deux progressions
+     */
     playClipPart(index, startProgress, endProgress, onComplete)
     {
-        if (!this.mixer || !this.clips[index]) return false
-
-        const clipReady = this.setClipProgress(index, startProgress)
-        if(!clipReady) return false
-
-        if(this.clipTween)
-        {
-            this.clipTween.kill()
-            this.clipTween = null
-        }
-
+        this.stopClipTween()
         const clip = this.clips[index]
+        const action = this.setClipProgress(index, startProgress)
         const startTime = clip.duration * startProgress
         const endTime = clip.duration * endProgress
         const partDuration = endTime - startTime
+
         const animation = { time: startTime }
 
         this.clipTween = gsap.to(animation,
@@ -181,37 +153,29 @@ export default class AnimationsClip
             ease: 'power1.inOut',
             onUpdate: () =>
             {
-                this.currentClipAction.time = animation.time
+                action.time = animation.time
                 this.mixer.update(0)
             },
             onComplete: () =>
             {
                 this.clipTween = null
                 this.setClipProgress(index, endProgress)
-
-                if(onComplete)
-                {
-                    onComplete()
-                }
+                onComplete()
             }
         })
-
-        return true
     }
 
 
-    stopCurrentClip()
+    /**
+     * Stop le clip en cours
+     */
+    stopClipTween()
     {
-        if(!this.mixer) return
-
         if(this.clipTween)
         {
             this.clipTween.kill()
             this.clipTween = null
         }
-
-        this.currentClipAction = null
-        this.currentClipIndex = null
     }
 
 }

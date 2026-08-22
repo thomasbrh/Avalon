@@ -1,6 +1,5 @@
 // import base
 import Experience from '../../Experience.js'
-import AudioManager from '../AudioManager.js'
 import { deferredGroups } from '../../sources.js'
 
 // import librairies
@@ -16,12 +15,8 @@ export default class SwordManager
          * Base
          */
         this.experience = new Experience()
-        this.audioManager = new AudioManager()
-        this.debug = this.experience.debug
-        this.scene = this.experience.scene
         this.resources = this.experience.resources
         this.camera = this.experience.camera
-        this.time = this.experience.time
         this.storyManager = storyManager 
         this.dialogueManager = storyManager.dialogueManager
 
@@ -31,26 +26,13 @@ export default class SwordManager
          */
         this.timeline = gsap.timeline({ paused: true });
 
-        // sword mini-jeu
-        this.swordClicCount = 0
-        this.swordClicNeeded = 12
-        // état du mini jeu
-        this.swordInteractionActive = false
-        // reprendre timeline
+        /**
+         * Interaction de l'épée
+        */
+        this.swordStepCount = 0
+        this.swordStepTotal = 12
+        // fonction qui relance la timeline après le jeu
         this.swordInteractionResolve = null
-
-        // interaction clavier pour le mini-jeu de l'épée
-        window.addEventListener('keydown', (event) =>
-        {
-            if(!this.swordInteractionActive) return
-            if(event.repeat) return
-
-            if(event.code === 'KeyE')
-            {
-                event.preventDefault()
-                this.pullSwordStep()
-            }
-        })
 
 
     }
@@ -65,95 +47,91 @@ export default class SwordManager
     enter()
     {
         this.timeline.play();
-        console.log('sword')
     }
 
 
+    /**
+     * Prépare le jeu
+     */
     startSwordInteraction()
     {
-        // Promise pour mettre la timeline en pause
         return new Promise((resolve) =>
         {
-            // reset du mini-jeu
-            this.swordClicCount = 0
-            this.swordInteractionActive = true
-            this.swordInteractionResolve = resolve
+            const sword = this.experience.world.sword
 
-            // petit texte d'aide affiché à l'écran
+            this.swordStepCount = 0
+            this.swordInteractionResolve = resolve
+            sword.setSwordPulled(false)
+
             this.storyManager.showInteraction(
-                "E - tirer l'epee",
-                () =>
-                {
-                    this.pullSwordStep()
-                }
+                "E - tirer l'épée",
+                () => this.pullSwordStep()
             )
         })
     }
 
 
-    pullSwordStep()
+    /**
+     * Reset l'épée si checkpoint
+     */
+    cancelSwordInteraction()
     {
-        // si le mini-jeu n'est pas lancé on fait rien
-        if(!this.swordInteractionActive) return
-
-        this.swordClicCount++
+        this.swordInteractionResolve = null
 
         const sword = this.experience.world.sword
-        // progression par apport au nombre de clic
-        const progress = this.swordClicCount / this.swordClicNeeded
 
-        if(sword?.swordObject)
+        if(sword)
         {
-            // à chaque clic, l'épée monte un petit peu
-            gsap.to(sword.swordObject.position,
-            {
-                y: sword.swordStartY + progress * 0.45,
-                duration: 0.2,
-                ease: 'power2.out'
-            })
+            gsap.killTweensOf(sword.swordMesh.position)
         }
+    }
 
-        const remainingClic = this.swordClicNeeded - this.swordClicCount
 
-        if(remainingClic > 0)
+    /**
+     * Anim épée
+     */
+    pullSwordStep()
+    {
+        this.swordStepCount++
+        const sword = this.experience.world.sword
+        const progress = this.swordStepCount / this.swordStepTotal
+
+        gsap.to(sword.swordMesh.position,
         {
-            // tant qu'il reste des clics, on laisse le mini-jeu actif
+            y: sword.swordStartY + progress * 0.45,
+            duration: 0.2,
+            ease: 'power2.out'
+        })
+
+        const remainingSteps = this.swordStepTotal - this.swordStepCount
+
+        if(remainingSteps > 0)
+        {
             this.storyManager.showInteraction(
-                "L'epee cede peu a peu",
-                () =>
-                {
-                    this.pullSwordStep()
-                }
+                "L'épée cède peu à peu",
+                () => this.pullSwordStep()
             )
 
             return
         }
 
-        this.swordInteractionActive = false
         this.storyManager.hideInteraction()
 
-        // on récupère la fonction qui relance la suite de la timeline
-        const resolve = this.swordInteractionResolve
-        this.swordInteractionResolve = null
-
-        if(sword?.swordObject)
+        // dernier mouvement de l'épée
+        gsap.to(sword.swordMesh.position,
         {
-            // dernier mouvement de l'épée qui sort
-            gsap.to(sword.swordObject.position,
+            y: sword.swordStartY + 0.65,
+            duration: 0.6,
+            ease: 'back.out(1.6)',
+            onComplete: () =>
             {
-                y: sword.swordStartY + 0.65,
-                duration: 0.6,
-                ease: 'back.out(1.6)',
-                onComplete: () =>
-                {
-                    if(resolve) resolve()
-                }
-            })
-        }
-        else
-        {
-            if(resolve) resolve()
-        }
+                // null si un changement de checkpoint a annulé l'interaction
+                const resolve = this.swordInteractionResolve
+                this.swordInteractionResolve = null
+
+                if(resolve) resolve()
+            }
+        })
     }
 
 
@@ -250,15 +228,16 @@ export default class SwordManager
                 });
             })
 
-            // interaction du pont
-            .call(() =>
+
+            
+            /**
+             * Interaction du pont de l'épée
+             */
+            .call(async () =>
             {
                 this.timeline.pause()
-
-                this.storyManager.startBridgeInteraction(0).then(() =>
-                {
-                    this.timeline.play()
-                })
+                await this.storyManager.startBridgeInteraction(0)
+                this.timeline.play()
             }, null, "+=0.1")
 
 
@@ -517,10 +496,8 @@ export default class SwordManager
                     "J'ai tiré cette épée. Personne n'y croyait. Pas même moi.",
                     'audio/dialogue-sword/arthur_voices-3.5-1.ogg');
 
-                // interraction épée
+                // interaction pour sortir l'épée du rocher
                 await this.startSwordInteraction()
-
-
                 // arthur 3.5-2
                 await this.dialogueManager.playLine(
                     "Arthur",

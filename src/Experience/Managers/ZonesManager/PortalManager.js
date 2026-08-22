@@ -662,15 +662,16 @@ export default class PortalManager
                 });
             })
 
-            // interaction du pont
-            .call(() =>
+
+            
+            /**
+             * Interaction du pont du portail
+             */
+            .call(async () =>
             {
                 this.timeline.pause()
-
-                this.storyManager.startBridgeInteraction(2).then(() =>
-                {
-                    this.timeline.play()
-                })
+                await this.storyManager.startBridgeInteraction(2)
+                this.timeline.play()
             }, null, "+=0.1")
 
 
