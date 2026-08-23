@@ -45,6 +45,8 @@ export default class Camera
 
         window.addEventListener('mousemove', (event) => 
         {
+            if(event.target.closest?.('.item-viewer')) return
+
             this.cursor.x = - ((event.clientX / this.sizes.width) - 0.5)
             this.cursor.y = - ((event.clientY / this.sizes.height) - 0.5)
         })
@@ -272,31 +274,6 @@ export default class Camera
             })
 
             button.addEventListener('pointercancel', () =>
-            {
-                this.keyboard[key] = false
-                button.classList.remove('is-active')
-            })
-
-            button.addEventListener('touchstart', (event) =>
-            {
-                event.preventDefault()
-                event.stopPropagation()
-
-                // eviter les missclick qui font avancer les dialogues
-                this.keyboard[key] = true
-                button.classList.add('is-active')
-            })
-
-            button.addEventListener('touchend', (event) =>
-            {
-                event.preventDefault()
-                event.stopPropagation()
-
-                this.keyboard[key] = false
-                button.classList.remove('is-active')
-            })
-
-            button.addEventListener('touchcancel', () =>
             {
                 this.keyboard[key] = false
                 button.classList.remove('is-active')

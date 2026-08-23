@@ -95,6 +95,9 @@ export default class LakeManager
                     "Je l'ai porté dans le silence bien avant que le monde ne l'acclame.",
                     'audio/dialogue-lake/damedulac_voices-2.1-3.ogg');
 
+                // info journal
+                this.storyManager.journalManager.unlock('info-dame-lac')
+
 
 
                 // arthur 2.1-2
@@ -137,6 +140,9 @@ export default class LakeManager
                     "Mais avant de comprendre Excalibur, tu dois d'abord te souvenir de l'épée qui t'a reconnu le premier.",
                     'audio/dialogue-lake/damedulac_voices-2.1-7.ogg');
 
+                // info journal
+                this.storyManager.journalManager.unlock('info-excalibur')
+
 
 
                 // arthur 2.1-4
@@ -155,6 +161,9 @@ export default class LakeManager
                     "Dame du Lac",
                     "Souviens-toi pour que le chemin se dévoile. Dis-moi… qu'est-ce qui la retient dans ton souvenir ?",
                     'audio/dialogue-lake/damedulac_voices-2.1-8.ogg');
+
+                // info journal
+                this.storyManager.journalManager.unlock('info-premiere-epee')
 
                 this.dialogueManager.hide();
                 this.storyManager.showNextIndicator();

@@ -7,7 +7,7 @@
     top: 0;
     left: 0;
     right: 0;
-    z-index: 300;
+    z-index: 500;
     display: grid;
     grid-template-columns: 48px 1fr 48px;
     align-items: center;
@@ -35,7 +35,26 @@
     border: 1px solid $color-border-gold;
     border-radius: 4px;
     background: $color-bg-deep;
+    position: relative;
+    overflow: hidden;
     cursor: pointer;
+    transition: color 0.3s ease, transform 0.3s ease, opacity 0.4s ease, border 0.3s ease;
+}
+
+.chapter-menu__toggle::before
+{
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: $color-accent-gold;
+    transform: translateX(-101%);
+    transition: transform 0.35s cubic-bezier(0.75, 0, 0.2, 1);
+}
+
+.chapter-menu__toggle:hover::before
+{
+    transform: translateX(0);
 }
 
 .chapter-menu__toggle span
@@ -43,7 +62,13 @@
     width: 18px;
     height: 1px;
     background: $color-accent-gold;
-    transition: transform 0.25s ease, opacity 0.25s ease;
+    position: relative;
+    transition: transform 0.25s ease, opacity 0.25s ease, background 0.3s ease;
+}
+
+.chapter-menu__toggle:hover span
+{
+    background: $color-bg-deep;
 }
 
 .header.menu-open .chapter-menu__toggle span:nth-child(1)
@@ -106,22 +131,21 @@
     min-height: 44px;
     box-sizing: border-box;
     padding: 12px 14px;
-    border: 1px solid $color-border-gold;
     border-radius: 4px;
     font-family: $font-secondary;
     font-size: 14px;
     line-height: 1.25;
+    letter-spacing: 0;
+    text-transform: none;
     text-align: left;
-    color: $color-text-title;
-    text-decoration: none;
-    background: rgba($color-bg-surface, 0.6);
-    cursor: pointer;
+    justify-content: flex-start;
 }
 
 .chapter-menu__item.is-active
 {
     color: $color-accent-gold;
-    background: rgba($color-accent-gold, 0.12);
+    border-color: rgba($color-accent-gold, $opacity-medium);
+    background: $color-bg-deep;
 }
 
 .chapter-menu__item.is-locked

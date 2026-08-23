@@ -127,6 +127,10 @@ export default class SwordManager
                             "Dame du Lac",
                             "Oui. Le roc. La pierre de ton destin.",
                             'audio/dialogue-lake/damedulac_voices-2.1-success-1.ogg');
+
+                        // info journal
+                        this.storyManager.journalManager.unlock('info-roc')
+
                         this.dialogueManager.hide();
                         this.timeline.play();
                     }
@@ -406,6 +410,9 @@ export default class SwordManager
                     "Et lorsqu'elle est sortie du roc… tout a changé.",
                     'audio/dialogue-sword/arthur_voices-3.5-2.ogg');
 
+                // info journal
+                this.storyManager.journalManager.unlock('info-epee-rocher')
+
 
 
                 // morgane 3.5-1
@@ -477,6 +484,9 @@ export default class SwordManager
                     "Morgane",
                     "Cette lame ne pouvait être tirée que par celui qui portait le sang royal. Ce jour-là, Arthur, le royaume a reconnu son roi.",
                     'audio/dialogue-sword/morgane_voices-3.6-1.ogg');
+
+                // info journal
+                this.storyManager.journalManager.unlock('info-roi')
 
 
 

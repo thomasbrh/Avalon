@@ -5,6 +5,7 @@ import Environment from './Environment.js'
 // import base extends
 import AnimationsClip from '../Zones/AnimationsClip.js'
 import Island from '../Zones/Island.js'
+import Items from '../Zones/items.js'
 import Portal from '../Zones/Portal.js'
 import Sword from '../Zones/Sword.js'
 import Lake from '../Zones/Lake.js'
@@ -35,6 +36,7 @@ export default class World
              */
             this.environment = new Environment()
             this.island = new Island()
+            this.items = new Items()
             this.portal = new Portal()
 
             this.morganne = new Personnages('#D4A0C0')
@@ -89,6 +91,12 @@ export default class World
 
     update()
     {
+        // update du raycaster
+        if(this.items)
+        {
+            this.items.update()
+        }
+
         // maj du shader du portal
         if(this.portal && this.portal.model.visible && this.portal.portalShaderMesh?.visible)
         {

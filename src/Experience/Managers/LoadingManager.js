@@ -68,6 +68,7 @@ export default class LoadingManager
         this.loadingBarContainer = document.querySelector('.loading-bar__container')
         this.loadingBar = document.querySelector('.loading-bar')
         this.startExperience = document.querySelector('.start-experience')
+        this.startInstructions = document.querySelector('.start-instructions')
         this.endExperience = document.querySelector('.end-experience')
 
 
@@ -271,6 +272,7 @@ export default class LoadingManager
     showStartExperience()
     {
         this.startExperience.classList.remove('hidden')
+        this.startInstructions.classList.remove('hidden')
     }
 
 
@@ -278,6 +280,7 @@ export default class LoadingManager
     hideStartExperience()
     {
         this.startExperience.classList.add('hidden')
+        this.startInstructions.classList.add('hidden')
         this.startExperience.disabled = true
 
         document.body.classList.add('experience-playing')
@@ -286,6 +289,9 @@ export default class LoadingManager
 
         this.experience.storyManager.setCheckpointsEnabled(true)
         this.experience.storyManager.goTo('portal');
+
+        // active la recherche des objets une fois l'expérience lancée
+        this.experience.world.items.startSearch()
 
         if(this.startMesh)
         {
@@ -319,6 +325,9 @@ export default class LoadingManager
         document.querySelector('.audio-btn')?.classList.remove('hidden')
         document.querySelector('.dialogue-box')?.classList.remove('is-visible')
         document.querySelector('#choices-container').style.display = 'none'
+
+        // désactive le raycaster à la fin de l'expérience
+        this.experience.world.items.stopSearch()
     }
 
 

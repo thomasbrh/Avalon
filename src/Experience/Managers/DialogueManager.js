@@ -5,7 +5,11 @@ export default class DialogueManager
 
     constructor()
     {
+        /**
+         * Base
+         */
         this.voicePlayer = new AudioManager().voicePlayer
+
 
         /**
          * DOM
@@ -14,17 +18,35 @@ export default class DialogueManager
         this.dialogueSpeaker = document.querySelector('.dialogue-speaker')
         this.dialogueText = document.querySelector('.dialogue-text')
 
-        // historique des dialogues
+
+        /**
+         * Initialisation
+         */
         this.history = []
         this.historyIndex = -1
         this.endDialogue = null
 
+
+        /**
+         * Appel des instances
+         */
+        this.setDialogueNavigation()
+    }
+
+
+    /**
+     * Navigation dans les dialogues
+     */
+    setDialogueNavigation()
+    {
         // clic gauche = -1, clic droit = +1
         document.addEventListener('click', (event) =>
         {
             if(!this.endDialogue) return
-            if(event.target.closest('.header')) return
-            if(event.target.closest('.mobile-controls')) return
+            if(event.target.closest('button, a, .journal, .item-viewer, .mobile-controls')) return
+
+            // ce clic sert uniquement au dialogue
+            event.stopPropagation()
 
             const direction = event.clientX < window.innerWidth / 2 ? -1 : 1
             this.moveLine(direction)
@@ -34,8 +56,8 @@ export default class DialogueManager
         {
             if(!this.endDialogue) return
 
-            // Le curseur indique si le clic revient en arriere ou passe a la suite.
-            if(event.target.closest('.header') || event.target.closest('.mobile-controls'))
+            // le curseur indique si le clic revient en arriere ou passe a la suite
+            if(event.target.closest('button, a, .journal, .item-viewer, .mobile-controls'))
             {
                 document.body.classList.remove('dialogue-previous', 'dialogue-next')
                 return

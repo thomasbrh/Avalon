@@ -4,6 +4,7 @@ import { deferredGroups } from '../sources.js'
 
 // import Manager
 import DialogueManager from './DialogueManager.js'
+import JournalManager from './JournalManager.js'
 
 // import ZonesManager
 import PortalManager from './ZonesManager/PortalManager.js'
@@ -21,6 +22,7 @@ export default class StoryManager
          */
         this.experience = new Experience()
         this.dialogueManager = new DialogueManager()
+        this.journalManager = new JournalManager()
 
         this.portalManager = new PortalManager(this)
         this.lakeManager = new LakeManager(this)
@@ -66,19 +68,23 @@ export default class StoryManager
         /**
          * Appel des instances
          */
-        this.initInteraction()
-        this.setNavigation()
+        this.setStoryNavigation()
+        this.setChapterNavigation()
         this.setActiveChapter('portal')
         this.setCheckpointsEnabled(false)
     }
 
-    initInteraction()
+
+    /**
+     * Poursuivre l'histoire
+     */
+    setStoryNavigation()
     {
-        const handler = (event) =>
+        const onNextClick = (event) =>
         {
-            if (!this.indicatorVisible) return
-            // Les controles camera ne doivent pas declencher le passage d'histoire.
-            if(event.target.closest('.mobile-controls')) return
+            // les boutons de l'interface ne doivent pas déclencher la suite de l'histoire
+            if(event.target.closest('button, a, .journal, .mobile-controls')) return
+            if(!this.indicatorVisible) return
 
             event.preventDefault()
             
@@ -98,12 +104,14 @@ export default class StoryManager
             if (this.currentScene && this.currentScene.timeline)
                 this.currentScene.timeline.play()
         }
-        window.addEventListener('click', handler)
-        window.addEventListener('touchstart', handler)
+        window.addEventListener('click', onNextClick)
     }
 
 
-    setNavigation()
+    /**
+     * Navigation entre les checkpoints
+     */
+    setChapterNavigation()
     {
         this.chapterMenuToggle.addEventListener('click', (event) =>
         {
@@ -186,6 +194,9 @@ export default class StoryManager
         this.currentScene?.enter()
     }
 
+    /**
+     * Charge les zones nécessaires et place l'expérience au bon checkpoint
+     */
     async goToCheckpoint(name)
     {
         // reset UI avant le tp
@@ -196,6 +207,7 @@ export default class StoryManager
         this.choicesContainer.style.display = 'none'
         this.choicesContainer.innerHTML = ''
         this.dialogueManager.cancelDialogue()
+        this.journalManager.syncToChapter(name)
 
         // charge les zones
         if(name === 'lake' || name === 'sword' || name === 'manor')
