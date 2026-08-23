@@ -2,6 +2,7 @@
 @use './responsive' as *;
 @use './button' as *;
 @use './header' as *;
+@use './journal' as *;
 
 
 *
@@ -32,6 +33,12 @@ body
     top: 0;
     left: 0;
     outline: none;
+}
+
+body.is-targeting-item,
+body.is-targeting-item *
+{
+    cursor: none !important;
 }
 
 
@@ -93,13 +100,30 @@ body
     transform: translate(-50%, -50%) scale(1.05);
 }
 
+.start-instructions
+{
+    position: fixed;
+    z-index: 10;
+    bottom: var(--dialogue-bottom);
+    left: 50%;
+    transform: translateX(-50%);
+    width: min(460px, calc(100% - 32px));
+    text-align: center;
+    font-size: 14px;
+    line-height: 1.6;
+    color: $color-text-title;
+}
 
-.audio-btn
+
+.utility-controls
 {
     position: fixed;
     top: 18px;
     right: 16px;
     z-index: 400;
+    display: flex;
+    align-items: stretch;
+    gap: 8px;
 
     @include responsive(desktop) { right: 32px; }
 }
@@ -615,6 +639,52 @@ body.indicator-active * { cursor: pointer; }
 /* Thème sombre (utile si la caméra pointe vers un objet clair) */
 .indicators .indicator.black .center { background-color: #000; }
 .indicators .indicator.black .circle { border: 2px solid #000; }
+
+
+/* crossair des objets */
+.crosshair
+{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    z-index: 350;
+    width: 18px;
+    height: 18px;
+    color: $color-accent-gold;
+    opacity: $opacity-high;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.crosshair::before,
+.crosshair::after
+{
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    background: currentColor;
+    transform: translate(-50%, -50%);
+}
+
+.crosshair::before
+{
+    width: 18px;
+    height: 1px;
+}
+
+.crosshair::after
+{
+    width: 1px;
+    height: 18px;
+}
+
+.crosshair.is-found
+{
+    color: $color-accent-rose;
+    transform: translate(-50%, -50%) scale(1.4);
+}
 
 
 /* hidden */

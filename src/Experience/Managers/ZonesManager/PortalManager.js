@@ -149,11 +149,18 @@ export default class PortalManager
                     "Morgane",
                     "Avalon t'a recueilli entre deux mondes.",
                     'audio/dialogue-portal/morgane_voices-1.1-2.ogg');
+
+                // info journal
+                this.storyManager.journalManager.unlock('info-avalon')
+
                 // morgane 1.1-3
                 await this.dialogueManager.playLine(
                     "Morgane",
                     "Je m'appelle Morgane. Les brumes d'Avalon ont brouillé ta mémoire, mais tu es mon frère.",
                     'audio/dialogue-portal/morgane_voices-1.1-3.ogg');
+
+                // info journal
+                this.storyManager.journalManager.unlock('info-morgane')
 
 
 
@@ -640,6 +647,10 @@ export default class PortalManager
                             "Tu viens d'ouvrir une porte vers tes souvenirs. Allons-y.",
                             'audio/dialogue-portal/morgane_voices-1.5-success-1.ogg'
                         );
+
+                        // info journal
+                        this.storyManager.journalManager.unlock('info-identite')
+
                         this.dialogueManager.hide();
 
                         this.timeline.play();

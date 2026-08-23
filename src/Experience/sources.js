@@ -224,6 +224,51 @@ export default
 
 
     /**
+     * Items sources
+     */
+    // glb
+    {
+        name: 'itemsModel',
+        type: 'gltfModel',
+        path: 'models/items/Items.glb'
+    },
+
+    // texture
+    // Lightmap
+    {
+        name: 'itemsTextureLightmap',
+        type: 'texture',
+        path: 'textures/items/items_lightmap.png'
+    },
+    // Normalmap
+    {
+        name: 'itemsTextureNormalmap',
+        type: 'texture',
+        path: 'textures/items/items_normalmap.png'
+    },
+
+    // glb du viewer 3D du journal
+    {
+        name: 'itemsViewModel',
+        type: 'gltfModel',
+        path: 'models/items/ItemsView.glb'
+    },
+
+    // textures du viewer 3D du journal
+    {
+        name: 'itemsViewTextureLightmap',
+        type: 'texture',
+        path: 'textures/items/ItemsView_lightmap.png'
+    },
+    {
+        name: 'itemsViewTextureNormalmap',
+        type: 'texture',
+        path: 'textures/items/ItemsView_normalmap.png'
+    },
+
+
+
+    /**
      * audio sources
      */
     // ambiance

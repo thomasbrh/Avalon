@@ -41,7 +41,7 @@ export default class DialogueManager
         document.addEventListener('click', (event) =>
         {
             if(!this.dialogueResolve) return
-            if(event.target.closest('.header, .mobile-controls, button, a')) return
+            if(event.target.closest('.header, .journal, .item-viewer, .mobile-controls, button, a')) return
 
             // ce clic sert seulement à la navigation du dialogue
             event.stopPropagation()
@@ -66,7 +66,7 @@ export default class DialogueManager
         if(!this.dialogueResolve) return
 
         // garde le cursor normal sur les éléments cliquables
-        if(event.target.closest('.header, .mobile-controls, button, a'))
+        if(event.target.closest('.header, .journal, .item-viewer, .mobile-controls, button, a'))
         {
             document.body.classList.remove('dialogue-previous', 'dialogue-next')
             return

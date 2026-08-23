@@ -195,6 +195,10 @@ export default class ManorManager
                     "Dame du Lac",
                     "Non, c'était un serment.",
                     'audio/dialogue-manor/damedulac_voices-4.2-3.ogg');
+
+                // info journal
+                this.storyManager.journalManager.unlock('info-serment-roi')
+
                 // dame du lac 4.2-4
                 await this.dialogueManager.playLine(
                     "Dame du Lac",
@@ -240,6 +244,10 @@ export default class ManorManager
                             "Morgane",
                             "Oui, Camelot. C'était le cœur de ton royaume et le siège de la Table Ronde.",
                             'audio/dialogue-manor/morgane_voices-4.3-success-1.ogg');
+
+                        // info journal
+                        this.storyManager.journalManager.unlock('info-camelot')
+
                         this.dialogueManager.hide();
                         this.timeline.play();
                     }
@@ -535,6 +543,10 @@ export default class ManorManager
                     "Arthur",
                     "Mes frères d'armes… Lancelot. Gauvain. Perceval.",
                     'audio/dialogue-manor/arthur_voices-4.6-1.ogg');
+
+                // info journal
+                this.storyManager.journalManager.unlock('info-compagnons')
+
                 // arthur 4.6-2
                 await this.dialogueManager.playLine(
                     "Arthur",

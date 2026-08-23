@@ -4,6 +4,7 @@ import { deferredGroups } from '../sources.js'
 
 // import Manager
 import DialogueManager from './DialogueManager.js'
+import JournalManager from './JournalManager.js'
 
 // import ZonesManager
 import PortalManager from './ZonesManager/PortalManager.js'
@@ -21,6 +22,7 @@ export default class StoryManager
          */
         this.experience = new Experience()
         this.dialogueManager = new DialogueManager()
+        this.journalManager = new JournalManager()
 
         this.portalManager = new PortalManager(this)
         this.lakeManager = new LakeManager(this)
@@ -99,8 +101,8 @@ export default class StoryManager
     {
         const onNextClick = (event) =>
         {
-            // le menu et les controles caméra ne doivent pas avancer l'histoire
-            if(event.target.closest('.header, .mobile-controls')) return
+            // les boutons de l'interface ne doivent pas déclencher la suite de l'histoire
+            if(event.target.closest('.header, .journal, .item-viewer, .mobile-controls, button, a')) return
             if(!this.indicatorVisible) return
 
             event.preventDefault()
@@ -335,7 +337,6 @@ export default class StoryManager
         this.currentScene?.enter()
     }
 
-
     /**
      * Replace les ponts dans l'état du chapitre choisi
      */
@@ -384,6 +385,7 @@ export default class StoryManager
         this.swordManager.cancelSwordInteraction()
 
         this.dialogueManager.cancelDialogue()
+        this.journalManager.syncToChapter(name)
 
         // charge les zones
         if(name === 'lake' || name === 'sword' || name === 'manor')

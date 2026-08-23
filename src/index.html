@@ -52,6 +52,9 @@
 
     <!-- start -->
     <button class="btn start-experience hidden">Entrer</button>
+    <p class="start-instructions hidden">
+        Des entités sont cachées sur l'île. Ouvrez bien les yeux et utilisez les contrôles à votre disposition pour les trouver !
+    </p>
     <!-- end -->
     <button class="btn end-experience hidden">À suivre</button>
 
@@ -77,7 +80,14 @@
         </div>
     </nav>
 
-    <button class="btn btn--small audio-btn">Son</button>
+    <!-- controls -->
+    <div class="utility-controls">
+        <button class="btn btn--small journal-btn" type="button" aria-expanded="false" aria-controls="journal-panel">
+            Journal
+            <span class="journal-btn__badge is-empty">0</span>
+        </button>
+        <button class="btn btn--small audio-btn">Son</button>
+    </div>
 
     <div class="indicators" id="indicators">
         <div class="indicator" id="next-indicator" style="display: none; top: 50%; left: 50%;">
@@ -89,6 +99,9 @@
             </div>
         </div>
     </div>
+
+    <!-- viseur pour trouver les objets -->
+    <div class="crosshair hidden" aria-hidden="true"></div>
     
     
     <!-- dialogue -->
@@ -150,6 +163,42 @@
             <span class="keyboard-controls__label">Descendre</span>
         </div>
     </div>
+
+
+    <!-- journal -->
+    <aside class="journal hidden" id="journal-panel" aria-hidden="true">
+        <section class="journal__book" aria-labelledby="journal-title">
+            <div class="journal__header">
+                <div>
+                    <span class="journal__eyebrow">Mémoire d'Arthur</span>
+                    <h2 class="journal__title" id="journal-title">Journal</h2>
+                </div>
+
+                <button class="btn journal__close" type="button" aria-label="Fermer le journal">&times;</button>
+            </div>
+
+            <div class="journal__tabs" aria-label="Catégories du journal"></div>
+
+            <div class="journal__content"></div>
+        </section>
+    </aside>
+    <!-- viewer 3D des objets trouvés -->
+    <div class="item-viewer hidden" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="item-viewer-title">
+        <div class="item-viewer__header">
+            <div>
+                <span class="journal__eyebrow">Collection</span>
+                <h2 class="item-viewer__title" id="item-viewer-title"></h2>
+            </div>
+
+            <button class="btn item-viewer__close" type="button" aria-label="Fermer le modèle 3D">&times;</button>
+        </div>
+
+        <div class="item-viewer__stage">
+            <canvas class="item-viewer__canvas"></canvas>
+        </div>
+    </div>
+
+    <div class="journal-toast hidden" role="status" aria-live="polite"></div>
 
 
     <!-- responsive -->
