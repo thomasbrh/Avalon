@@ -132,10 +132,16 @@ export default class StoryManager
      */
     setChapterNavigation()
     {
+        const setMenuOpen = (isOpen) =>
+        {
+            this.header.classList.toggle('menu-open', isOpen)
+            this.chapterMenuToggle.setAttribute('aria-expanded', String(isOpen))
+        }
+
         this.chapterMenuToggle.addEventListener('click', (event) =>
         {
             event.stopPropagation()
-            this.header.classList.toggle('menu-open')
+            setMenuOpen(!this.header.classList.contains('menu-open'))
         })
 
         // ferme le menu si on clique sur le fond
@@ -143,8 +149,13 @@ export default class StoryManager
         {
             if(event.target === this.chapterMenu)
             {
-                this.header.classList.remove('menu-open')
+                setMenuOpen(false)
             }
+        })
+
+        window.addEventListener('keydown', (event) =>
+        {
+            if(event.key === 'Escape') setMenuOpen(false)
         })
 
         // navigation vers les checkpoints
@@ -153,7 +164,7 @@ export default class StoryManager
             button.addEventListener('click', async (event) =>
             {
                 event.stopPropagation()
-                this.header.classList.remove('menu-open')
+                setMenuOpen(false)
 
                 await this.goToCheckpoint(button.dataset.chapter)
             })

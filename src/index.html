@@ -59,17 +59,18 @@
     <button class="btn end-experience hidden">À suivre</button>
 
     <!-- navigation chapitres -->
-    <nav class="header">
-        <button class="chapter-menu__toggle" type="button" aria-label="Menu des chapitres">
+    <nav class="header" aria-label="Navigation principale">
+        <button class="btn chapter-menu__toggle" type="button" aria-label="Menu des chapitres" aria-controls="chapter-menu" aria-expanded="false">
             <span></span>
             <span></span>
             <span></span>
         </button>
 
-        <a href="https://avalon-landing-zeta.vercel.app/" target="_blank" class="header__logo">AVALON</a>
+        <a href="https://avalon-landing-zeta.vercel.app/" target="_blank" rel="noopener noreferrer" class="header__logo">Avalon</a>
 
         <div class="chapter-menu" id="chapter-menu">
             <div class="chapter-menu__panel">
+                <p class="chapter-menu__eyebrow">Fragments de mémoire</p>
                 <a href="https://avalon-landing-zeta.vercel.app/" target="_blank" class="chapter-menu__landing">Retour landing</a>
                 <button class="chapter-menu__item" type="button" data-chapter="portal">Chapitre 1 - Le portail</button>
                 <button class="chapter-menu__item" type="button" data-chapter="lake">Chapitre 2 - Le lac</button>
@@ -78,16 +79,17 @@
                 <a href="https://www.thomasbruch.be/portfolio/" class="chapter-menu__credit" target="_blank">Thomas Bruch - TFE 2025-2026</a>
             </div>
         </div>
-    </nav>
 
-    <!-- controls -->
-    <div class="utility-controls">
-        <button class="btn btn--small journal-btn" type="button" aria-expanded="false" aria-controls="journal-panel">
-            Journal
-            <span class="journal-btn__badge is-empty">0</span>
-        </button>
-        <button class="btn btn--small audio-btn">Son</button>
-    </div>
+        <div class="utility-controls header__utilities">
+            <div class="journal-control">
+                <button class="btn btn--small journal-btn" type="button" aria-expanded="false" aria-controls="journal-panel">
+                    Journal
+                </button>
+                <span class="journal-btn__badge is-empty" aria-hidden="true">0</span>
+            </div>
+            <button class="btn btn--small audio-btn">Son</button>
+        </div>
+    </nav>
 
     <div class="indicators" id="indicators">
         <div class="indicator" id="next-indicator" style="display: none; top: 50%; left: 50%;">
@@ -117,7 +119,6 @@
     <!-- interaction -->
     <div class="interaction-text hidden" id="interaction-text"></div>
     <button class="interaction-button hidden" id="interaction-button" type="button" aria-label="Interagir">
-        <span class="key">E</span>
         <span>Interagir</span>
     </button>
 

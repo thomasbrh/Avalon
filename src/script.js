@@ -17,6 +17,8 @@ if (screen?.orientation?.lock)
 }
 
 const rotateOverlay = document.querySelector('.rotate-overlay')
+const coarsePointer = window.matchMedia('(pointer: coarse)')
+let orientationFrame = null
 
 function updateOrientationOverlay()
 {
@@ -24,16 +26,25 @@ function updateOrientationOverlay()
     const width = viewport ? viewport.width : window.innerWidth
     const height = viewport ? viewport.height : window.innerHeight
 
-    const Portrait = height > width
-    const Touch = navigator.maxTouchPoints > 0
-    rotateOverlay.style.display = (Portrait && Touch) ? 'flex' : 'none'
+    const isPortrait = height > width
+    const shouldBlock = isPortrait && coarsePointer.matches
+
+    rotateOverlay.style.display = shouldBlock ? 'flex' : 'none'
+    rotateOverlay.setAttribute('aria-hidden', String(!shouldBlock))
 }
 
 function scheduleOrientationUpdate()
 {
-    setTimeout(updateOrientationOverlay, 150)
+    if(orientationFrame !== null) cancelAnimationFrame(orientationFrame)
+    orientationFrame = requestAnimationFrame(() =>
+    {
+        orientationFrame = null
+        updateOrientationOverlay()
+    })
 }
 
 window.addEventListener('resize', scheduleOrientationUpdate)
 window.addEventListener('orientationchange', scheduleOrientationUpdate)
+window.visualViewport?.addEventListener('resize', scheduleOrientationUpdate)
+coarsePointer.addEventListener('change', scheduleOrientationUpdate)
 updateOrientationOverlay()

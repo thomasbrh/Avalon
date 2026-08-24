@@ -28,7 +28,7 @@ export default class SwordManager
 
         /**
          * Interaction de l'épée
-        */
+         */
         this.swordStepCount = 0
         this.swordStepTotal = 12
         // fonction qui relance la timeline après le jeu
@@ -606,41 +606,41 @@ export default class SwordManager
              */
             // intermédiaire all scène 6 to 7
             //intermédiaire caméra 61
-            .to(this.camera.instance.position,
+            /* .to(this.camera.instance.position,
             {
-                x: this.targets['TargetSword_camera61'].x,
-                y: this.targets['TargetSword_camera61'].y,
-                z: this.targets['TargetSword_camera61'].z,
+                x: scene61Targets.camera.x,
+                y: scene61Targets.camera.y,
+                z: scene61Targets.camera.z,
                 duration: 2.4,
                 ease: 'power2.inOut'
             })
             // intermédiaire target 61
             .to(this.camera.cameraTarget,
             {
-                x: this.targets['TargetSword_target61'].x,
-                y: this.targets['TargetSword_target61'].y,
-                z: this.targets['TargetSword_target61'].z,
+                x: scene61Targets.cameraTarget.x,
+                y: scene61Targets.cameraTarget.y,
+                z: scene61Targets.cameraTarget.z,
                 duration: 2.1,
                 ease: 'power2.inOut'
             }, "<")
             // intermédiaire morganne position 61
             .to(this.morganne.position,
             {
-                x: this.targets['TargetSword_morganne61'].x,
-                y: this.targets['TargetSword_morganne61'].y,
-                z: this.targets['TargetSword_morganne61'].z,
+                x: scene61Targets.morganne.x,
+                y: scene61Targets.morganne.y,
+                z: scene61Targets.morganne.z,
                 duration: 2.4,
                 ease: 'power2.inOut'
             }, "<")
             // intermédiaire arthur position 61
             .to(this.arthur.position,
             {
-                x: this.targets['TargetSword_arthur61'].x,
-                y: this.targets['TargetSword_arthur61'].y,
-                z: this.targets['TargetSword_arthur61'].z,
+                x: scene61Targets.arthur.x,
+                y: scene61Targets.arthur.y,
+                z: scene61Targets.arthur.z,
                 duration: 2.6,
                 ease: 'power2.inOut'
-            }, "<")
+            }, "<") */
 
 
             // position caméra finale 7
