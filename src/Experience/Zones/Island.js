@@ -110,18 +110,18 @@ export default class Island
             {
                 uTime: { value: 0 },
 
-                uBigWavesElevation: { value: 0.45 },
-                uBigWavesFrequency: { value: new THREE.Vector2(2, 6.5) },
+                uBigWavesElevation: { value: 0.3 },
+                uBigWavesFrequency: { value: new THREE.Vector2(2.5, 4.5) },
                 uBigWavesSpeed: { value: 0.35 },
 
-                uSmallWavesElevation: { value: 0.8 },
-                uSmallWavesFrequency: { value: 21 },
+                uSmallWavesElevation: { value: 0.75 },
+                uSmallWavesFrequency: { value: 18 },
                 uSmallWavesSpeed: { value: 0.15 },
                 uSmallIterations: { value: 3 },
 
                 uDepthColor: { value: new THREE.Color('#185677') },
                 uSurfaceColor: { value: new THREE.Color('#5799c1') },
-                uColorOffset: { value: 0.36 },
+                uColorOffset: { value: 0.32 },
                 uColorMultiplier: { value: 0.6 }
             }
         })
@@ -132,7 +132,7 @@ export default class Island
             bigWavesFrequencyX: 2,
             bigWavesFrequencyY: 6.5,
             smallWavesFrequency: 21,
-            oceanYOffset: 0.8,
+            oceanYOffset: 0,
         }
 
         this.oceanPack.traverse((child) =>
@@ -230,15 +230,10 @@ export default class Island
         child.geometry.boundingBox.getSize(size)
 
         const oceanSize = Math.max(size.x, size.z)
-        const oceanGeometry = new THREE.PlaneGeometry(oceanSize, oceanSize, 512, 512)
-        oceanGeometry.rotateX(- Math.PI * 0.5)
 
         this.oceanFrequencyScale = 2 / oceanSize
         this.updateOceanFrequencyUniforms()
         this.updateOceanPosition()
-
-        child.geometry.dispose()
-        child.geometry = oceanGeometry
     }
 
 
