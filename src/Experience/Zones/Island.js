@@ -35,6 +35,7 @@ export default class Island
         this.oceanPack = this.resources.items.oceanModel.scene
         this.rocksPack = this.resources.items.rocksModel.scene
         this.bushesPack = this.resources.items.bushesModel.scene
+        this.grassPack = this.resources.items.grassModel.scene
         this.treesPack1 = this.resources.items.treesModelPack01.scene
         this.treesPack2 = this.resources.items.treesModelPack02.scene
         this.treesPack3 = this.resources.items.treesModelPack03.scene
@@ -44,6 +45,7 @@ export default class Island
          * Appel des instances
          */
         this.setTexture()
+        this.setGrass()
         this.setTreesTexture()
         this.setModel()
         this.setDebug()
@@ -165,6 +167,58 @@ export default class Island
     }
 
 
+    /**
+     * Grass
+     */
+    setGrass()
+    {
+        // texture
+        this.grassTextureLightmap = this.resources.items.grassTextureLightmap
+        this.grassTextureLightmap.flipY = false
+        this.grassTextureLightmap.colorSpace = THREE.SRGBColorSpace
+
+        // utilise le deuxième set UV du glb
+        this.grassTextureLightmap.channel = 1
+
+        // material avec transparence
+        this.grassMaterial = new THREE.MeshStandardMaterial(
+        {
+            map: this.grassTextureLightmap,
+            alphaTest: 0.35, // découpe les pixels transparents
+            side: THREE.DoubleSide
+        })
+
+        // récupère tous les planes du glb
+        this.grassMeshes = []
+
+        this.grassPack.traverse((child) =>
+        {
+            if(!child.isMesh) return
+
+            child.material = this.grassMaterial
+
+            // Les rota des planes sont apply direct dans leur géométrie.
+            const normalAttribute = child.geometry.getAttribute('normal')
+            const grassNormal = new THREE.Vector3()
+
+            if(normalAttribute)
+            {
+                grassNormal.fromBufferAttribute(normalAttribute, 0)
+                grassNormal.y = 0
+
+                if(grassNormal.lengthSq() > 0)
+                {
+                    grassNormal.normalize()
+                    child.userData.lookAtOffset = Math.atan2(grassNormal.x, grassNormal.z)
+                }
+            }
+
+            child.userData.lookAtOffset ??= 0
+            this.grassMeshes.push(child)
+        })
+    }
+
+
     setOceanGeometry(child)
     {
         this.oceanMesh = child
@@ -194,6 +248,29 @@ export default class Island
         {
             this.oceanMaterial.uniforms.uTime.value = this.time.elapsed * 0.001
         }
+
+        this.updateGrassOrientation()
+    }
+
+
+    /**
+     * Grass orientation
+     */
+    // tourne l'herbe vers la camera
+    updateGrassOrientation()
+    {
+        const cameraPosition = this.experience.camera.instance.position
+
+        this.grassMeshes.forEach((grassMesh) =>
+        {
+            grassMesh.lookAt(
+                cameraPosition.x,
+                grassMesh.position.y,
+                cameraPosition.z
+            )
+
+            grassMesh.rotateY(- grassMesh.userData.lookAtOffset)
+        })
     }
 
 
@@ -341,6 +418,7 @@ export default class Island
             this.rocksPack,
             this.oceanPack,
             this.bushesPack,
+            this.grassPack,
             this.treesPack1,
             this.treesPack2,
             this.treesPack3)
