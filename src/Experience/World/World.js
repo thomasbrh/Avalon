@@ -133,6 +133,12 @@ export default class World
             this.island.update()
         }
 
+        // maj de l'aura autour de la tour
+        if(this.lake && this.lake.model.visible)
+        {
+            this.lake.update()
+        }
+
         // maj animation persos + dialogues
         if(this.morganne)
         {
