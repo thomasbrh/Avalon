@@ -65,7 +65,7 @@ export default class Personnages
             transitionSpeed: 6,
 
             // apparence
-            scale: 0.20,
+            scale: 0.18,
             colorA,
             colorB,
 

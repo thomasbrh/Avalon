@@ -18,6 +18,7 @@ export default class Items
         this.scene = this.experience.scene
         this.resources = this.experience.resources
         this.camera = this.experience.camera.instance
+        this.canvas = this.experience.canvas
 
 
         /**
@@ -33,14 +34,13 @@ export default class Items
          */
         this.itemJournalIds =
         {
-            // Three.js remplace les espaces des noms dans Blender par des _
             'Graal': 'object-graal',
-            'Baton_de_Merlin': 'object-baton-merlin',
-            "Tas_d'or": 'object-tas-or',
-            'Grimoire_de_Merlin': 'object-grimoire-merlin',
-            'Potion_01': 'object-potion-1',
-            'Potion_02': 'object-potion-2',
-            'Couronne': 'object-couronne',
+            'Stick': 'object-baton-merlin',
+            'Coin': 'object-tas-or',
+            'Book': 'object-grimoire-merlin',
+            'Potion01': 'object-potion-1',
+            'Potion02': 'object-potion-2',
+            'Crown': 'object-couronne',
         }
 
 
@@ -51,8 +51,19 @@ export default class Items
         this.currentIntersection = null
         this.isSearching = false
         this.isPointerOverInterface = false
+        this.minimumHitboxRadius = 0.75
+        // hitbox
+        this.showHitboxes = false
         this.interfaceSelector = 'button, a, .journal, .item-viewer, .mobile-controls, #choices-container'
-        this.hitboxMaterial = new THREE.MeshBasicMaterial()
+        this.hitboxMaterial = new THREE.MeshBasicMaterial(
+        {
+            color: 0xff00ff,
+            wireframe: true,
+            transparent: true,
+            opacity: 0.65,
+            depthTest: false,
+            visible: this.showHitboxes,
+        })
 
 
         /**
@@ -133,25 +144,22 @@ export default class Items
             {
                 child.userData.journalId = journalId
 
-                // hitbox plus large pour les objets
+                // sphère hitbox
                 const box = new THREE.Box3().setFromObject(child)
-                const size = box.getSize(new THREE.Vector3())
-                const center = box.getCenter(new THREE.Vector3())
-
-                size.x = Math.max(size.x, 1)
-                size.y = Math.max(size.y, 1)
-                size.z = Math.max(size.z, 1)
+                const boundingSphere = box.getBoundingSphere(new THREE.Sphere())
+                const radius = Math.max(boundingSphere.radius, this.minimumHitboxRadius)
 
                 const hitbox = new THREE.Mesh(
-                    new THREE.BoxGeometry(size.x, size.y, size.z),
+                    new THREE.SphereGeometry(radius, 12, 8),
                     this.hitboxMaterial
                 )
 
-                hitbox.position.copy(center)
+                hitbox.position.copy(boundingSphere.center)
+                hitbox.name = `${child.name}_hitbox`
                 hitbox.userData.item = child
                 hitbox.updateMatrixWorld()
+                this.scene.add(hitbox)
 
-                // la box ne doit pas être affichée
                 this.itemHitboxes.push(hitbox)
             }
         })
@@ -179,9 +187,13 @@ export default class Items
     // garde la position du viseur à la même place que la souris
     onMouseMove(event)
     {
-        // position de la souris
-        this.mouse.x = (event.clientX / window.innerWidth) * 2 - 1
-        this.mouse.y = - (event.clientY / window.innerHeight) * 2 + 1
+        // position de la souris par rapport à la zone rendue par le canvas
+        const canvasBounds = this.canvas.getBoundingClientRect()
+        const canvasX = event.clientX - canvasBounds.left
+        const canvasY = event.clientY - canvasBounds.top
+
+        this.mouse.x = (canvasX / canvasBounds.width) * 2 - 1
+        this.mouse.y = - (canvasY / canvasBounds.height) * 2 + 1
         this.isPointerOverInterface = Boolean(
             event.target.closest(this.interfaceSelector)
         )
@@ -200,6 +212,7 @@ export default class Items
         if(!this.isSearching || this.crosshair.classList.contains('is-found')) return
 
         // recalcul du hover à chaque frame
+        this.camera.updateMatrixWorld()
         this.raycaster.setFromCamera(this.mouse, this.camera)
         const intersections = this.raycaster.intersectObjects(this.itemHitboxes)
         this.currentIntersection = intersections[0] || null
@@ -220,6 +233,7 @@ export default class Items
         // hide l'objet et l'enlève des prochains tests du raycaster
         item.visible = false
         this.itemHitboxes = this.itemHitboxes.filter((itemHitbox) => itemHitbox !== hitbox)
+        this.scene.remove(hitbox)
         hitbox.geometry.dispose()
         this.currentIntersection = null
 
@@ -262,7 +276,11 @@ export default class Items
         window.removeEventListener('click', this.onItemClick, true)
         window.removeEventListener('mousemove', this.onMouseMove)
         window.clearTimeout(this.crosshairTimeout)
-        this.itemHitboxes.forEach((hitbox) => hitbox.geometry.dispose())
+        this.itemHitboxes.forEach((hitbox) =>
+        {
+            this.scene.remove(hitbox)
+            hitbox.geometry.dispose()
+        })
         this.hitboxMaterial.dispose()
         this.itemsMaterial.dispose()
         this.itemsTextureLightmap.dispose()
