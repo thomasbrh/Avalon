@@ -130,6 +130,25 @@ export default
 
 
     /**
+     * Grass sources
+     */
+    // glb
+    {
+        name: 'grassModel',
+        type: 'gltfModel',
+        path: 'models/island/grass.glb'
+    },
+    // texture
+    // Lightmap
+    {
+        name: 'grassTextureLightmap',
+        type: 'texture',
+        path: 'textures/island/grass/grass_lightmap.webp'
+    },
+
+
+
+    /**
      * Trees sources
      */
     // Trees Pack01
