@@ -15,55 +15,25 @@
 .title-h1
 {
     color: $color-text-title;
-    font-size: $font-h1;
+    @include fluid-font(54px, 101px);
     line-height: 1;
-    letter-spacing: 0.035em;
 
-    @include responsive(tablet)
-    {
-        font-size: 4rem;
-    }
-
-    @include responsive(desktop)
-    {
-        font-size: 5.75rem;
-    }
 }
 
 .title-h2
 {
     color: $color-accent-gold;
-    font-size: $font-h2;
+    @include fluid-font(36px, 68px);
     line-height: 1.1;
-    letter-spacing: 0.04em;
 
-    @include responsive(tablet)
-    {
-        font-size: 3rem;
-    }
-
-    @include responsive(desktop)
-    {
-        font-size: 4.4rem;
-    }
 }
 
 .title-h3
 {
     color: $color-text-title;
-    font-size: $font-h3;
+    @include fluid-font(24px, 45px);
     line-height: 1.05;
-    letter-spacing: 0.02em;
 
-    @include responsive(tablet)
-    {
-        font-size: 2.25rem;
-    }
-
-    @include responsive(desktop)
-    {
-        font-size: 2.8125rem;
-    }
 }
 
 .subtitle__tag,
@@ -72,44 +42,21 @@
     margin: 0;
     color: $color-accent-rose;
     font-family: $font-secondary;
-    font-size: 0.625rem;
+    @include fluid-font(11px, 13px);
     line-height: 1.2;
-    letter-spacing: $tracking-label;
     text-transform: uppercase;
 
-    @include responsive(tablet)
-    {
-        font-size: 0.75rem;
-    }
-
-    @include responsive(desktop)
-    {
-        font-size: 0.8125rem;
-    }
 }
 
 .paragraph
 {
-    width: 100%;
     max-width: $paragraph-width;
     margin: 0;
     color: $color-text-paragraph;
     font-family: $font-secondary;
-    font-size: $font-body;
+    @include fluid-font(16px, 20px);
     line-height: 1.65;
-    letter-spacing: $tracking-copy;
 
-    @include responsive(tablet)
-    {
-        font-size: 1rem;
-        line-height: 1.7;
-    }
-
-    @include responsive(desktop)
-    {
-        font-size: 1.125rem;
-        line-height: 1.75;
-    }
 }
 
 .lead
@@ -118,19 +65,9 @@
     margin: 0;
     color: $color-text-title;
     font-family: $font-secondary;
-    font-size: $font-lead;
+    @include fluid-font(24px, 30px);
     line-height: 1.35;
-    letter-spacing: $tracking-copy;
 
-    @include responsive(tablet)
-    {
-        font-size: 1.5rem;
-    }
-
-    @include responsive(desktop)
-    {
-        font-size: 1.875rem;
-    }
 }
 
 .text-accent

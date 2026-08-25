@@ -61,14 +61,13 @@ export default class World
                 phase: 2.4
             })
 
+            this.createSwordZone()
+
         })
         
     }
 
 
-    /**
-     * Deferred
-     */
     createLakeZone()
     {
         if(this.lake) return

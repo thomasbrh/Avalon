@@ -3,6 +3,7 @@
 @use './commun/responsive' as *;
 @use './commun/button' as *;
 @use './commun/header' as *;
+@use './commun/typography' as *;
 @use './journal' as *;
 
 
@@ -11,6 +12,7 @@
 *::after
 {
     box-sizing: border-box;
+    user-select: none;
 }
 
 *
@@ -23,44 +25,18 @@
 html,
 body
 {
-    --page-margin: 0.75rem;
-    --dialogue-width: min(82%, 30rem);
-    --dialogue-bottom: calc(1rem + env(safe-area-inset-bottom));
-    --mobile-control-size: clamp(2.5rem, 8vw, 3.25rem);
-
     width: 100%;
     height: 100%;
     min-width: 0;
     font-family: $font-secondary;
-    font-size: 16px;
+    font-size: $font-body;
     background: $color-bg-deep;
     color: $color-text-title;
     overflow: hidden;
     overscroll-behavior: none;
 
-    @include responsive(tablet)
-    {
-        --page-margin: 1.5rem;
-        --dialogue-width: min(68%, 42rem);
-        --dialogue-bottom: calc(1.5rem + env(safe-area-inset-bottom));
-        --mobile-control-size: clamp(2.75rem, 6vw, 3.5rem);
-    }
-
-    @include responsive(desktop)
-    {
-        --page-margin: 2rem;
-        --dialogue-width: clamp(34rem, 44%, 52rem);
-        --dialogue-bottom: calc(2rem + env(safe-area-inset-bottom));
-        --mobile-control-size: 3.5rem;
-    }
 }
 
-
-.header.is-scrolled:not(.menu-open)
-{
-    border-bottom-color: transparent;
-    background: transparent;
-}
 
 /* canvas */
 .webgl
@@ -83,7 +59,7 @@ body.is-targeting-item *
 /* loading overlay */
 .loading-overlay
 {
-    font-size: 1rem;
+    @include fluid-font(15px, 20px);
     position: fixed;
     display: flex;
     flex-direction: column;
@@ -92,31 +68,55 @@ body.is-targeting-item *
 
     color: $color-text-white;
     background: transparent;
-    gap: 1rem;
+    gap: $space-3;
     inset: 0;
     z-index: 1000;
-    padding: var(--content-gutter-start) var(--content-gutter-end);
+    padding: $space-margin-mobile;
     text-align: center;
 
     @include responsive(tablet)
     {
-        font-size: 1.125rem;
+        padding: $space-margin-mobile $space-margin-tablet;
+    }
+
+    @include responsive(tablet-landscape)
+    {
+        padding: $space-margin-mobile $space-margin-landscape;
+    }
+
+    @include responsive(laptop)
+    {
+        padding: $space-margin-mobile $space-margin-laptop;
     }
 
     @include responsive(desktop)
     {
-        font-size: 1.25rem;
+        padding: $space-margin-mobile $space-margin-desktop;
     }
 }
 
 .loading-bar__container
 {
-    width: clamp(8rem, 35vw, 20rem);
-    max-width: 100%;
+    width: 132px;
     height: 3px;
-    border-radius: 1rem;
+    border-radius: 16px;
     background: rgba($color-accent-gold, 0.25);
     overflow: hidden;
+
+    @include responsive(tablet)
+    {
+        width: 240px;
+    }
+
+    @include responsive(tablet-landscape)
+    {
+        width: 288px;
+    }
+
+    @include responsive(desktop)
+    {
+        width: 324px;
+    }
 }
 
 .loading-bar
@@ -139,21 +139,26 @@ body.is-targeting-item *
     left: 50%;
     transform: translate(-50%, -50%);
     width: max-content;
-    max-width: calc(100% - var(--content-gutter-start) - var(--content-gutter-end));
-    padding: 0.55rem 0.9rem;
-    font-size: 0.875rem;
+    max-width: calc(100% - 32px);
+    padding: 6px 12px;
+    @include fluid-font(16px, 20px);
     text-align: center;
+
+    @include responsive(phone-small)
+    {
+        max-width: calc(100% - 24px);
+        padding: $space-half $space-1;
+    }
 
     @include responsive(tablet)
     {
-        padding: 0.7rem 1.25rem;
-        font-size: 1rem;
+        max-width: calc(100% - 48px);
+        padding: $space-2 $space-3;
     }
 
     @include responsive(desktop)
     {
-        padding: 0.85rem 1.75rem;
-        font-size: 1.25rem;
+        padding: $space-2 $space-5;
     }
 }
 
@@ -167,14 +172,32 @@ body.is-targeting-item *
 {
     position: fixed;
     z-index: 10;
-    bottom: calc(var(--page-margin) + env(safe-area-inset-bottom));
+    bottom: $space-1;
     left: 50%;
     transform: translateX(-50%);
-    width: min(420px, calc(100% - var(--content-gutter-start) - var(--content-gutter-end)));
+    width: min(456px, calc(100% - 24px));
     text-align: center;
-    font-size: 0.75rem;
-    line-height: 1.5;
+    @include fluid-font(13px, 16px);
+    line-height: 1.45;
     color: $color-text-title;
+
+    @include responsive(phone-small)
+    {
+        width: min(336px, calc(100% - 12px));
+        @include fluid-font(12px, 14px);
+    }
+
+    @include responsive(tablet)
+    {
+        bottom: $space-18;
+        width: min(504px, calc(100% - 36px));
+    }
+
+    @include responsive(desktop)
+    {
+        bottom: $space-3;
+        width: min(552px, calc(100% - 72px));
+    }
 }
 
 
@@ -182,30 +205,27 @@ body.is-targeting-item *
 {
     display: flex;
     align-items: center;
-    gap: 0.25rem;
+    gap: 6px;
 }
 
 .utility-controls .btn
 {
     min-height: 32px;
-    padding: 0.35rem 0.45rem;
-    font-size: 0.625rem;
-    letter-spacing: 0.04em;
+    padding: 6px 6px;
+    @include fluid-font(11px, 13px);
     line-height: 1;
     white-space: nowrap;
 
     @include responsive(tablet)
     {
         min-height: 36px;
-        padding: 0.5rem 0.7rem;
-        font-size: 0.6875rem;
+        padding: 6px 12px;
     }
 
     @include responsive(desktop)
     {
         min-height: 44px;
-        padding: 0.65rem 1rem;
-        font-size: 0.875rem;
+        padding: 12px 18px;
     }
 }
 
@@ -222,12 +242,12 @@ body.is-targeting-item *
     position: fixed;
     left: 50%;
     transform: translateX(-50%);
-    bottom: var(--dialogue-bottom);
+    bottom: $space-1;
 
     z-index: 20;
     text-align: center;
     box-sizing: border-box;
-    width: var(--dialogue-width);
+    width: min(82%, 480px);
 
     background: rgba($color-bg-deep, 0.58);
     -webkit-backdrop-filter: blur(12px);
@@ -235,20 +255,42 @@ body.is-targeting-item *
     border: 1px solid rgba($color-accent-gold, 0.5);
     border-radius: 6px;
     box-shadow: 0 12px 32px rgba(0, 0, 0, 0.22);
-    max-height: min(30dvh, 12rem);
-    padding: 0.45rem clamp(0.6rem, 2.5%, 0.85rem) 0.5rem;
+    max-height: min(30dvh, 192px);
+    padding: 6px 12px;
     overflow-y: auto;
+
+    @include responsive(phone-small)
+    {
+        max-height: min(34dvh, 176px);
+        padding: 6px 6px 6px;
+    }
 
     @include responsive(tablet)
     {
-        max-height: min(28dvh, 14rem);
-        padding: 0.65rem clamp(0.9rem, 3%, 1.25rem) 0.7rem;
+        bottom: $space-18;
+        width: min(68%, 672px);
+        max-height: min(28dvh, 224px);
+        padding: $space-2 $space-3;
+    }
+
+    @include responsive(tablet-landscape)
+    {
+        bottom: $space-2;
+        width: min(60%, 720px);
+    }
+
+    @include responsive(laptop)
+    {
+        bottom: $space-30;
+        width: min(50%, 768px);
     }
 
     @include responsive(desktop)
     {
-        max-height: min(24dvh, 15rem);
-        padding: 0.75rem clamp(1rem, 3%, 1.5rem) 0.8rem;
+        bottom: $space-3;
+        width: min(44%, 840px);
+        max-height: min(24dvh, 240px);
+        padding: $space-2 $space-4;
     }
 }
 
@@ -274,25 +316,13 @@ body.dialogue-next *
 .dialogue-speaker
 {
     display: block;
-    font-size: 0.5625rem;
+    @include fluid-font(11px, 13px);
     font-weight: bold;
     text-transform: uppercase;
-    margin-bottom: 0.25rem;
-    letter-spacing: $tracking-label;
+    margin-bottom: 6px;
     text-shadow: 0px 1px 4px rgba(0, 0, 0, 0.75);
     user-select: none;
 
-    @include responsive(tablet)
-    {
-        margin-bottom: 0.3rem;
-        font-size: 0.6875rem;
-    }
-
-    @include responsive(desktop)
-    {
-        margin-bottom: 0.35rem;
-        font-size: 0.75rem;
-    }
 }
 
 .dialogue-box[data-speaker="???"] .dialogue-speaker
@@ -318,7 +348,7 @@ body.dialogue-next *
 .dialogue-text
 {
     display: block;
-    font-size: clamp(0.75rem, 2.4vw, 0.875rem);
+    @include fluid-font(16px, 20px);
     line-height: 1.35;
     color: $color-text-white;
     margin: 0;
@@ -327,15 +357,11 @@ body.dialogue-next *
     user-select: none;
     overflow-wrap: break-word;
 
-    @include responsive(tablet)
+    @include responsive(phone-small)
     {
-        font-size: 0.9375rem;
+        line-height: 1.3;
     }
 
-    @include responsive(desktop)
-    {
-        font-size: 1.125rem;
-    }
 }
 
 
@@ -351,25 +377,28 @@ body.dialogue-next *
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 0.75rem;
+    gap: 12px;
     max-height: 100dvh;
-    padding:
-        calc(4.75rem + env(safe-area-inset-top))
-        var(--content-gutter-end)
-        calc(1rem + env(safe-area-inset-bottom))
-        var(--content-gutter-start);
+    padding: 78px $space-1 $space-3;
     overflow-y: auto;
     overscroll-behavior: contain;
 
+    @include responsive(phone-small)
+    {
+        gap: 6px;
+        padding: 66px $space-half $space-half;
+    }
+
     .btn
     {
-        width: min(100%, 14rem);
+        width: min(100%, 224px);
     }
 
     @include responsive(tablet)
     {
         flex-direction: row;
-        gap: 1.25rem;
+        gap: 18px;
+        padding: 78px $space-2 $space-3;
 
         .btn
         {
@@ -386,34 +415,51 @@ body.dialogue-next *
     position: fixed;
     left: 0;
     right: 0;
-    bottom: max(0.625rem, env(safe-area-inset-bottom));
+    bottom: $space-2;
     z-index: 30;
     pointer-events: none;
     justify-content: space-between;
     align-items: flex-end;
-    padding-inline: clamp(0.625rem, 3%, 1.5rem);
+    padding: 0 12px;
+
+    @include responsive(phone-small)
+    {
+        bottom: $space-half;
+        padding: 0 6px;
+    }
+
+    @include responsive(tablet)
+    {
+        bottom: $space-3;
+        padding: 0 $space-18;
+    }
+
+    @include responsive(tablet-landscape)
+    {
+        padding: 0 $space-2;
+    }
 }
 
 .move-controls
 {
     display: grid;
-    grid-template-columns: repeat(3, var(--mobile-control-size));
-    grid-template-rows: repeat(2, var(--mobile-control-size));
-    gap: clamp(0.25rem, 1vw, 0.5rem);
+    grid-template-columns: repeat(3, 48px);
+    grid-template-rows: repeat(2, 48px);
+    gap: 6px;
 }
 
 .height-controls
 {
     display: grid;
-    grid-template-columns: var(--mobile-control-size);
-    gap: clamp(0.375rem, 1.25vw, 0.625rem);
+    grid-template-columns: 48px;
+    gap: 6px;
 }
 
 .mobile-btn
 {
     position: relative;
-    width: var(--mobile-control-size);
-    height: var(--mobile-control-size);
+    width: 48px;
+    height: 48px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -453,8 +499,8 @@ body.dialogue-next *
     width: 20%;
     height: 20%;
     background: transparent;
-    border-right: clamp(1px, 0.25vw, 2px) solid $color-accent-gold;
-    border-bottom: clamp(1px, 0.25vw, 2px) solid $color-accent-gold;
+    border-right: 1px solid $color-accent-gold;
+    border-bottom: 1px solid $color-accent-gold;
 }
 
 .mobile-btn--up { grid-column: 2; grid-row: 1; }
@@ -472,12 +518,90 @@ body.dialogue-next *
 .mobile-btn--fall::before
 {
     width: 32%;
-    height: clamp(1px, 0.25vw, 2px);
+    height: 1px;
 }
 
 .mobile-btn--rise::after
 {
     transform: rotate(90deg);
+}
+
+@include responsive(phone-small)
+{
+    .move-controls
+    {
+        grid-template-columns: repeat(3, 42px);
+        grid-template-rows: repeat(2, 42px);
+    }
+
+    .height-controls
+    {
+        grid-template-columns: 42px;
+    }
+
+    .mobile-btn
+    {
+        width: 42px;
+        height: 42px;
+    }
+}
+
+@include responsive(tablet)
+{
+    .move-controls
+    {
+        grid-template-columns: repeat(3, 54px);
+        grid-template-rows: repeat(2, 54px);
+    }
+
+    .height-controls
+    {
+        grid-template-columns: 54px;
+    }
+
+    .mobile-btn
+    {
+        width: 54px;
+        height: 54px;
+    }
+}
+
+@include responsive(tablet-landscape)
+{
+    .move-controls
+    {
+        grid-template-columns: repeat(3, 60px);
+        grid-template-rows: repeat(2, 60px);
+    }
+
+    .height-controls
+    {
+        grid-template-columns: 60px;
+    }
+
+    .mobile-btn
+    {
+        width: 60px;
+        height: 60px;
+    }
+}
+
+@include responsive(tablet)
+{
+    .mobile-btn--up::before,
+    .mobile-btn--left::before,
+    .mobile-btn--right::before,
+    .mobile-btn--down::before
+    {
+        border-width: 2px;
+    }
+
+    .mobile-btn--rise::before,
+    .mobile-btn--rise::after,
+    .mobile-btn--fall::before
+    {
+        height: 2px;
+    }
 }
 
 @media (hover: none) and (pointer: coarse)
@@ -495,24 +619,22 @@ body.dialogue-next *
     position: fixed;
     left: 50%;
     bottom: calc(
-        var(--mobile-control-size) +
-        var(--mobile-control-size) +
-        1.5rem +
-        env(safe-area-inset-bottom)
+        $space-10 +
+        $space-3
     );
     transform: translateX(-50%);
     z-index: 140;
     display: flex;
     align-items: center;
-    gap: 0.5rem;
-    width: min(72%, 22rem);
-    max-width: calc(100% - var(--content-gutter-start) - var(--content-gutter-end));
-    padding: 0.4rem 0.55rem;
+    gap: 6px;
+    width: min(72%, 352px);
+    max-width: calc(100% - 32px);
+    padding: 6px 6px;
     box-sizing: border-box;
     border: 1px solid $color-border-gold;
     border-radius: 6px;
     font-family: $font-secondary;
-    font-size: clamp(0.6875rem, 2.5vw, 0.8125rem);
+    @include fluid-font(11px, 13px);
     line-height: 1.3;
     text-align: center;
     color: rgba($color-text-title, 0.75);
@@ -522,17 +644,33 @@ body.dialogue-next *
     pointer-events: none;
     user-select: none;
 
+    @include responsive(phone-small)
+    {
+        width: min(78%, 304px);
+        max-width: calc(100% - 24px);
+        padding: 6px 6px;
+    }
+
     @include responsive(tablet)
     {
-        bottom: 14%;
+        bottom: 15%;
         width: max-content;
-        font-size: 0.875rem;
+        gap: 12px;
+        padding: 12px $space-3;
+        @include fluid-font(12px, 16px);
+    }
+
+    @include responsive(tablet-landscape)
+    {
+        padding: $space-3 $space-4;
     }
 
     @include responsive(desktop)
     {
-        font-size: 1rem;
+        gap: $space-3;
+        padding: $space-3 $space-4;
     }
+
 }
 
 .interaction-text.has-action::before
@@ -551,12 +689,23 @@ body.dialogue-next *
         box-sizing: border-box;
 
         font-family: $font-primary;
-        font-size: 0.6875rem;
+        @include fluid-font(11px, 13px);
         color: $color-accent-gold;
         background: rgba($color-bg-surface, 0.72);
         border: 1px solid rgba($color-accent-gold, 0.5);
         border-radius: 3px;
-        letter-spacing: $tracking-label;
+    }
+
+    @include responsive(tablet-landscape)
+    {
+        min-width: 30px;
+        height: 30px;
+    }
+
+    @include responsive(desktop)
+    {
+        min-width: 30px;
+        height: 30px;
     }
 }
 
@@ -565,18 +714,18 @@ body.dialogue-next *
     display: none;
     position: fixed;
     right: auto;
-    bottom: max(0.625rem, env(safe-area-inset-bottom));
+    bottom: $space-2;
     left: 50%;
     z-index: 145;
     align-items: center;
     justify-content: center;
-    width: clamp(5.5rem, 24%, 7.5rem);
-    min-height: clamp(2rem, 6vw, 2.5rem);
-    padding: 0.35rem 0.55rem;
+    width: 120px;
+    min-height: 40px;
+    padding: 6px 6px;
     transform: translateX(-50%);
 
     font-family: $font-secondary;
-    font-size: clamp(0.6875rem, 2.5vw, 0.8125rem);
+    @include fluid-font(11px, 13px);
     color: rgba($color-text-title, 0.75);
     background: rgba($color-bg-deep, 0.58);
     border: 1px solid $color-border-gold;
@@ -585,6 +734,35 @@ body.dialogue-next *
     backdrop-filter: blur(10px);
     cursor: pointer;
     user-select: none;
+
+    @include responsive(phone-small)
+    {
+        bottom: $space-half;
+        width: 84px;
+        min-height: 32px;
+        padding: 6px 6px;
+    }
+
+    @include responsive(tablet)
+    {
+        bottom: $space-3;
+        width: 144px;
+        min-height: 48px;
+        padding: 12px;
+        @include fluid-font(12px, 16px);
+    }
+
+    @include responsive(tablet-landscape)
+    {
+        width: 168px;
+        min-height: 54px;
+    }
+
+    @include responsive(laptop)
+    {
+        width: 180px;
+        min-height: 56px;
+    }
 }
 
 .interaction-button:active
@@ -594,20 +772,22 @@ body.dialogue-next *
 
 @media (hover: none) and (pointer: coarse)
 {
-    html,
-    body
+    .dialogue-box { bottom: 138px; }
+    body.dialogue-active .dialogue-box { bottom: $space-1; }
+
+    @include responsive(phone-small)
     {
-        --dialogue-bottom: calc(
-            var(--mobile-control-size) +
-            var(--mobile-control-size) +
-            1.5rem +
-            env(safe-area-inset-bottom)
-        );
+        .dialogue-box { bottom: 108px; }
     }
 
-    body.dialogue-active
+    @include responsive(tablet)
     {
-        --dialogue-bottom: max(0.75rem, env(safe-area-inset-bottom));
+        .dialogue-box { bottom: 144px; }
+    }
+
+    @include responsive(tablet-landscape)
+    {
+        .dialogue-box { bottom: 156px; }
     }
 
     body.dialogue-active .mobile-controls
@@ -635,14 +815,14 @@ body.dialogue-next *
 {
     display: none;
     position: fixed;
-    left: calc(var(--page-margin) + env(safe-area-inset-left));
-    bottom: var(--dialogue-bottom);
+    left: $space-1;
+    bottom: $space-1;
     z-index: 30;
     flex-direction: column;
-    gap: 0.4rem;
+    gap: 6px;
     align-items: flex-start;
     box-sizing: border-box;
-    width: 185px;
+    width: 228px;
 
     font-family: $font-secondary;
     color: $color-text-title;
@@ -653,20 +833,44 @@ body.dialogue-next *
     backdrop-filter: blur(10px);
     border: 1px solid $color-border-gold;
     border-radius: 6px;
-    padding: 0.5rem 0.65rem;
+    padding: $space-2;
 
     @include responsive(tablet)
     {
+        left: $space-18;
+        bottom: $space-18;
+
         body.experience-playing &
         {
             display: flex;
         }
     }
 
+    @include responsive(tablet-landscape)
+    {
+        left: $space-2;
+        bottom: $space-2;
+        width: 264px;
+        gap: $space-2;
+        padding: $space-3;
+    }
+
+    @include responsive(laptop)
+    {
+        left: $space-30;
+        bottom: $space-30;
+        width: 288px;
+        gap: 12px;
+        padding: $space-3;
+    }
+
     @include responsive(desktop)
     {
-        width: 210px;
-        padding: 0.65rem 0.8rem;
+        left: $space-3;
+        bottom: $space-3;
+        width: 312px;
+        gap: $space-2;
+        padding: $space-3;
     }
 }
 
@@ -674,15 +878,20 @@ body.dialogue-next *
 {
     display: inline-flex;
     align-items: center;
-    gap: 0.3rem;
+    gap: 6px;
+
+    @include responsive(tablet-landscape)
+    {
+        gap: 6px;
+    }
 }
 
 .key
 {
     font-family: $font-primary;
-    font-size: 0.62rem;
-    min-width: 20px;
-    height: 20px;
+    @include fluid-font(12px, 16px);
+    min-width: 24px;
+    height: 24px;
     box-sizing: border-box;
     display: inline-flex;
     align-items: center;
@@ -692,20 +901,59 @@ body.dialogue-next *
     background: rgba($color-bg-surface, 0.72);
     border: 1px solid rgba($color-accent-gold, 0.5);
     border-radius: 3px;
-    letter-spacing: $tracking-label;
+}
+
+@include responsive(tablet-landscape)
+{
+    .key
+    {
+        min-width: 30px;
+        height: 30px;
+    }
+}
+
+@include responsive(desktop)
+{
+    .key
+    {
+        min-width: 30px;
+        height: 30px;
+    }
 }
 
 .key--wide
 {
-    min-width: 50px;
-    padding: 0 0.45rem;
+    min-width: 62px;
+    padding: 0 6px;
+
+    @include responsive(tablet-landscape)
+    {
+        min-width: 72px;
+        padding: 0 12px;
+    }
+
+    @include responsive(desktop)
+    {
+        min-width: 84px;
+        padding: 0 12px;
+    }
 }
 
 .keyboard-controls__label
 {
-    margin-left: 0.15rem;
-    font-size: 0.72rem;
+    margin-left: 6px;
+    @include fluid-font(12px, 16px);
     color: rgba($color-text-title, 0.75);
+
+    @include responsive(tablet-landscape)
+    {
+        margin-left: 12px;
+    }
+
+    @include responsive(desktop)
+    {
+        margin-left: 12px;
+    }
 }
 
 @media (hover: none) and (pointer: coarse)
@@ -909,12 +1157,8 @@ body.indicator-active * { cursor: pointer; }
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 2rem;
-    padding:
-        max(1rem, env(safe-area-inset-top))
-        var(--content-gutter-end)
-        max(1rem, env(safe-area-inset-bottom))
-        var(--content-gutter-start);
+    gap: 30px;
+    padding: $space-margin-mobile;
 }
 
 .rotate-overlay__icon
@@ -944,9 +1188,8 @@ body.indicator-active * { cursor: pointer; }
 .rotate-overlay__label
 {
     font-family: $font-primary;
-    font-size: 1rem;
+    @include fluid-font(16px, 20px);
     color: $color-accent-gold;
-    letter-spacing: $tracking-label;
     text-align: center;
     opacity: 0.75;
 }
@@ -959,4 +1202,3 @@ body.indicator-active * { cursor: pointer; }
     75%   { transform: rotate(-90deg); }
     100%  { transform: rotate(0deg); }
 }
-

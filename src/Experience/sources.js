@@ -257,13 +257,13 @@ export default
     {
         name: 'itemsTextureLightmap',
         type: 'texture',
-        path: 'textures/items/items_lightmap.png'
+        path: 'textures/items/items_lightmap.webp'
     },
     // Normalmap
     {
         name: 'itemsTextureNormalmap',
         type: 'texture',
-        path: 'textures/items/items_normalmap.png'
+        path: 'textures/items/items_normalmap.webp'
     },
 
     // glb du viewer 3D du journal
@@ -277,12 +277,31 @@ export default
     {
         name: 'itemsViewTextureLightmap',
         type: 'texture',
-        path: 'textures/items/ItemsView_lightmap.png'
+        path: 'textures/items/ItemsView_lightmap.webp'
     },
     {
         name: 'itemsViewTextureNormalmap',
         type: 'texture',
-        path: 'textures/items/ItemsView_normalmap.png'
+        path: 'textures/items/ItemsView_normalmap.webp'
+    },
+
+    /**
+     * Sword sources
+     */
+    {
+        name: 'swordModel',
+        type: 'gltfModel',
+        path: 'models/sword/sword.glb'
+    },
+    {
+        name: 'swordTextureLightmap',
+        type: 'texture',
+        path: 'textures/sword/sword_lightmap.webp'
+    },
+    {
+        name: 'swordTextureNormalmap',
+        type: 'texture',
+        path: 'textures/sword/sword_normalmap.webp'
     },
 
 
@@ -347,25 +366,6 @@ const animationsSources =
     },
 ]
 
-const swordSources =
-[
-    {
-        name: 'swordModel',
-        type: 'gltfModel',
-        path: 'models/sword/sword.glb'
-    },
-    {
-        name: 'swordTextureLightmap',
-        type: 'texture',
-        path: 'textures/sword/sword_lightmap.webp'
-    },
-    {
-        name: 'swordTextureNormalmap',
-        type: 'texture',
-        path: 'textures/sword/sword_normalmap.webp'
-    },
-]
-
 const manorSources =
 [
     {
@@ -391,6 +391,5 @@ export const deferredGroups =
 {
     lake: lakeSources,
     animations: animationsSources,
-    sword: swordSources,
     manor: manorSources,
 }

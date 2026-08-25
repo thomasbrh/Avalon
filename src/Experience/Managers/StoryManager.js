@@ -413,7 +413,6 @@ export default class StoryManager
 
         if(name === 'sword' || name === 'manor')
         {
-            await this.experience.resources.loadGroup('sword', deferredGroups.sword)
             this.experience.world.createSwordZone()
         }
 

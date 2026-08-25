@@ -1,12 +1,34 @@
 
+@use 'sass:math';
+
 @mixin responsive($breakpoint)
 {
-    @if $breakpoint == tablet
+    @if $breakpoint == phone-small
+    {
+        @media (max-width: 374px) { @content; }
+    }
+    @else if $breakpoint == tablet
     {
         @media (min-width: 768px) { @content; }
     }
-    @else if $breakpoint == desktop
+    @else if $breakpoint == tablet-landscape
+    {
+        @media (min-width: 1024px) { @content; }
+    }
+    @else if $breakpoint == laptop
     {
         @media (min-width: 1280px) { @content; }
     }
+    @else if $breakpoint == desktop
+    {
+        @media (min-width: 1440px) { @content; }
+    }
+}
+
+@mixin fluid-font($min-size, $max-size, $min-viewport: 374px, $max-viewport: 1440px)
+{
+    $slope: math.div($max-size - $min-size, $max-viewport - $min-viewport);
+    $intercept: $min-size - ($slope * $min-viewport);
+
+    font-size: clamp($min-size, calc(#{$intercept} + #{($slope * 100)}vw), $max-size);
 }
