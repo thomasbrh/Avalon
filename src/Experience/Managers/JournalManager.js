@@ -164,7 +164,7 @@ export default class JournalManager
 
 
     /**
-     * Maj des trois parties du journal
+     * Met à jour les différentes parties du journal
      */
     render()
     {
@@ -206,7 +206,7 @@ export default class JournalManager
 
 
     /**
-     * Affiche les notes de la section active
+     * Affiche les éléments de la section active
      */
     renderContent()
     {
@@ -307,7 +307,7 @@ export default class JournalManager
 
 
     /**
-     * Notification quand une note est trouvée
+     * Notification quand un élément est trouvé
      */
     showToast(journalElement)
     {

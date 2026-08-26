@@ -25,7 +25,7 @@
     border: 1px solid $color-bg-deep;
     border-radius: 999px;
     font-family: $font-secondary;
-    @include fluid-font(11px, 13px);
+    font-size: 11px;
     color: $color-bg-deep;
     background: $color-accent-gold;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.28);
@@ -37,6 +37,12 @@
         min-width: 18px;
         height: 18px;
         padding: 0 6px;
+        font-size: 12px;
+    }
+
+    @include responsive(desktop)
+    {
+        font-size: 13px;
     }
 }
 
@@ -76,7 +82,12 @@
 
     @include responsive(desktop)
     {
-        padding: $space-2;
+        padding: $space-margin-desktop;
+    }
+
+    @include responsive(phone-landscape)
+    {
+        padding: 6px;
     }
 }
 
@@ -99,6 +110,11 @@
     {
         width: min(768px, 100%);
     }
+
+    @include responsive(phone-landscape)
+    {
+        width: min(560px, 100%);
+    }
 }
 
 .journal__header
@@ -117,7 +133,17 @@
 
     @include responsive(tablet)
     {
-        padding: 12px;
+        padding: $space-18;
+    }
+
+    @include responsive(tablet-landscape)
+    {
+        padding: $space-2;
+    }
+
+    @include responsive(desktop)
+    {
+        padding: $space-30;
     }
 }
 
@@ -196,7 +222,7 @@
 .journal__tabs
 {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     border-bottom: 1px solid $color-border-gold;
 }
 
@@ -210,7 +236,7 @@
     border: 0;
     border-right: 1px solid $color-border-gold;
     font-family: $font-secondary;
-    @include fluid-font(11px, 13px);
+    font-size: 11px;
     color: $color-text-title;
     background: $color-bg-surface;
     cursor: pointer;
@@ -224,6 +250,12 @@
     @include responsive(tablet)
     {
         min-height: 42px;
+        font-size: 12px;
+    }
+
+    @include responsive(desktop)
+    {
+        font-size: 13px;
     }
 }
 
@@ -236,7 +268,7 @@
 
 .journal__tab-count
 {
-    @include fluid-font(11px, 13px);
+    font-size: inherit;
     color: rgba($color-text-title, 0.62);
 }
 
@@ -263,6 +295,8 @@
     flex: 1;
     min-height: 0;
     overflow-y: auto;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
     padding: 12px;
 
     @include responsive(phone-small)
@@ -274,15 +308,42 @@
     {
         padding: 18px;
     }
+
+    @include responsive(tablet-landscape)
+    {
+        padding: $space-2;
+    }
+
+    @include responsive(desktop)
+    {
+        padding: $space-30;
+    }
+}
+
+.journal__content::-webkit-scrollbar
+{
+    display: none;
 }
 
 .journal__section-count
 {
     margin-bottom: 12px;
-    @include fluid-font(11px, 13px);
+    font-size: 11px;
     line-height: 1.3;
     text-transform: uppercase;
     color: rgba($color-text-title, 0.72);
+
+    @include responsive(tablet)
+    {
+        margin-bottom: $space-18;
+        font-size: 12px;
+    }
+
+    @include responsive(desktop)
+    {
+        margin-bottom: $space-2;
+        font-size: 13px;
+    }
 }
 
 .journal__grid
@@ -290,6 +351,16 @@
     display: flex;
     flex-direction: column;
     gap: 12px;
+
+    @include responsive(tablet)
+    {
+        gap: $space-18;
+    }
+
+    @include responsive(desktop)
+    {
+        gap: $space-2;
+    }
 }
 
 .journal-element
@@ -366,23 +437,38 @@
 {
     margin-bottom: 6px;
     font-family: $font-primary;
-    @include fluid-font(16px, 20px);
+    font-size: 16px;
     line-height: 1.2;
     font-weight: 400;
     color: $color-accent-gold;
 
+    @include responsive(tablet)
+    {
+        font-size: 18px;
+    }
+
+    @include responsive(desktop)
+    {
+        font-size: 20px;
+    }
 }
 
 .journal-element__text,
 .journal__empty
 {
-    @include fluid-font(12px, 16px);
+    font-size: 12px;
     line-height: 1.4;
     color: $color-text-title;
 
     @include responsive(tablet)
     {
+        font-size: 14px;
         line-height: 1.5;
+    }
+
+    @include responsive(desktop)
+    {
+        font-size: 16px;
     }
 }
 
@@ -413,7 +499,17 @@
 
     @include responsive(tablet)
     {
-        padding: 12px;
+        padding: $space-18;
+    }
+
+    @include responsive(tablet-landscape)
+    {
+        padding: $space-2;
+    }
+
+    @include responsive(desktop)
+    {
+        padding: $space-30;
     }
 }
 
@@ -443,26 +539,53 @@
 .journal-toast
 {
     position: fixed;
-    top: 42px;
-    right: 6px;
+    top: 72px;
+    right: $space-margin-mobile;
     bottom: auto;
-    z-index: 700;
+    z-index: 250;
     max-width: min(288px, calc(100vw - 24px));
     padding: 6px 12px;
     box-sizing: border-box;
     border: 1px solid $color-border-gold;
     border-radius: 2px;
-    @include fluid-font(11px, 13px);
+    font-size: 11px;
     line-height: 1.4;
     color: $color-text-title;
     background: $color-bg-surface;
 
-    @include responsive(tablet)
+    @include responsive(phone-small)
     {
-        top: auto;
-        right: 18px;
-        bottom: 24px;
+        right: $space-margin-small;
     }
 
-    @include responsive(desktop) { right: 36px; }
+    @include responsive(tablet)
+    {
+        top: 80px;
+        right: $space-margin-tablet;
+        font-size: 12px;
+    }
+
+    @include responsive(tablet-landscape)
+    {
+        right: $space-margin-landscape;
+    }
+
+    @include responsive(laptop)
+    {
+        right: $space-margin-laptop;
+    }
+
+    @include responsive(desktop)
+    {
+        top: 84px;
+        right: $space-margin-desktop;
+        font-size: 13px;
+    }
+
+    @include responsive(phone-landscape)
+    {
+        top: 72px;
+        right: $space-margin-mobile;
+        bottom: auto;
+    }
 }

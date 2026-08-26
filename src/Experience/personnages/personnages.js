@@ -121,8 +121,8 @@ export default class Personnages
             fragmentShader: personnagesFragmentShader,
 
             uniforms: this.uniforms,
-            metalness: 0,
-            roughness: 0.5
+            metalness: 0.3,
+            roughness: 0.8
         })
 
         // depth material pour que les shadows suivent la déformation

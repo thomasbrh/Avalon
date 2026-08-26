@@ -98,56 +98,6 @@ export const journalSections =
 
 
     /**
-     * Notes cachées sur l'île
-     */
-    {
-        id: 'notes',
-        label: 'Notes',
-        counterLabel: 'notes trouvées',
-        empty: 'Aucune note trouvée pour le moment.',
-        journalElements:
-        [
-            {
-                id: 'note-brume',
-                image: '',
-                title: 'Note froissée',
-                content: "Les brumes d'Avalon ne cachent pas seulement les chemins. Elles protègent aussi certaines vérités.",
-                lockedLabel: 'Note à trouver'
-            },
-            {
-                id: 'note-table',
-                image: '',
-                title: 'Fragment de chronique',
-                content: "La Table Ronde n'était pas faite pour placer un roi au-dessus des autres, mais pour rappeler que chaque serment engageait tous les chevaliers.",
-                lockedLabel: 'Note à trouver'
-            },
-            {
-                id: 'note-3',
-                image: '',
-                title: 'Note 3',
-                content: '',
-                lockedLabel: 'Note à trouver'
-            },
-            {
-                id: 'note-4',
-                image: '',
-                title: 'Note 4',
-                content: '',
-                lockedLabel: 'Note à trouver'
-            },
-            {
-                id: 'note-5',
-                image: '',
-                title: 'Note 5',
-                content: '',
-                lockedLabel: 'Note à trouver'
-            },
-        ]
-    },
-
-
-
-    /**
      * Objets cachés sur l'île
      */
     {

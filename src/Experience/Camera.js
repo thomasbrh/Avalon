@@ -36,10 +36,10 @@ export default class Camera
         this.smoothedCursor = { x: 0, y: 0 }
 
         this.keyboard = {}
-        this.movementSpeed = 5
+        this.movementSpeed = 6
 
         // radius déplacement
-        this.movementRadius = 2.5
+        this.movementRadius = 2
         this.movementCenter = new THREE.Vector3()
         this.wasCameraMoving = false
 

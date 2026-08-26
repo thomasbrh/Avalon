@@ -59,7 +59,7 @@ body.is-targeting-item *
 /* loading overlay */
 .loading-overlay
 {
-    @include fluid-font(15px, 20px);
+    font-size: 16px;
     position: fixed;
     display: flex;
     flex-direction: column;
@@ -68,7 +68,7 @@ body.is-targeting-item *
 
     color: $color-text-white;
     background: transparent;
-    gap: $space-3;
+    gap: $space-2;
     inset: 0;
     z-index: 1000;
     padding: $space-margin-mobile;
@@ -77,6 +77,7 @@ body.is-targeting-item *
     @include responsive(tablet)
     {
         padding: $space-margin-mobile $space-margin-tablet;
+        font-size: 18px;
     }
 
     @include responsive(tablet-landscape)
@@ -92,6 +93,8 @@ body.is-targeting-item *
     @include responsive(desktop)
     {
         padding: $space-margin-mobile $space-margin-desktop;
+        gap: $space-3;
+        font-size: 20px;
     }
 }
 
@@ -139,26 +142,17 @@ body.is-targeting-item *
     left: 50%;
     transform: translate(-50%, -50%);
     width: max-content;
-    max-width: calc(100% - 32px);
-    padding: 6px 12px;
-    @include fluid-font(16px, 20px);
+    max-width: calc(100% - #{$space-margin-mobile * 2});
     text-align: center;
 
     @include responsive(phone-small)
     {
-        max-width: calc(100% - 24px);
-        padding: $space-half $space-1;
+        max-width: calc(100% - #{$space-margin-small * 2});
     }
 
     @include responsive(tablet)
     {
-        max-width: calc(100% - 48px);
-        padding: $space-2 $space-3;
-    }
-
-    @include responsive(desktop)
-    {
-        padding: $space-2 $space-5;
+        max-width: calc(100% - #{$space-margin-tablet * 2});
     }
 }
 
@@ -175,28 +169,37 @@ body.is-targeting-item *
     bottom: $space-1;
     left: 50%;
     transform: translateX(-50%);
-    width: min(456px, calc(100% - 24px));
+    width: min($paragraph-width, calc(100% - #{$space-margin-mobile * 2}));
     text-align: center;
-    @include fluid-font(13px, 16px);
+    font-size: 13px;
     line-height: 1.45;
     color: $color-text-title;
 
     @include responsive(phone-small)
     {
-        width: min(336px, calc(100% - 12px));
-        @include fluid-font(12px, 14px);
+        width: min($paragraph-width, calc(100% - #{$space-margin-small * 2}));
+        font-size: 12px;
     }
 
     @include responsive(tablet)
     {
         bottom: $space-18;
-        width: min(504px, calc(100% - 36px));
+        width: min($paragraph-width, calc(100% - #{$space-margin-tablet * 2}));
+        font-size: 14px;
     }
 
     @include responsive(desktop)
     {
         bottom: $space-3;
-        width: min(552px, calc(100% - 72px));
+        width: min($paragraph-width, calc(100% - #{$space-margin-desktop * 2}));
+        font-size: 16px;
+    }
+
+    @include responsive(phone-landscape)
+    {
+        bottom: $space-1;
+        width: min($paragraph-width, calc(100% - #{$space-margin-mobile * 2}));
+        font-size: 12px;
     }
 }
 
@@ -206,26 +209,27 @@ body.is-targeting-item *
     display: flex;
     align-items: center;
     gap: 6px;
-}
-
-.utility-controls .btn
-{
-    min-height: 32px;
-    padding: 6px 6px;
-    @include fluid-font(11px, 13px);
-    line-height: 1;
-    white-space: nowrap;
 
     @include responsive(tablet)
     {
-        min-height: 36px;
-        padding: 6px 12px;
+        gap: $space-1;
     }
 
-    @include responsive(desktop)
+    @include responsive(phone-small)
     {
-        min-height: 44px;
-        padding: 12px 18px;
+        gap: 6px;
+    }
+
+    @include responsive(phone-landscape)
+    {
+        gap: 6px;
+
+        .btn
+        {
+            min-height: 36px;
+            padding: 6px $space-1;
+            font-size: 11px;
+        }
     }
 }
 
@@ -233,7 +237,6 @@ body.is-targeting-item *
 {
     opacity: 0.75;
 }
-
 
 /* dialogue */
 .dialogue-box
@@ -247,7 +250,7 @@ body.is-targeting-item *
     z-index: 20;
     text-align: center;
     box-sizing: border-box;
-    width: min(82%, 480px);
+    width: min(100% - #{$space-margin-mobile * 2}, 480px);
 
     background: rgba($color-bg-deep, 0.58);
     -webkit-backdrop-filter: blur(12px);
@@ -255,42 +258,86 @@ body.is-targeting-item *
     border: 1px solid rgba($color-accent-gold, 0.5);
     border-radius: 6px;
     box-shadow: 0 12px 32px rgba(0, 0, 0, 0.22);
-    max-height: min(30dvh, 192px);
-    padding: 6px 12px;
+    max-height: min(34dvh, 192px);
+    padding: $space-1;
     overflow-y: auto;
 
     @include responsive(phone-small)
     {
-        max-height: min(34dvh, 176px);
-        padding: 6px 6px 6px;
+        width: calc(100% - #{$space-margin-small * 2});
+        max-height: min(38dvh, 176px);
+        padding: 6px;
     }
 
     @include responsive(tablet)
     {
         bottom: $space-18;
-        width: min(68%, 672px);
+        width: min(72%, 672px);
         max-height: min(28dvh, 224px);
-        padding: $space-2 $space-3;
+        padding: $space-18 $space-2;
     }
 
     @include responsive(tablet-landscape)
     {
         bottom: $space-2;
-        width: min(60%, 720px);
+        width: min(64%, 720px);
+        padding: $space-18 $space-30;
     }
 
     @include responsive(laptop)
     {
         bottom: $space-30;
-        width: min(50%, 768px);
+        width: min(56%, 768px);
     }
 
     @include responsive(desktop)
     {
         bottom: $space-3;
-        width: min(44%, 840px);
+        width: min(52%, 840px);
         max-height: min(24dvh, 240px);
         padding: $space-2 $space-4;
+    }
+
+    @media (hover: hover) and (pointer: fine)
+    {
+        @include responsive(tablet)
+        {
+            right: $space-margin-tablet;
+            left: calc(228px + #{$space-margin-tablet * 2});
+            width: auto;
+            max-width: 672px;
+            margin-inline: auto;
+            transform: none;
+        }
+
+        @include responsive(tablet-landscape)
+        {
+            right: $space-margin-landscape;
+            left: calc(288px + #{$space-margin-landscape * 2});
+            max-width: 720px;
+        }
+
+        @include responsive(laptop)
+        {
+            right: $space-margin-laptop;
+            left: calc(288px + #{$space-margin-laptop * 2});
+            max-width: 768px;
+        }
+
+        @include responsive(desktop)
+        {
+            right: $space-margin-desktop;
+            left: calc(312px + #{$space-margin-desktop * 2});
+            max-width: 840px;
+        }
+    }
+
+    @include responsive(phone-landscape)
+    {
+        bottom: $space-1;
+        width: min(55%, 660px);
+        max-height: min(42dvh, 164px);
+        padding: $space-1 $space-18;
     }
 }
 
@@ -316,12 +363,16 @@ body.dialogue-next *
 .dialogue-speaker
 {
     display: block;
-    @include fluid-font(11px, 13px);
     font-weight: bold;
     text-transform: uppercase;
     margin-bottom: 6px;
     text-shadow: 0px 1px 4px rgba(0, 0, 0, 0.75);
     user-select: none;
+
+    @include responsive(phone-landscape)
+    {
+        font-size: 11px;
+    }
 
 }
 
@@ -348,7 +399,7 @@ body.dialogue-next *
 .dialogue-text
 {
     display: block;
-    @include fluid-font(16px, 20px);
+    max-width: none;
     line-height: 1.35;
     color: $color-text-white;
     margin: 0;
@@ -359,6 +410,12 @@ body.dialogue-next *
 
     @include responsive(phone-small)
     {
+        line-height: 1.3;
+    }
+
+    @include responsive(phone-landscape)
+    {
+        font-size: 14px;
         line-height: 1.3;
     }
 
@@ -379,14 +436,14 @@ body.dialogue-next *
     align-items: center;
     gap: 12px;
     max-height: 100dvh;
-    padding: 78px $space-1 $space-3;
+    padding: 66px $space-margin-mobile $space-2;
     overflow-y: auto;
     overscroll-behavior: contain;
 
     @include responsive(phone-small)
     {
         gap: 6px;
-        padding: 66px $space-half $space-half;
+        padding: 54px $space-margin-small $space-margin-small;
     }
 
     .btn
@@ -398,12 +455,18 @@ body.dialogue-next *
     {
         flex-direction: row;
         gap: 18px;
-        padding: 78px $space-2 $space-3;
+        padding: 78px $space-margin-tablet $space-2;
 
         .btn
         {
             width: auto;
         }
+    }
+
+    @include responsive(phone-landscape)
+    {
+        gap: 6px;
+        padding: 54px $space-margin-mobile $space-margin-mobile;
     }
 }
 
@@ -420,23 +483,29 @@ body.dialogue-next *
     pointer-events: none;
     justify-content: space-between;
     align-items: flex-end;
-    padding: 0 12px;
+    padding: 0 $space-margin-mobile;
 
     @include responsive(phone-small)
     {
         bottom: $space-half;
-        padding: 0 6px;
+        padding: 0 $space-margin-small;
     }
 
     @include responsive(tablet)
     {
         bottom: $space-3;
-        padding: 0 $space-18;
+        padding: 0 $space-margin-tablet;
     }
 
     @include responsive(tablet-landscape)
     {
-        padding: 0 $space-2;
+        padding: 0 $space-margin-landscape;
+    }
+
+    @include responsive(phone-landscape)
+    {
+        bottom: $space-1;
+        padding: 0 $space-margin-mobile;
     }
 }
 
@@ -446,6 +515,30 @@ body.dialogue-next *
     grid-template-columns: repeat(3, 48px);
     grid-template-rows: repeat(2, 48px);
     gap: 6px;
+
+    @include responsive(phone-small)
+    {
+        grid-template-columns: repeat(3, 44px);
+        grid-template-rows: repeat(2, 44px);
+    }
+
+    @include responsive(tablet)
+    {
+        grid-template-columns: repeat(3, 52px);
+        grid-template-rows: repeat(2, 52px);
+    }
+
+    @include responsive(tablet-landscape)
+    {
+        grid-template-columns: repeat(3, 56px);
+        grid-template-rows: repeat(2, 56px);
+    }
+
+    @include responsive(phone-landscape)
+    {
+        grid-template-columns: repeat(3, 44px);
+        grid-template-rows: repeat(2, 44px);
+    }
 }
 
 .height-controls
@@ -453,6 +546,26 @@ body.dialogue-next *
     display: grid;
     grid-template-columns: 48px;
     gap: 6px;
+
+    @include responsive(phone-small)
+    {
+        grid-template-columns: 44px;
+    }
+
+    @include responsive(tablet)
+    {
+        grid-template-columns: 52px;
+    }
+
+    @include responsive(tablet-landscape)
+    {
+        grid-template-columns: 56px;
+    }
+
+    @include responsive(phone-landscape)
+    {
+        grid-template-columns: 44px;
+    }
 }
 
 .mobile-btn
@@ -472,6 +585,30 @@ body.dialogue-next *
     pointer-events: auto;
     touch-action: none;
     user-select: none;
+
+    @include responsive(phone-small)
+    {
+        width: 44px;
+        height: 44px;
+    }
+
+    @include responsive(tablet)
+    {
+        width: 52px;
+        height: 52px;
+    }
+
+    @include responsive(tablet-landscape)
+    {
+        width: 56px;
+        height: 56px;
+    }
+
+    @include responsive(phone-landscape)
+    {
+        width: 44px;
+        height: 44px;
+    }
 }
 
 .mobile-btn:active,
@@ -501,6 +638,11 @@ body.dialogue-next *
     background: transparent;
     border-right: 1px solid $color-accent-gold;
     border-bottom: 1px solid $color-accent-gold;
+
+    @include responsive(tablet)
+    {
+        border-width: 2px;
+    }
 }
 
 .mobile-btn--up { grid-column: 2; grid-row: 1; }
@@ -519,89 +661,16 @@ body.dialogue-next *
 {
     width: 32%;
     height: 1px;
+
+    @include responsive(tablet)
+    {
+        height: 2px;
+    }
 }
 
 .mobile-btn--rise::after
 {
     transform: rotate(90deg);
-}
-
-@include responsive(phone-small)
-{
-    .move-controls
-    {
-        grid-template-columns: repeat(3, 42px);
-        grid-template-rows: repeat(2, 42px);
-    }
-
-    .height-controls
-    {
-        grid-template-columns: 42px;
-    }
-
-    .mobile-btn
-    {
-        width: 42px;
-        height: 42px;
-    }
-}
-
-@include responsive(tablet)
-{
-    .move-controls
-    {
-        grid-template-columns: repeat(3, 54px);
-        grid-template-rows: repeat(2, 54px);
-    }
-
-    .height-controls
-    {
-        grid-template-columns: 54px;
-    }
-
-    .mobile-btn
-    {
-        width: 54px;
-        height: 54px;
-    }
-}
-
-@include responsive(tablet-landscape)
-{
-    .move-controls
-    {
-        grid-template-columns: repeat(3, 60px);
-        grid-template-rows: repeat(2, 60px);
-    }
-
-    .height-controls
-    {
-        grid-template-columns: 60px;
-    }
-
-    .mobile-btn
-    {
-        width: 60px;
-        height: 60px;
-    }
-}
-
-@include responsive(tablet)
-{
-    .mobile-btn--up::before,
-    .mobile-btn--left::before,
-    .mobile-btn--right::before,
-    .mobile-btn--down::before
-    {
-        border-width: 2px;
-    }
-
-    .mobile-btn--rise::before,
-    .mobile-btn--rise::after,
-    .mobile-btn--fall::before
-    {
-        height: 2px;
-    }
 }
 
 @media (hover: none) and (pointer: coarse)
@@ -628,13 +697,13 @@ body.dialogue-next *
     align-items: center;
     gap: 6px;
     width: min(72%, 352px);
-    max-width: calc(100% - 32px);
-    padding: 6px 6px;
+    max-width: calc(100% - #{$space-margin-mobile * 2});
+    padding: 6px $space-1;
     box-sizing: border-box;
     border: 1px solid $color-border-gold;
     border-radius: 6px;
     font-family: $font-secondary;
-    @include fluid-font(11px, 13px);
+    font-size: 11px;
     line-height: 1.3;
     text-align: center;
     color: rgba($color-text-title, 0.75);
@@ -647,28 +716,40 @@ body.dialogue-next *
     @include responsive(phone-small)
     {
         width: min(78%, 304px);
-        max-width: calc(100% - 24px);
-        padding: 6px 6px;
+        max-width: calc(100% - #{$space-margin-small * 2});
+        padding: 6px;
     }
 
     @include responsive(tablet)
     {
         bottom: 15%;
         width: max-content;
+        max-width: calc(100% - #{$space-margin-tablet * 2});
         gap: 12px;
-        padding: 12px $space-3;
-        @include fluid-font(12px, 16px);
+        padding: $space-1 $space-2;
+        font-size: 14px;
     }
 
     @include responsive(tablet-landscape)
     {
-        padding: $space-3 $space-4;
+        padding: $space-18 $space-30;
     }
 
     @include responsive(desktop)
     {
-        gap: $space-3;
-        padding: $space-3 $space-4;
+        max-width: calc(100% - #{$space-margin-desktop * 2});
+        gap: $space-18;
+        padding: $space-18 $space-3;
+        font-size: 16px;
+    }
+
+    @include responsive(phone-landscape)
+    {
+        bottom: 118px;
+        max-width: calc(100% - #{$space-margin-mobile * 2});
+        gap: 6px;
+        padding: 6px $space-1;
+        font-size: 11px;
     }
 
 }
@@ -689,7 +770,7 @@ body.dialogue-next *
         box-sizing: border-box;
 
         font-family: $font-primary;
-        @include fluid-font(11px, 13px);
+        font-size: 12px;
         color: $color-accent-gold;
         background: rgba($color-bg-surface, 0.72);
         border: 1px solid rgba($color-accent-gold, 0.5);
@@ -706,6 +787,13 @@ body.dialogue-next *
     {
         min-width: 30px;
         height: 30px;
+    }
+
+    @include responsive(phone-landscape)
+    {
+        min-width: 24px;
+        height: 24px;
+        font-size: 11px;
     }
 }
 
@@ -725,7 +813,7 @@ body.dialogue-next *
     transform: translateX(-50%);
 
     font-family: $font-secondary;
-    @include fluid-font(11px, 13px);
+    font-size: 11px;
     color: rgba($color-text-title, 0.75);
     background: rgba($color-bg-deep, 0.58);
     border: 1px solid $color-border-gold;
@@ -749,7 +837,7 @@ body.dialogue-next *
         width: 144px;
         min-height: 48px;
         padding: 12px;
-        @include fluid-font(12px, 16px);
+        font-size: 14px;
     }
 
     @include responsive(tablet-landscape)
@@ -763,6 +851,20 @@ body.dialogue-next *
         width: 180px;
         min-height: 56px;
     }
+
+    @include responsive(desktop)
+    {
+        font-size: 16px;
+    }
+
+    @include responsive(phone-landscape)
+    {
+        bottom: $space-1;
+        width: 120px;
+        min-height: 40px;
+        padding: 6px $space-1;
+        font-size: 11px;
+    }
 }
 
 .interaction-button:active
@@ -772,27 +874,26 @@ body.dialogue-next *
 
 @media (hover: none) and (pointer: coarse)
 {
-    .dialogue-box { bottom: 138px; }
-    body.dialogue-active .dialogue-box { bottom: $space-1; }
+    .dialogue-box
+    {
+        bottom: $space-1;
+        left: calc(50% + #{$space-4});
+        width: min(55%, 660px);
+    }
 
     @include responsive(phone-small)
     {
-        .dialogue-box { bottom: 108px; }
+        .dialogue-box { bottom: $space-half; }
     }
 
     @include responsive(tablet)
     {
-        .dialogue-box { bottom: 144px; }
+        .dialogue-box { bottom: $space-18; }
     }
 
     @include responsive(tablet-landscape)
     {
-        .dialogue-box { bottom: 156px; }
-    }
-
-    body.dialogue-active .mobile-controls
-    {
-        display: none;
+        .dialogue-box { bottom: $space-2; }
     }
 
     .interaction-text.has-action::before
@@ -833,12 +934,14 @@ body.dialogue-next *
     backdrop-filter: blur(10px);
     border: 1px solid $color-border-gold;
     border-radius: 6px;
-    padding: $space-2;
+    padding: $space-1;
 
     @include responsive(tablet)
     {
         left: $space-18;
         bottom: $space-18;
+        gap: $space-1;
+        padding: $space-18;
 
         body.experience-playing &
         {
@@ -850,9 +953,9 @@ body.dialogue-next *
     {
         left: $space-2;
         bottom: $space-2;
-        width: 264px;
-        gap: $space-2;
-        padding: $space-3;
+        width: 288px;
+        gap: $space-1;
+        padding: $space-18;
     }
 
     @include responsive(laptop)
@@ -861,7 +964,7 @@ body.dialogue-next *
         bottom: $space-30;
         width: 288px;
         gap: 12px;
-        padding: $space-3;
+        padding: $space-2;
     }
 
     @include responsive(desktop)
@@ -869,8 +972,17 @@ body.dialogue-next *
         left: $space-3;
         bottom: $space-3;
         width: 312px;
-        gap: $space-2;
-        padding: $space-3;
+        gap: $space-18;
+        padding: $space-2;
+    }
+
+    @include responsive(phone-landscape)
+    {
+        left: $space-margin-mobile;
+        bottom: $space-margin-mobile;
+        width: 228px;
+        gap: 6px;
+        padding: $space-1;
     }
 }
 
@@ -889,7 +1001,7 @@ body.dialogue-next *
 .key
 {
     font-family: $font-primary;
-    @include fluid-font(12px, 16px);
+    font-size: 12px;
     min-width: 24px;
     height: 24px;
     box-sizing: border-box;
@@ -901,23 +1013,19 @@ body.dialogue-next *
     background: rgba($color-bg-surface, 0.72);
     border: 1px solid rgba($color-accent-gold, 0.5);
     border-radius: 3px;
-}
 
-@include responsive(tablet-landscape)
-{
-    .key
+    @include responsive(tablet-landscape)
     {
         min-width: 30px;
         height: 30px;
+        font-size: 14px;
     }
-}
 
-@include responsive(desktop)
-{
-    .key
+    @include responsive(desktop)
     {
         min-width: 30px;
         height: 30px;
+        font-size: 16px;
     }
 }
 
@@ -942,17 +1050,19 @@ body.dialogue-next *
 .keyboard-controls__label
 {
     margin-left: 6px;
-    @include fluid-font(12px, 16px);
+    font-size: 12px;
     color: rgba($color-text-title, 0.75);
 
     @include responsive(tablet-landscape)
     {
         margin-left: 12px;
+        font-size: 14px;
     }
 
     @include responsive(desktop)
     {
         margin-left: 12px;
+        font-size: 16px;
     }
 }
 
@@ -1136,7 +1246,6 @@ body.indicator-active * { cursor: pointer; }
     transform: translate(-50%, -50%) scale(1.4);
 }
 
-
 /* hidden */
 .hidden
 {
@@ -1188,10 +1297,20 @@ body.indicator-active * { cursor: pointer; }
 .rotate-overlay__label
 {
     font-family: $font-primary;
-    @include fluid-font(16px, 20px);
+    font-size: 16px;
     color: $color-accent-gold;
     text-align: center;
     opacity: 0.75;
+
+    @include responsive(tablet)
+    {
+        font-size: 18px;
+    }
+
+    @include responsive(desktop)
+    {
+        font-size: 20px;
+    }
 }
 
 @keyframes rotatePhone

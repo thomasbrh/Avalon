@@ -132,7 +132,7 @@ export default class Island
             bigWavesFrequencyX: 2,
             bigWavesFrequencyY: 6.5,
             smallWavesFrequency: 21,
-            oceanYOffset: 0,
+            oceanYOffset: 0.3,
         }
 
         this.oceanPack.traverse((child) =>

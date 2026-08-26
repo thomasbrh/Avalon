@@ -8,7 +8,7 @@
     isolation: isolate;
     align-items: center;
     justify-content: center;
-    min-height: 38px;
+    min-height: clamp(34px, 8vw, 40px);
     max-width: 100%;
     box-sizing: border-box;
     overflow: hidden;
@@ -19,7 +19,7 @@
     color: $color-text-title;
 
     font-family: $font-primary;
-    @include fluid-font(11px, 13px);
+    font-size: 11px;
     line-height: 1;
     text-align: center;
     text-decoration: none;
@@ -34,27 +34,26 @@
 
     @include responsive(phone-small)
     {
-        min-height: 34px;
+        min-height: 32px;
+        font-size: 11px;
     }
 
     @include responsive(tablet)
     {
-        min-height: 44px;
+        min-height: 42px;
+        font-size: 12px;
     }
 
     @include responsive(tablet-landscape)
     {
-        min-height: 48px;
-    }
-
-    @include responsive(laptop)
-    {
-        min-height: 52px;
+        min-height: 45px;
+        font-size: 12px;
     }
 
     @include responsive(desktop)
     {
-        min-height: 52px;
+        min-height: 48px;
+        font-size: 13px;
     }
 }
 
@@ -115,31 +114,42 @@
 
 .btn--large
 {
-    min-height: 44px;
+    min-height: 42px;
     padding: 12px 18px;
-    @include fluid-font(16px, 20px);
+    font-size: 16px;
 
     @include responsive(phone-small)
     {
-        min-height: 42px;
-        padding: 12px;
+        min-height: 40px;
+        padding: 12px 12px;
+        font-size: 16px;
     }
 
     @include responsive(tablet)
     {
         min-height: 48px;
         padding: 12px 24px;
+        font-size: 18px;
     }
 
     @include responsive(tablet-landscape)
     {
-        min-height: 54px;
+        min-height: 51px;
         padding: 18px 30px;
+        font-size: 18px;
     }
 
     @include responsive(desktop)
     {
-        min-height: 60px;
+        min-height: 54px;
         padding: 18px 36px;
+        font-size: 20px;
+    }
+
+    @include responsive(phone-landscape)
+    {
+        min-height: 42px;
+        padding: $space-1 $space-18;
+        font-size: 16px;
     }
 }
