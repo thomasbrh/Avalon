@@ -3,7 +3,7 @@
 import Experience from './Experience/Experience.js'
 
 /* anti-onglets */
-window.name = "_blank__experience";
+window.name = "Avalon - expérience";
 
 
 const experience = new Experience(document.querySelector('canvas.webgl'))

@@ -129,10 +129,15 @@ export default class DialogueManager
      */
     finishDialogue()
     {
-        this.voicePlayer.pause()
-
         const resolve = this.dialogueResolve
+
+        // La fin audio et un clic peuvent arriver presque en même temps sur mobile.
+        // Le premier événement termine la ligne, les suivants n'ont plus rien à faire.
+        if(!resolve) return
+
         this.dialogueResolve = null
+        this.voicePlayer.onended = null
+        this.voicePlayer.pause()
 
         resolve()
     }
@@ -152,7 +157,12 @@ export default class DialogueManager
         this.voicePlayer.pause()
         this.voicePlayer.src = line.audioSrc
         this.voicePlayer.currentTime = 0
-        this.voicePlayer.play()
+
+        // Safari mobile peut refuser une lecture lancée après une attente asynchrone.
+        // Le texte reste navigable manuellement, sans rejet de promesse non géré.
+        const playPromise = this.voicePlayer.play()
+        if(playPromise)
+            playPromise.catch(() => {})
     }
 
 
