@@ -17,7 +17,8 @@ export default class Sizes extends EventEmitter
          */
         this.width = window.innerWidth
         this.height = window.innerHeight
-        this.pixelRatio = Math.min(window.devicePixelRatio, 2)
+        this.isMobile = window.matchMedia('(pointer: coarse)').matches || navigator.maxTouchPoints > 0
+        this.pixelRatio = this.getPixelRatio()
 
         // Resize event
         window.addEventListener('resize', () =>
@@ -25,12 +26,20 @@ export default class Sizes extends EventEmitter
 
             this.width = window.innerWidth
             this.height = window.innerHeight
-            this.pixelRatio = Math.min(window.devicePixelRatio, 2)
+            this.pixelRatio = this.getPixelRatio()
 
             this.trigger('resize')
 
         })
 
+    }
+
+
+    getPixelRatio()
+    {
+        // Le post-processing multiplie les render targets sur les écrans Retina.
+        const maxPixelRatio = this.isMobile ? 1.5 : 2
+        return Math.min(window.devicePixelRatio, maxPixelRatio)
     }
 
 }

@@ -110,9 +110,6 @@ export default class Experience
             this.loadingManager.setStartExperience()
             // affiche le bouton pour commencer
             this.loadingManager.showStartExperience()
-            // commence le chargement differé
-            this.loadingManager.startDeferredLoading()
-
         })
         
 

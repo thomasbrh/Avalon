@@ -204,7 +204,8 @@ export default class LoadingManager
     {
         if(this.resources.deferredLoading) return
 
-        this.resources.deferredLoading = this.resources.loadGroupsInOrder(deferredGroups)
+        this.resources.deferredLoading = this.resources.loadGroup('lake', deferredGroups.lake)
+        this.resources.deferredLoading.catch(() => {})
     }
 
 

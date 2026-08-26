@@ -1,6 +1,14 @@
 /**
  * Start loading
  */
+const useMobileTextures = typeof window !== 'undefined' &&
+    (window.matchMedia('(pointer: coarse)').matches || navigator.maxTouchPoints > 0)
+
+const texturePath = (path) => useMobileTextures
+    ? path.replace('textures/', 'textures/mobile/')
+    : path
+
+
 export default 
 [
 
@@ -49,13 +57,13 @@ export default
     {
         name: 'islandTextureLightmap',
         type: 'texture',
-        path: 'textures/island/island_lightmap.webp'
+        path: texturePath('textures/island/island_lightmap.webp')
     },
     // Normalmap
     {
         name: 'islandTextureNormalmap',
         type: 'texture',
-        path: 'textures/island/island_normalmap.webp'
+        path: texturePath('textures/island/island_normalmap.webp')
     },
 
 
@@ -80,13 +88,13 @@ export default
     {
         name: 'rocksTextureLightmap',
         type: 'texture',
-        path: 'textures/island/rocks/rocks_lightmap.webp'
+        path: texturePath('textures/island/rocks/rocks_lightmap.webp')
     },
     // Normalmap
     {
         name: 'rocksTextureNormalmap',
         type: 'texture',
-        path: 'textures/island/rocks/rocks_normalmap.webp'
+        path: texturePath('textures/island/rocks/rocks_normalmap.webp')
     },
 
 
@@ -154,7 +162,7 @@ export default
     {
         name: 'treesTextureNormalmapPack01',
         type: 'texture',
-        path: 'textures/island/trees/trees_normalmapPack01.webp'
+        path: texturePath('textures/island/trees/trees_normalmapPack01.webp')
     },
 
     // Trees Pack02
@@ -190,13 +198,13 @@ export default
     {
         name: 'treesTextureLightmapPack03',
         type: 'texture',
-        path: 'textures/island/trees/trees_lightmapPack03.webp'
+        path: texturePath('textures/island/trees/trees_lightmapPack03.webp')
     },
     // Normalmap
     {
         name: 'treesTextureNormalmapPack03',
         type: 'texture',
-        path: 'textures/island/trees/trees_normalmapPack03.webp'
+        path: texturePath('textures/island/trees/trees_normalmapPack03.webp')
     },
 
 
@@ -216,13 +224,13 @@ export default
     {
         name: 'portalTextureLightmap',
         type: 'texture',
-        path: 'textures/portal/portal_lightmap.webp'
+        path: texturePath('textures/portal/portal_lightmap.webp')
     },
     // Normalmap
     {
         name: 'portalTextureNormalmap',
         type: 'texture',
-        path: 'textures/portal/portal_normalmap.webp'
+        path: texturePath('textures/portal/portal_normalmap.webp')
     },
 
 
@@ -281,12 +289,12 @@ export default
     {
         name: 'swordTextureLightmap',
         type: 'texture',
-        path: 'textures/sword/sword_lightmap.webp'
+        path: texturePath('textures/sword/sword_lightmap.webp')
     },
     {
         name: 'swordTextureNormalmap',
         type: 'texture',
-        path: 'textures/sword/sword_normalmap.webp'
+        path: texturePath('textures/sword/sword_normalmap.webp')
     },
 
 
@@ -323,12 +331,12 @@ const lakeSources =
     {
         name: 'lakeTextureLightmap',
         type: 'texture',
-        path: 'textures/lake/lake_lightmap.webp'
+        path: texturePath('textures/lake/lake_lightmap.webp')
     },
     {
         name: 'lakeTextureNormalmap',
         type: 'texture',
-        path: 'textures/lake/lake_normalmap.webp'
+        path: texturePath('textures/lake/lake_normalmap.webp')
     },
 ]
 

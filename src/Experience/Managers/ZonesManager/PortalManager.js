@@ -208,6 +208,9 @@ export default class PortalManager
                 await this.resources.loadGroup('lake', deferredGroups.lake)
                 this.experience.world.createLakeZone()
                 await this.experience.uploadGroupTextures('lake')
+
+                // précharge uniquement le prochain groupe une fois le lac prêt
+                this.resources.loadGroup('animations', deferredGroups.animations).catch(() => {})
                 this.storyManager.showNextIndicator()
             })
 
