@@ -233,6 +233,7 @@
     justify-content: center;
     gap: 6px;
     min-height: 36px;
+    padding: 6px $space-1;
     border: 0;
     border-right: 1px solid $color-border-gold;
     font-family: $font-secondary;
@@ -250,6 +251,7 @@
     @include responsive(tablet)
     {
         min-height: 42px;
+        padding-inline: $space-18;
         font-size: 12px;
     }
 

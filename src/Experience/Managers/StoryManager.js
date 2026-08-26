@@ -250,6 +250,7 @@ export default class StoryManager
         this.interactionText.textContent = text
         this.interactionText.classList.remove('hidden')
         this.interactionText.classList.toggle('has-action', Boolean(action))
+        document.body.classList.toggle('interaction-active', Boolean(action))
         this.interactionAction = action
 
         // bouton E pour mobile
@@ -266,6 +267,7 @@ export default class StoryManager
         this.interactionText.classList.remove('has-action')
         this.interactionText.textContent = ''
         this.interactionButton.classList.add('hidden')
+        document.body.classList.remove('interaction-active')
         this.interactionAction = null
     }
 

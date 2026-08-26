@@ -896,6 +896,14 @@ body.dialogue-next *
         .dialogue-box { bottom: $space-2; }
     }
 
+    @include responsive(phone-landscape)
+    {
+        body.interaction-active .dialogue-box.is-visible
+        {
+            bottom: calc(40px + #{$space-2});
+        }
+    }
+
     .interaction-text.has-action::before
     {
         content: none;
