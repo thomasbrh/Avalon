@@ -110,7 +110,7 @@ export const journalSections =
         [
             {
                 id: 'object-graal',
-                image: 'images/Graal.png',
+                image: 'images/graal.webp',
                 modelName: 'GraalView',
                 title: 'Graal',
                 content: "Une coupe ancienne retrouvée sur l'île.",
@@ -118,7 +118,7 @@ export const journalSections =
             },
             {
                 id: 'object-baton-merlin',
-                image: 'images/Baton.png',
+                image: 'images/baton.webp',
                 modelName: 'StickView',
                 title: 'Bâton de Merlin',
                 content: "Le bâton attribué à Merlin.",
@@ -126,7 +126,7 @@ export const journalSections =
             },
             {
                 id: 'object-tas-or',
-                image: 'images/View_Coin.png',
+                image: 'images/view_coin.webp',
                 modelName: 'CoinView',
                 title: "Tas d'or",
                 content: "Des pièces anciennes cachées sur l'île.",
@@ -134,7 +134,7 @@ export const journalSections =
             },
             {
                 id: 'object-grimoire-merlin',
-                image: 'images/Grimoire.png',
+                image: 'images/grimoire.webp',
                 modelName: 'BookView',
                 title: 'Grimoire de Merlin',
                 content: "Un grimoire ayant appartenu à Merlin.",
@@ -142,7 +142,7 @@ export const journalSections =
             },
             {
                 id: 'object-potion-1',
-                image: 'images/View_Potion01.png',
+                image: 'images/view_potion01.webp',
                 modelName: 'PotionView01',
                 title: 'Potion rouge',
                 content: "Une potion dont les effets restent inconnus.",
@@ -150,7 +150,7 @@ export const journalSections =
             },
             {
                 id: 'object-potion-2',
-                image: 'images/View_Potion02.png',
+                image: 'images/view_potion02.webp',
                 modelName: 'PotionView02',
                 title: 'Potion violette',
                 content: "Une seconde potion trouvée sur l'île.",
@@ -158,7 +158,7 @@ export const journalSections =
             },
             {
                 id: 'object-couronne',
-                image: 'images/Courrone.png',
+                image: 'images/courrone.webp',
                 modelName: 'CrownView',
                 title: 'Couronne',
                 content: "Une couronne ancienne dont le propriétaire reste inconnu.",
