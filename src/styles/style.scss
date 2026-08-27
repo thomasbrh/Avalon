@@ -717,7 +717,15 @@ body.dialogue-next *
 
     @include responsive(laptop)
     {
-        display: contents;
+        bottom: 138px;
+        width: max-content;
+        max-width: calc(100% - #{$space-margin-laptop * 2});
+    }
+
+    @include responsive(desktop)
+    {
+        bottom: 150px;
+        max-width: calc(100% - #{$space-margin-desktop * 2});
     }
 
     @include responsive(phone-landscape)
@@ -808,22 +816,6 @@ body.dialogue-next *
     max-width: none;
     transform: none;
     justify-content: center;
-
-    @include responsive(laptop)
-    {
-        position: fixed;
-        flex: 0 1 auto;
-        min-width: auto;
-        width: max-content;
-        max-width: calc(100% - #{$space-margin-tablet * 2});
-        transform: translateX(-50%);
-        justify-content: normal;
-    }
-
-    @include responsive(desktop)
-    {
-        max-width: calc(100% - #{$space-margin-desktop * 2});
-    }
 }
 
 .interaction-text.has-action::before
@@ -944,13 +936,6 @@ body.dialogue-next *
     position: static;
     flex: 0 0 auto;
     transform: none;
-
-    @include responsive(laptop)
-    {
-        position: fixed;
-        flex: 0 1 auto;
-        transform: translateX(-50%);
-    }
 }
 
 .interaction-button:active
@@ -961,11 +946,6 @@ body.dialogue-next *
 .interaction-controls .interaction-button:active
 {
     transform: scale(0.92);
-
-    @include responsive(laptop)
-    {
-        transform: translateX(-50%) scale(0.92);
-    }
 }
 
 @media (hover: none) and (pointer: coarse)
