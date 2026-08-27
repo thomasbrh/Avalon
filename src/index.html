@@ -51,7 +51,7 @@
 
 
     <!-- start -->
-    <button class="btn btn--large start-experience hidden">Entrer</button>
+    <button class="btn btn--large start-experience hidden">Commencer</button>
     <p class="start-instructions hidden">
         Des entités sont cachées sur l'île. Ouvrez bien les yeux et utilisez les contrôles à votre disposition pour les trouver !
     </p>
@@ -117,10 +117,12 @@
     <div id="choices-container"></div>
 
     <!-- interaction -->
-    <div class="interaction-text hidden" id="interaction-text"></div>
-    <button class="interaction-button hidden" id="interaction-button" type="button" aria-label="Interagir">
-        <span>Interagir</span>
-    </button>
+    <div class="interaction-controls">
+        <div class="interaction-text hidden" id="interaction-text"></div>
+        <button class="interaction-button hidden" id="interaction-button" type="button" aria-label="Interagir">
+            <span>Interagir</span>
+        </button>
+    </div>
 
 
     <!-- controles mobile -->
@@ -172,7 +174,7 @@
             <div class="journal__header">
                 <div>
                     <span class="journal__eyebrow eyebrow">Mémoire d'Arthur</span>
-                    <h2 class="journal__title title-h3" id="journal-title">Journal</h2>
+                    <h1 class="journal__title title-h3" id="journal-title">Journal</h1>
                 </div>
 
                 <button class="btn journal__close" type="button" aria-label="Fermer le journal"><span></span><span></span></button>
@@ -188,7 +190,7 @@
         <div class="item-viewer__header">
             <div>
                 <span class="journal__eyebrow eyebrow">Collection</span>
-                <h2 class="item-viewer__title title-h3" id="item-viewer-title"></h2>
+                <h2 class="item-viewer__title title-h3" id="item-viewer-title">Objet de la collection</h2>
             </div>
 
             <button class="btn item-viewer__close" type="button" aria-label="Fermer le modèle 3D"><span></span><span></span></button>

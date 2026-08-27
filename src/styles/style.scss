@@ -683,6 +683,51 @@ body.dialogue-next *
 
 
 /* interaction */
+.interaction-controls
+{
+    position: fixed;
+    bottom: calc(#{$space-10} + #{$space-3});
+    left: 50%;
+    z-index: 145;
+    display: flex;
+    align-items: stretch;
+    gap: 6px;
+    width: min(100% - #{$space-margin-mobile * 2}, 480px);
+    min-height: 40px;
+    transform: translateX(-50%);
+
+    @include responsive(phone-small)
+    {
+        width: calc(100% - #{$space-margin-small * 2});
+        min-height: 32px;
+    }
+
+    @include responsive(tablet)
+    {
+        bottom: 15%;
+        width: min(72%, 672px);
+        min-height: 48px;
+    }
+
+    @include responsive(tablet-landscape)
+    {
+        width: min(64%, 720px);
+        min-height: 54px;
+    }
+
+    @include responsive(laptop)
+    {
+        display: contents;
+    }
+
+    @include responsive(phone-landscape)
+    {
+        bottom: 118px;
+        width: min(55%, 660px);
+        min-height: 40px;
+    }
+}
+
 .interaction-text
 {
     position: fixed;
@@ -752,6 +797,33 @@ body.dialogue-next *
         font-size: 11px;
     }
 
+}
+
+.interaction-controls .interaction-text
+{
+    position: static;
+    flex: 1 1 auto;
+    min-width: 0;
+    width: auto;
+    max-width: none;
+    transform: none;
+    justify-content: center;
+
+    @include responsive(laptop)
+    {
+        position: fixed;
+        flex: 0 1 auto;
+        min-width: auto;
+        width: max-content;
+        max-width: calc(100% - #{$space-margin-tablet * 2});
+        transform: translateX(-50%);
+        justify-content: normal;
+    }
+
+    @include responsive(desktop)
+    {
+        max-width: calc(100% - #{$space-margin-desktop * 2});
+    }
 }
 
 .interaction-text.has-action::before
@@ -867,9 +939,33 @@ body.dialogue-next *
     }
 }
 
+.interaction-controls .interaction-button
+{
+    position: static;
+    flex: 0 0 auto;
+    transform: none;
+
+    @include responsive(laptop)
+    {
+        position: fixed;
+        flex: 0 1 auto;
+        transform: translateX(-50%);
+    }
+}
+
 .interaction-button:active
 {
     transform: translateX(-50%) scale(0.92);
+}
+
+.interaction-controls .interaction-button:active
+{
+    transform: scale(0.92);
+
+    @include responsive(laptop)
+    {
+        transform: translateX(-50%) scale(0.92);
+    }
 }
 
 @media (hover: none) and (pointer: coarse)
@@ -877,6 +973,13 @@ body.dialogue-next *
     .dialogue-box
     {
         bottom: $space-1;
+        left: calc(50% + #{$space-4});
+        width: min(55%, 660px);
+    }
+
+    .interaction-controls
+    {
+        bottom: 87px;
         left: calc(50% + #{$space-4});
         width: min(55%, 660px);
     }
@@ -889,19 +992,18 @@ body.dialogue-next *
     @include responsive(tablet)
     {
         .dialogue-box { bottom: $space-18; }
+        .interaction-controls { bottom: 132px; }
     }
 
     @include responsive(tablet-landscape)
     {
         .dialogue-box { bottom: $space-2; }
+        .interaction-controls { bottom: 120px; }
     }
 
     @include responsive(phone-landscape)
     {
-        body.interaction-active .dialogue-box.is-visible
-        {
-            bottom: calc(40px + #{$space-2});
-        }
+        .interaction-controls { bottom: 93px; }
     }
 
     .interaction-text.has-action::before
@@ -917,7 +1019,6 @@ body.dialogue-next *
         justify-content: center;
     }
 }
-
 
 /* controles desktop */
 .keyboard-controls
